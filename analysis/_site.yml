@@ -1,7 +1,7 @@
-name: "Autism_Research"
+name: Autism_Research
 output_dir: ../docs
 navbar:
-  title: "Autism_Research"
+  title: Autism_Research
   left:
   - text: Home
     href: index.html
@@ -9,6 +9,10 @@ navbar:
     href: about.html
   - text: License
     href: license.html
+  right:
+  - icon: fab fa-github
+    text: Source code
+    href: https://github.com/han16/Autism_Research
 output:
   workflowr::wflow_html:
     toc: yes

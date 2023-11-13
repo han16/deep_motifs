@@ -10,6 +10,7 @@ date: "2023-11-13"
 ###https://github.com/linnykos/covarianceSelection
 
 # install dependent packages 
+
 #install.packages("doMC", repos="http://R-Forge.R-project.org")
 library("doMC")
 
@@ -19,8 +20,9 @@ library("doMC")
 #BiocManager::install("org.Hs.eg.db")
 library("org.Hs.eg.db")
 
-install.packages("dequer")
+#download gz file to local folder and install https://cran.r-project.org/src/contrib/Archive/dequer/
 library(dequer)
+
 
 library("devtools")
 devtools::install_github("linnylin92/covarianceSelection", subdir = "covarianceSelection")

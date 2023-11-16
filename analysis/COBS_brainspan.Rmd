@@ -8,6 +8,8 @@ date: "2023-11-13"
 ```{r, echo=F, message=F, warning=F, results=F}
 ######## replicating the results 
 ###https://github.com/linnykos/covarianceSelection
+rm(list=ls())
+set.seed(123)
 
 # install dependent packages 
 
@@ -35,7 +37,7 @@ devtools::install_github("linnylin92/covarianceSelection", subdir = "covarianceS
 # step0_loading.R  https://github.com/linnykos/covarianceSelection/blob/master/main/step0_loading.R
 # step0_loading.R loads the BrainSpan dataset and TADA dataset (i.e., matching the genes in both datasets, resolving gene synonyms, removing genes not expressed in the brain).
 
-if(verbose) print("Start of step 0: Loading")
+#if(verbose) print("Start of step 0: Loading")
 
 #format the brainspan dataset
 #load("../../raw_data/newGenexp.RData")
@@ -89,7 +91,7 @@ idx <- which(sapply(dat_list, function(x){ifelse(nrow(x) >= 5, T, F)}))
 dat_list <- dat_list[idx] # 125 partitions
 dat_list <- lapply(dat_list, scale, scale = F)
 
-if(verbose) print(paste0("Dimension of genexp is: ", paste0(dim(genexp), collapse = ", ")))
+#if(verbose) print(paste0("Dimension of genexp is: ", paste0(dim(genexp), collapse = ", ")))
 
 #cleanup
 rm(list = c("brain_expression", "brain_genes", "idx", "vec", "region_subregion",
@@ -107,6 +109,7 @@ rm(list = c("brain_expression", "brain_genes", "idx", "vec", "region_subregion",
 p_thres_screening <- 0.01 
 p_primary <- 0.1
 num_genes <- 3500
+verbose=T
 
 ###
 
@@ -140,7 +143,11 @@ rm(list = c("selected_idx", "dat_pfc35", "i"))
 
 
 ```{r, echo=F, message=F, warning=F, eval=F}
+# https://github.com/linnykos/covarianceSelection/blob/master/main/step2_nodawn_analysis.R
+# step2_nodawn_analysis.R detects the risk genes only based on the TADA dataset.
+
 fdr_cutoff_alt <- 0.1
+verbose=T
 
 if(verbose) print(paste0(Sys.time(), "Start of step 2: No DAWN analysis"))
 
@@ -155,6 +162,7 @@ genes_nodawn <- sort(as.character(tada[which(tada$qvalue <= fdr_cutoff_alt),"Gen
 # https://github.com/linnykos/covarianceSelection/blob/master/main/step3_pfc35_analysis.R
 fdr_cutoff <- 0.01
 pthres <- 0.05
+verbose=T
 
 #####
 set.seed(10)

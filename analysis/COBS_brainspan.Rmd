@@ -45,7 +45,7 @@ load("C:/han/Dataset/20231006_PMID_33731968/NIHMS1598069-supplement-Supp_1/newGe
 rownames(genexp) <- genexp[,1]
 genexp <- genexp[,-1]
 genexp <- t(genexp)
-genexp <- as.data.frame(genexp) # 1340 x 16947
+genexp <- as.data.frame(genexp) # 1340 x 16947 ? what does row names indicate? 
 
 #determine brain-expressed genes
 brain_expression <- covarianceSelection::brain_expression

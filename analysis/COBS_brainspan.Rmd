@@ -70,6 +70,13 @@ subregion <- unlist(strsplit(vec,"\\."))[seq(2, length(vec)*4, 4)]
 idx <- which(subregion %in% region_subregion$subregion)
 genexp <- genexp[idx,] # 1294 x 14249
 
+################
+# explore the notations in row names 
+#sample_names=rownames(genexp)
+#comma_position=gregexpr(".", sample_names[1])
+#sample_names[grepl("VFC",sample_names)] # find samples having "VFC"
+################
+
 ####
 
 #load tada dataset

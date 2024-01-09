@@ -48,10 +48,13 @@ genexp <- t(genexp)
 genexp <- as.data.frame(genexp) # 1340 x 16947 ? what does row names indicate? 
 
 #determine brain-expressed genes
-brain_expression <- covarianceSelection::brain_expression
+brain_expression <- covarianceSelection::brain_expression # how these genes are known to be expressed genes????????  
 brain_genes <- brain_expression$Gene[brain_expression$Brain_expressed != 'No']
 idx <- which(colnames(genexp) %in% brain_genes)
 genexp <- genexp[,idx] # 1340 x 14370
+
+############ sample information is in covarianceSelection::brainspan_id
+
 
 #translate into synonyms
 vec <- covarianceSelection::symbol_synonyms(colnames(genexp), verbose = T)

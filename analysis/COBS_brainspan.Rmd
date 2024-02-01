@@ -60,18 +60,18 @@ genexp <- genexp[,idx] # 1340 x 14370
 vec <- covarianceSelection::symbol_synonyms(colnames(genexp), verbose = T)
 unknown_genes_idx <- which(is.na(vec))
 vec <- vec[-unknown_genes_idx]
-genexp <- genexp[-unknown_genes_idx] # 1340 x 14297
+genexp <- genexp[-unknown_genes_idx] # 1340 x 14238
 colnames(genexp) <- vec
 
 #average non-unique genes
-genexp <- covarianceSelection:::average_same_columns(genexp) # 1340 x 14246
+genexp <- covarianceSelection:::average_same_columns(genexp) # 1340 x 14246 --> 1340 x 14238
 
 #remove samples from subregions that we don't have a region for
 region_subregion <- covarianceSelection::region_subregion
 vec <- rownames(genexp)
 subregion <- unlist(strsplit(vec,"\\."))[seq(2, length(vec)*4, 4)]
 idx <- which(subregion %in% region_subregion$subregion)
-genexp <- genexp[idx,] # 1294 x 14249
+genexp <- genexp[idx,] # 1294 x 14249 --> 1294 x 14238 
 
 ################
 # explore the notations in row names 
@@ -87,11 +87,12 @@ tada <- covarianceSelection::tada
 
 #match the order in both datasets
 idx <- which(colnames(genexp) %in% tada$Gene)
-genexp <- genexp[,idx] # 1294 x 13964
+genexp <- genexp[,idx] # 1294 x 13964  --> 1294 x 13699 
+
 idx <- which(tada$Gene %in% colnames(genexp))
-tada <- tada[idx,] # 13964 genes
+tada <- tada[idx,] # 13964 genes  --> 13699 genes 
 idx <- covarianceSelection::matching(tada$Gene, colnames(genexp))
-genexp <- genexp[,idx]
+genexp <- genexp[,idx]  # 1294 x 13699 
 
 dat_list <- covarianceSelection::extractor(genexp) # 212 partitions
 dat_list <- lapply(dat_list, as.matrix, drop = F)
@@ -283,6 +284,7 @@ rm(list = c("dat_our", "seedindex", "res", "combn_mat", "n", "g_selected", "g_su
 
 #save.image(file = paste0(save_filepath, "/step5_ourdata_analysis", filepath_suffix, ".RData"))
 ```
+
 
 
 

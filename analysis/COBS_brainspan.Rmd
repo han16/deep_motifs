@@ -127,7 +127,7 @@ verbose=T
 if(verbose) print(paste0(Sys.time(), "Start of step 1: Screening"))
 
 selected_idx <- grep("PFC\\.[3-5]", names(dat_list))
-dat_pfc35 <- do.call(rbind, dat_list[selected_idx]) # 107 x 13964
+dat_pfc35 <- do.call(rbind, dat_list[selected_idx]) # 107 x 13964  --> 10 x 13699
 
 screening_res <- covarianceSelection::screen(dat_pfc35, pv = tada$pval.TADA, p_thres = p_thres_screening, 
                                              num_genes = num_genes)

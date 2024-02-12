@@ -244,6 +244,9 @@ stepdown_res <- covarianceSelection::stepdown(dat_list, trials = trials, alpha =
 ```{r, echo=F, message=F, warning=F, eval=F}
 #step5_our_analysis.R implicates risk genes in the DAWN framework using our 24 partitions selected by COBS. This is reported in Section 6.4.
 # https://github.com/linnykos/covarianceSelection/blob/master/main/step5_our_analysis.R
+
+load("C:/han/Dataset/20231006_PMID_33731968/NIHMS1598069-supplement-Supp_1/stepdown_res.RData") # load results in step 4
+
 gamma_threshold <- 0.95
 
 if(verbose) print(paste0(Sys.time(), "Start of step 6: Our data analysis"))

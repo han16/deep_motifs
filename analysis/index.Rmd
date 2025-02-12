@@ -24,3 +24,5 @@ editor_options:
 
 * [deep-motif score distribution](part01_score_dist.html)  
 
+* [enrichment of top rank genes](part02_enrichment.html)
+

@@ -1,0 +1,55 @@
+---
+title: "enrichment"
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
+date: "2025-02-12"
+---
+
+
+
+```{r, message=F, warning=F}
+rm(list=ls())
+set.seed(123)
+library(tidyverse)
+library(ggplot2)
+library(DT)
+library(VennDiagram)
+library(rprojroot)
+root <- rprojroot::find_rstudio_root_file()
+```
+
+
+
+```{r, message=F, warning=F}
+result_round1=as_tibble(read.csv(file.path(root, "../DiWangResults/ASD_prediction_results/ASD_RISK_PREDICTION_round1.csv")))
+```
+
+
+## risk probability >0.9 
+
+
+```{r, message=F, warning=F}
+score_cutoff=0.8
+top_genes=result_round1 %>% filter(RISK_PROBABILITY_FUSION>score_cutoff) %>% select( gene_gencodeV33) %>% pull
+
+jack_fu=as_tibble(read.csv(file.path(root, "../../../Dataset/20231221_PMID_35982160/Fu 2022 Suppl-41588_2022_1104_MOESM3_ESM.csv")))
+jack_fu_185_asd_genes=jack_fu %>% filter(ASD185=="TRUE") %>% select(gene_gencodeV33) %>% pull()
+
+
+
+ #Create a Venn diagram
+venn.plot <- draw.pairwise.venn(
+  area1 = length(top_genes), 
+  area2 = length(jack_fu_185_asd_genes), 
+  cross.area = length(intersect(top_genes, jack_fu_185_asd_genes)), 
+  category = c("top mitif genes", "185 ASD genes"),
+  fill = c("blue", "red"),
+  alpha = 0.5
+)
+
+# Display plot
+grid.draw(venn.plot)
+
+```

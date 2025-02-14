@@ -89,13 +89,17 @@ length(intersect(bs_genes, jack_fu$gene_gencodeV33))
 4. forecASD results 
 
 ```{r, message=F, warning=F}
-load("C:\\han\\Projects\\IntegratePPI\\forecASDPaper\\01_BrainSpan_matrix.RData") # bs is the brainspan data in foreASD paper 
-foreASD=as_tibble(read.csv("C:\\han\\Projects\\IntegratePPI\\forecASDPaper\\forecASD_table.csv"))
+foreASD_result=as_tibble(read.csv("C:\\han\\Projects\\IntegratePPI\\forecASDPaper\\forecASD_table.csv"))
 
+length(foreASD_result$symbol)
 
-length(intersect(rownames(bs), jack_fu_185_asd_genes$gene_id))
-length(intersect(foreASD$symbol, jack_fu_185_asd_genes$gene_gencodeV33))
+length(intersect(foreASD_result$symbol, jack_fu_185_asd_genes$gene_gencodeV33))
+length(intersect(foreASD_result$symbol, jack_fu$gene_gencodeV33))
 ```
+
+
+* foreASD outputs 17597 genes, of which 178 are in 185 risk genes in fu paper, and 15999 overlapping with all genes in fu paper.  
+
 
 
 

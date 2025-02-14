@@ -532,15 +532,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16deepmotifstree651ec337ffcf7aceec3cca19f9aa2f372a34247dtargetblank651ec33a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16deepmotifstreecc957c3bc6bd0da66aef5d2310dbb0c0022be721targetblankcc957c3a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/deep_motifs/tree/651ec337ffcf7aceec3cca19f9aa2f372a34247d" target="_blank">651ec33</a>
+<a href="https://github.com/han16/deep_motifs/tree/cc957c3bc6bd0da66aef5d2310dbb0c0022be721" target="_blank">cc957c3</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16deepmotifstree651ec337ffcf7aceec3cca19f9aa2f372a34247dtargetblank651ec33a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16deepmotifstreecc957c3bc6bd0da66aef5d2310dbb0c0022be721targetblankcc957c3a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -550,7 +550,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/deep_motifs/tree/651ec337ffcf7aceec3cca19f9aa2f372a34247d" target="_blank">651ec33</a>.
+<a href="https://github.com/han16/deep_motifs/tree/cc957c3bc6bd0da66aef5d2310dbb0c0022be721" target="_blank">cc957c3</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -566,8 +566,6 @@ were generated:
 <pre><code>
 Unstaged changes:
     Modified:   analysis/index.Rmd
-    Modified:   analysis/part01_score_dist.Rmd
-    Modified:   analysis/part02_enrichment.Rmd
 
 </code></pre>
 <p>
@@ -612,6 +610,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/deep_motifs/blob/cc957c3bc6bd0da66aef5d2310dbb0c0022be721/analysis/index.Rmd" target="_blank">cc957c3</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-02-14
+</td>
+<td>
+2/14/2025
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/deep_motifs/cc957c3bc6bd0da66aef5d2310dbb0c0022be721/docs/index.html" target="_blank">cc957c3</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-02-14
+</td>
+<td>
+2/14/2025
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -855,14 +887,18 @@ data</p></li>
 <li><p>protein interaction from STRING, Brueggeman, et al paper</p></li>
 <li><p>forecASD results</p></li>
 </ol>
-<pre class="r"><code>load(&quot;C:\\han\\Projects\\IntegratePPI\\forecASDPaper\\01_BrainSpan_matrix.RData&quot;) # bs is the brainspan data in foreASD paper 
-foreASD=as_tibble(read.csv(&quot;C:\\han\\Projects\\IntegratePPI\\forecASDPaper\\forecASD_table.csv&quot;))
+<pre class="r"><code>foreASD_result=as_tibble(read.csv(&quot;C:\\han\\Projects\\IntegratePPI\\forecASDPaper\\forecASD_table.csv&quot;))
 
-
-length(intersect(rownames(bs), jack_fu_185_asd_genes$gene_id))</code></pre>
-<pre><code>[1] 0</code></pre>
-<pre class="r"><code>length(intersect(foreASD$symbol, jack_fu_185_asd_genes$gene_gencodeV33))</code></pre>
+length(foreASD_result$symbol)</code></pre>
+<pre><code>[1] 17957</code></pre>
+<pre class="r"><code>length(intersect(foreASD_result$symbol, jack_fu_185_asd_genes$gene_gencodeV33))</code></pre>
 <pre><code>[1] 178</code></pre>
+<pre class="r"><code>length(intersect(foreASD_result$symbol, jack_fu$gene_gencodeV33))</code></pre>
+<pre><code>[1] 15999</code></pre>
+<ul>
+<li>foreASD outputs 17597 genes, of which 178 are in 185 risk genes in
+fu paper, and 15999 overlapping with all genes in fu paper.</li>
+</ul>
 </div>
 <div id="train-the-model" class="section level2">
 <h2>train the model</h2>

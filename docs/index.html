@@ -532,15 +532,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16deepmotifstreecc957c3bc6bd0da66aef5d2310dbb0c0022be721targetblankcc957c3a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16deepmotifstree3b13e50cad03ad7b622d0c368e8fa6244b052027targetblank3b13e50a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/deep_motifs/tree/cc957c3bc6bd0da66aef5d2310dbb0c0022be721" target="_blank">cc957c3</a>
+<a href="https://github.com/han16/deep_motifs/tree/3b13e50cad03ad7b622d0c368e8fa6244b052027" target="_blank">3b13e50</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16deepmotifstreecc957c3bc6bd0da66aef5d2310dbb0c0022be721targetblankcc957c3a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16deepmotifstree3b13e50cad03ad7b622d0c368e8fa6244b052027targetblank3b13e50a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -550,7 +550,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/deep_motifs/tree/cc957c3bc6bd0da66aef5d2310dbb0c0022be721" target="_blank">cc957c3</a>.
+<a href="https://github.com/han16/deep_motifs/tree/3b13e50cad03ad7b622d0c368e8fa6244b052027" target="_blank">3b13e50</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -610,6 +610,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/deep_motifs/blob/3b13e50cad03ad7b622d0c368e8fa6244b052027/analysis/index.Rmd" target="_blank">3b13e50</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-02-14
+</td>
+<td>
+2/14/2025
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/deep_motifs/3b13e50cad03ad7b622d0c368e8fa6244b052027/docs/index.html" target="_blank">3b13e50</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-02-14
+</td>
+<td>
+2/14/2025
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -848,7 +882,7 @@ length(jack_fu$gene_gencodeV33)</code></pre>
 <pre><code>[1] 18159</code></pre>
 <pre class="r"><code>sum(jack_fu_185_asd_genes$gene_gencodeV33 %in% jack_fu$gene_gencodeV33)</code></pre>
 <pre><code>[1] 185</code></pre>
-<pre class="r"><code>trost_data=as_tibble(read.table(&quot;C:/han/Dataset/20250114_PMID_36368308/TADA+_ASD_gene_list.all.tsv&quot;, header = TRUE, sep = &quot;\t&quot;, stringsAsFactors = FALSE))
+<pre class="r"><code>trost_data=as_tibble(read.table(&quot;C:/han/Dataset/20250114_PMID_36368308_trost/TADA+_ASD_gene_list.all.tsv&quot;, header = TRUE, sep = &quot;\t&quot;, stringsAsFactors = FALSE))
 
 length(trost_data$gene)</code></pre>
 <pre><code>[1] 17348</code></pre>
@@ -884,8 +918,23 @@ data</p></li>
 data</p></li>
 </ul>
 <ol start="3" style="list-style-type: decimal">
-<li><p>protein interaction from STRING, Brueggeman, et al paper</p></li>
-<li><p>forecASD results</p></li>
+<li>protein interaction from STRING, Brueggeman, et al paper</li>
+</ol>
+<pre class="r"><code>load(&quot;C:\\han\\Projects\\IntegratePPI\\forecASDPaper\\tmp01_STRING_graph.Rdata&quot;)
+
+string_genes=unlist(sapply(rownames(string.path), function(x) (meta$symbol[which(meta$ensembl_string==x)])))
+
+
+length(intersect(string_genes, jack_fu_185_asd_genes$gene_gencodeV33))</code></pre>
+<pre><code>[1] 178</code></pre>
+<pre class="r"><code>length(intersect(string_genes, jack_fu$gene_gencodeV33))</code></pre>
+<pre><code>[1] 15999</code></pre>
+<ul>
+<li>178/185 risk genes in fu paper, with a total of 15999 overlapping
+genes.</li>
+</ul>
+<ol start="4" style="list-style-type: decimal">
+<li>forecASD results</li>
 </ol>
 <pre class="r"><code>foreASD_result=as_tibble(read.csv(&quot;C:\\han\\Projects\\IntegratePPI\\forecASDPaper\\forecASD_table.csv&quot;))
 

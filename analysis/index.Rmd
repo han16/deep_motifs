@@ -38,7 +38,7 @@ length(jack_fu$gene_gencodeV33)
 sum(jack_fu_185_asd_genes$gene_gencodeV33 %in% jack_fu$gene_gencodeV33)
 
 
-trost_data=as_tibble(read.table("C:/han/Dataset/20250114_PMID_36368308/TADA+_ASD_gene_list.all.tsv", header = TRUE, sep = "\t", stringsAsFactors = FALSE))
+trost_data=as_tibble(read.table("C:/han/Dataset/20250114_PMID_36368308_trost/TADA+_ASD_gene_list.all.tsv", header = TRUE, sep = "\t", stringsAsFactors = FALSE))
 
 length(trost_data$gene)
 sum(jack_fu_185_asd_genes$gene_gencodeV33 %in% trost_data$gene)
@@ -83,6 +83,20 @@ length(intersect(bs_genes, jack_fu$gene_gencodeV33))
 
 
 3. protein interaction from STRING, Brueggeman, et al paper
+
+
+```{r, message=F, warning=F}
+load("C:\\han\\Projects\\IntegratePPI\\forecASDPaper\\tmp01_STRING_graph.Rdata")
+
+string_genes=unlist(sapply(rownames(string.path), function(x) (meta$symbol[which(meta$ensembl_string==x)])))
+
+
+length(intersect(string_genes, jack_fu_185_asd_genes$gene_gencodeV33))
+length(intersect(string_genes, jack_fu$gene_gencodeV33))
+
+```
+
+* 178/185 risk genes in fu paper, with a total of 15999 overlapping genes.   
 
 
 

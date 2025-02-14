@@ -27,11 +27,11 @@ result_round1=as_tibble(read.csv(file.path(root, "../DiWangResults/ASD_predictio
 ```
 
 
-## risk probability >0.9 
+## risk probability >0.5 
 
 
 ```{r, message=F, warning=F}
-score_cutoff=0.8
+score_cutoff=0.5
 top_genes=result_round1 %>% filter(RISK_PROBABILITY_FUSION>score_cutoff) %>% select( gene_gencodeV33) %>% pull
 
 jack_fu=as_tibble(read.csv(file.path(root, "../../../Dataset/20231221_PMID_35982160/Fu 2022 Suppl-41588_2022_1104_MOESM3_ESM.csv")))
@@ -51,5 +51,9 @@ venn.plot <- draw.pairwise.venn(
 
 # Display plot
 grid.draw(venn.plot)
+
+## fisher exact test 
+
+
 
 ```

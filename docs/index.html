@@ -29,7 +29,11 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
@@ -228,7 +232,73 @@ $(document).ready(function () {
 </style>
 
 <!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
 
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
 
 
 
@@ -238,6 +308,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -279,6 +359,14 @@ $(document).ready(function () {
 
 <div id="header">
 
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
 
 
 <h1 class="title toc-ignore">Home</h1>
@@ -310,11 +398,11 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2025-02-12
+<strong>Last updated:</strong> 2025-02-14
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 1
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
 aria-hidden="true"></span> 1
 </p>
@@ -360,15 +448,99 @@ HTML.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16deepmotifstreee6a17fb29def47b59e855f2250d954d552c3a353targetblanke6a17fba">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the
+global environment can affect the analysis in your R Markdown file in
+unknown ways. For reproduciblity it’s best to always run the code in an
+empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20230928code">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Seed:</strong>
+<code>set.seed(20230928)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20230928code"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20230928)</code> was run prior to running
+the code in the R Markdown file. Setting a seed ensures that any results
+that rely on randomness, e.g. subsampling or permutations, are
+reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Session information:</strong>
+recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package
+versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be
+confident that you successfully produced the results during this
+run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr
+project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16deepmotifstree651ec337ffcf7aceec3cca19f9aa2f372a34247dtargetblank651ec33a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/deep_motifs/tree/e6a17fb29def47b59e855f2250d954d552c3a353" target="_blank">e6a17fb</a>
+<a href="https://github.com/han16/deep_motifs/tree/651ec337ffcf7aceec3cca19f9aa2f372a34247d" target="_blank">651ec33</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16deepmotifstreee6a17fb29def47b59e855f2250d954d552c3a353targetblanke6a17fba"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16deepmotifstree651ec337ffcf7aceec3cca19f9aa2f372a34247dtargetblank651ec33a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -378,7 +550,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/deep_motifs/tree/e6a17fb29def47b59e855f2250d954d552c3a353" target="_blank">e6a17fb</a>.
+<a href="https://github.com/han16/deep_motifs/tree/651ec337ffcf7aceec3cca19f9aa2f372a34247d" target="_blank">651ec33</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -392,11 +564,10 @@ depends on. Below is the status of the Git repository when the results
 were generated:
 </p>
 <pre><code>
-Untracked files:
-    Untracked:  analysis/part02_enrichment.Rmd
-
 Unstaged changes:
     Modified:   analysis/index.Rmd
+    Modified:   analysis/part01_score_dist.Rmd
+    Modified:   analysis/part02_enrichment.Rmd
 
 </code></pre>
 <p>
@@ -441,6 +612,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/deep_motifs/blob/651ec337ffcf7aceec3cca19f9aa2f372a34247d/analysis/index.Rmd" target="_blank">651ec33</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-02-12
+</td>
+<td>
+2/12/2025
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/deep_motifs/651ec337ffcf7aceec3cca19f9aa2f372a34247d/docs/index.html" target="_blank">651ec33</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-02-12
+</td>
+<td>
+2/12/2025
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -584,6 +789,14 @@ Start workflowr project.
 </div>
 </div>
 </div>
+<pre class="r"><code>rm(list=ls())
+set.seed(123)
+library(tidyverse)
+library(ggplot2)
+library(DT)
+library(VennDiagram)
+library(rprojroot)
+root &lt;- rprojroot::find_rstudio_root_file()</code></pre>
 <div id="brainspan-data-analysis" class="section level2">
 <h2>BrainSpan data analysis</h2>
 <ul>
@@ -592,6 +805,64 @@ Start workflowr project.
 </div>
 <div id="input-data" class="section level2">
 <h2>Input data</h2>
+<ol style="list-style-type: decimal">
+<li>TADA p values, FDRs for all genes in Fu, et al paper and FDR’s in
+Trost paper</li>
+</ol>
+<pre class="r"><code>jack_fu=as_tibble(read.csv(file.path(root, &quot;../../../Dataset/20231221_PMID_35982160/Fu 2022 Suppl-41588_2022_1104_MOESM3_ESM.csv&quot;)))  # 
+jack_fu_185_asd_genes=jack_fu %&gt;% filter(ASD185==&quot;TRUE&quot;) %&gt;% select(gene_gencodeV33, gene_id)
+
+length(jack_fu$gene_gencodeV33)</code></pre>
+<pre><code>[1] 18159</code></pre>
+<pre class="r"><code>sum(jack_fu_185_asd_genes$gene_gencodeV33 %in% jack_fu$gene_gencodeV33)</code></pre>
+<pre><code>[1] 185</code></pre>
+<pre class="r"><code>trost_data=as_tibble(read.table(&quot;C:/han/Dataset/20250114_PMID_36368308/TADA+_ASD_gene_list.all.tsv&quot;, header = TRUE, sep = &quot;\t&quot;, stringsAsFactors = FALSE))
+
+length(trost_data$gene)</code></pre>
+<pre><code>[1] 17348</code></pre>
+<pre class="r"><code>sum(jack_fu_185_asd_genes$gene_gencodeV33 %in% trost_data$gene)</code></pre>
+<pre><code>[1] 182</code></pre>
+<pre class="r"><code>length(intersect(jack_fu$gene_gencodeV33, trost_data$gene))</code></pre>
+<pre><code>[1] 16143</code></pre>
+<ul>
+<li><p>18159 genes in fu data, and 17348 in trost data, 16143 are
+overlapping with each other</p></li>
+<li><p>among 185 risk genes in fu data, 182 in trost data.</p></li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>Brainspan from Brueggeman, et al paper</li>
+</ol>
+<pre class="r"><code>load(&quot;C:\\han\\Projects\\IntegratePPI\\forecASDPaper\\01_BrainSpan_matrix.RData&quot;) # bs is the brainspan data in foreASD paper
+sfari_gene_ids=as_tibble(read.table(&quot;C:\\han\\Dataset\\20240610_PMID_33244169_forecASD\\sfari_gene_ids.txt&quot;, header=T, sep = &quot;\t&quot;, fill = TRUE, stringsAsFactors = FALSE))
+meta = read.csv(&quot;C:\\han\\Dataset\\20240610_PMID_33244169_forecASD\\composite_table.csv&quot;,stringsAsFactors = F, row.names = 1)  # tada data is in meta
+
+
+#bs_genes=sapply(rownames(bs), function(x) (sfari_gene_ids$Gene.name[which(sfari_gene_ids$Gene.stable.ID==x)]))
+bs_genes=unlist(sapply(rownames(bs), function(x) (meta$symbol[which(meta$ensembl_string==x)])))
+
+
+length(intersect(bs_genes, jack_fu_185_asd_genes$gene_gencodeV33))</code></pre>
+<pre><code>[1] 178</code></pre>
+<pre class="r"><code>length(intersect(bs_genes, jack_fu$gene_gencodeV33))</code></pre>
+<pre><code>[1] 15999</code></pre>
+<ul>
+<li><p>among 185 risk genes in fu paper, 178 appear in brainspan
+data</p></li>
+<li><p>of 18159 genes in fu data, 15999 appear in brainspan
+data</p></li>
+</ul>
+<ol start="3" style="list-style-type: decimal">
+<li><p>protein interaction from STRING, Brueggeman, et al paper</p></li>
+<li><p>forecASD results</p></li>
+</ol>
+<pre class="r"><code>load(&quot;C:\\han\\Projects\\IntegratePPI\\forecASDPaper\\01_BrainSpan_matrix.RData&quot;) # bs is the brainspan data in foreASD paper 
+foreASD=as_tibble(read.csv(&quot;C:\\han\\Projects\\IntegratePPI\\forecASDPaper\\forecASD_table.csv&quot;))
+
+
+length(intersect(rownames(bs), jack_fu_185_asd_genes$gene_id))</code></pre>
+<pre><code>[1] 0</code></pre>
+<pre class="r"><code>length(intersect(foreASD$symbol, jack_fu_185_asd_genes$gene_gencodeV33))</code></pre>
+<pre><code>[1] 178</code></pre>
 </div>
 <div id="train-the-model" class="section level2">
 <h2>train the model</h2>
@@ -604,6 +875,62 @@ distribution</a></p></li>
 <li><p><a href="part02_enrichment.html">enrichment of top rank
 genes</a></p></li>
 </ul>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.4.0 (2024-04-24 ucrt)
+Platform: x86_64-w64-mingw32/x64
+Running under: Windows 10 x64 (build 19045)
+
+Matrix products: default
+
+
+locale:
+[1] LC_COLLATE=English_United States.utf8 
+[2] LC_CTYPE=English_United States.utf8   
+[3] LC_MONETARY=English_United States.utf8
+[4] LC_NUMERIC=C                          
+[5] LC_TIME=English_United States.utf8    
+
+time zone: America/Chicago
+tzcode source: internal
+
+attached base packages:
+[1] grid      stats     graphics  grDevices utils     datasets  methods  
+[8] base     
+
+other attached packages:
+ [1] rprojroot_2.0.4     VennDiagram_1.7.3   futile.logger_1.4.3
+ [4] DT_0.33             lubridate_1.9.3     forcats_1.0.0      
+ [7] stringr_1.5.1       dplyr_1.1.4         purrr_1.0.2        
+[10] readr_2.1.5         tidyr_1.3.1         tibble_3.2.1       
+[13] ggplot2_3.5.1       tidyverse_2.0.0    
+
+loaded via a namespace (and not attached):
+ [1] sass_0.4.9           utf8_1.2.4           generics_0.1.3      
+ [4] futile.options_1.0.1 stringi_1.8.4        hms_1.1.3           
+ [7] digest_0.6.35        magrittr_2.0.3       timechange_0.3.0    
+[10] evaluate_0.23        fastmap_1.1.1        workflowr_1.7.1     
+[13] jsonlite_1.8.8       whisker_0.4.1        formatR_1.14        
+[16] promises_1.3.0       fansi_1.0.6          scales_1.3.0        
+[19] jquerylib_0.1.4      cli_3.6.2            rlang_1.1.3         
+[22] munsell_0.5.1        withr_3.0.0          cachem_1.0.8        
+[25] yaml_2.3.8           tools_4.4.0          tzdb_0.4.0          
+[28] colorspace_2.1-0     httpuv_1.6.15        lambda.r_1.2.4      
+[31] vctrs_0.6.5          R6_2.5.1             lifecycle_1.0.4     
+[34] git2r_0.33.0         htmlwidgets_1.6.4    fs_1.6.4            
+[37] pkgconfig_2.0.3      pillar_1.9.0         bslib_0.7.0         
+[40] later_1.3.2          gtable_0.3.5         glue_1.7.0          
+[43] Rcpp_1.0.12          xfun_0.43            tidyselect_1.2.1    
+[46] rstudioapi_0.16.0    knitr_1.46           htmltools_0.5.8.1   
+[49] rmarkdown_2.26       compiler_4.4.0      </code></pre>
+</div>
 </div>
 
 
@@ -622,6 +949,8 @@ footer is added to webpages before the MathJax javascript. -->
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -653,7 +982,41 @@ $(document).ready(function () {
 </script>
 
 <!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
 
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

@@ -36,14 +36,14 @@ ggplot(result_round1, aes(x = result_round1$RISK_PROBABILITY_FUSION)) +
   geom_histogram(binwidth = 0.1, fill = "blue", color = "black", aes(y = ..count..)) +
   stat_bin(binwidth = 0.1, geom = "text", aes(label = ..count..), vjust = -0.5, color = "red") +
   labs(title = "Histogram of deep motif scores", x = "deep motif score", y = "")+
-  geom_vline(xintercept = 0.9, color = "green", linetype = "dashed", size = 1)+
+  geom_vline(xintercept = 0.5, color = "green", linetype = "dashed", size = 1)+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
 
 ```
 
 
 ```{r, message=F, warning=F}
-score_cutoff=0.9
+score_cutoff=0.5
 result_round1 %>% filter(RISK_PROBABILITY_FUSION>score_cutoff) %>% select(gene_ID, gene_gencodeV33, chromosome, RISK_PROBABILITY_FUSION)%>% arrange(desc(RISK_PROBABILITY_FUSION)) %>% 
 datatable(extensions = 'Buttons',
             options = list(dom = 'Blfrtip',

@@ -22,7 +22,9 @@ root <- rprojroot::find_rstudio_root_file()
 
 
 ```{r, message=F, warning=F}
-result_round1=as_tibble(read.csv(file.path(root, "../DiWangResults/ASD_prediction_results/ASD_RISK_PREDICTION_round1.csv")))
+#result_round1=as_tibble(read.csv(file.path(root, "../DiWangResults/ASD_prediction_results/ASD_RISK_PREDICTION_round1.csv")))
+result_round1=as_tibble(read.csv(file.path(root, "../DiWangResults/results updated_20250303/ASD_RISK_PREDICTION round 1.csv")))
+
 ```
 
 
@@ -44,7 +46,7 @@ ggplot(result_round1, aes(x = result_round1$RISK_PROBABILITY_FUSION)) +
 
 ```{r, message=F, warning=F}
 score_cutoff=0.5
-result_round1 %>% filter(RISK_PROBABILITY_FUSION>score_cutoff) %>% select(gene_ID, gene_gencodeV33, chromosome, RISK_PROBABILITY_FUSION)%>% arrange(desc(RISK_PROBABILITY_FUSION)) %>% 
+result_round1 %>% filter(RISK_PROBABILITY_FUSION>score_cutoff) %>% select(gene, gene_gencodeV33, chromosome, RISK_PROBABILITY_FUSION)%>% arrange(desc(RISK_PROBABILITY_FUSION)) %>% 
 datatable(extensions = 'Buttons',
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),

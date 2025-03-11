@@ -23,7 +23,10 @@ root <- rprojroot::find_rstudio_root_file()
 
 
 ```{r, message=F, warning=F}
-result_round1=as_tibble(read.csv(file.path(root, "../DiWangResults/ASD_prediction_results/ASD_RISK_PREDICTION_round1.csv")))
+#result_round1=as_tibble(read.csv(file.path(root, "../DiWangResults/ASD_prediction_results/ASD_RISK_PREDICTION_round1.csv"))) # old results 
+
+result_round1=as_tibble(read.csv(file.path(root, "../DiWangResults/results updated_20250303/ASD_RISK_PREDICTION round 1.csv")))
+result_round1=result_round1[result_round1['gene'] != 0,]  # remove rows with gene=0
 ```
 
 
@@ -32,11 +35,12 @@ result_round1=as_tibble(read.csv(file.path(root, "../DiWangResults/ASD_predictio
 
 ```{r, message=F, warning=F}
 score_cutoff=0.5
-top_genes=result_round1 %>% filter(RISK_PROBABILITY_FUSION>score_cutoff) %>% select( gene_gencodeV33) %>% pull
+top_genes=result_round1 %>% filter(RISK_PROBABILITY_FUSION>score_cutoff) %>% select(gene_gencodeV33) %>% pull
 
-jack_fu=as_tibble(read.csv(file.path(root, "../../../Dataset/20231221_PMID_35982160/Fu 2022 Suppl-41588_2022_1104_MOESM3_ESM.csv")))
+jack_fu=as_tibble(read.csv(file.path(root, "../../../Dataset/20231221_PMID_35982160_JackFu/Fu 2022 Suppl-41588_2022_1104_MOESM3_ESM.csv")))
 jack_fu_185_asd_genes=jack_fu %>% filter(ASD185=="TRUE") %>% select(gene_gencodeV33) %>% pull()
 
+length(setdiff(jack_fu_185_asd_genes, top_genes))
 
 
  #Create a Venn diagram

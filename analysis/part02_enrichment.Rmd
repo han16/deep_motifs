@@ -34,7 +34,7 @@ result_round1=result_round1[result_round1['gene'] != 0,]  # remove rows with gen
 
 
 ```{r, message=F, warning=F}
-score_cutoff=0.9
+score_cutoff=0.5
 top_genes=result_round1 %>% filter(RISK_PROBABILITY_FUSION>score_cutoff) %>% select(gene_gencodeV33) %>% pull
 
 jack_fu=as_tibble(read.csv(file.path(root, "../../../Dataset/20231221_PMID_35982160_JackFu/Fu 2022 Suppl-41588_2022_1104_MOESM3_ESM.csv")))
@@ -62,3 +62,18 @@ grid.draw(venn.plot)
 
 
 ```
+
+
+
+
+```{r, message=F, warning=F}
+result_round1 %>% filter(RISK_PROBABILITY_FUSION>score_cutoff) %>% select(gene, gene_gencodeV33, chromosome, RISK_PROBABILITY_FUSION)%>% filter (!gene %in% jack_fu_185_asd_genes) %>% arrange(desc(RISK_PROBABILITY_FUSION)) %>% 
+datatable(extensions = 'Buttons',
+          caption = "New genes (not in 185 ASD genes)",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+

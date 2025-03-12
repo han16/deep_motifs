@@ -15,6 +15,7 @@ library(ggplot2)
 library(DT)
 library(VennDiagram)
 library(rprojroot)
+library(dplyr)
 root <- rprojroot::find_rstudio_root_file()
 ```
 
@@ -32,7 +33,7 @@ root <- rprojroot::find_rstudio_root_file()
 
 ```{r, message=F, warning=F}
 jack_fu=as_tibble(read.csv(file.path(root, "../../../Dataset/20231221_PMID_35982160/Fu 2022 Suppl-41588_2022_1104_MOESM3_ESM.csv")))  # 
-jack_fu_185_asd_genes=jack_fu %>% filter(ASD185=="TRUE") %>% select(gene_gencodeV33, gene_id)
+jack_fu_185_asd_genes=jack_fu %>% filter(ASD185=="TRUE") %>% dplyr::select(gene_gencodeV33, gene_id)
 
 length(jack_fu$gene_gencodeV33)
 sum(jack_fu_185_asd_genes$gene_gencodeV33 %in% jack_fu$gene_gencodeV33)
@@ -113,6 +114,58 @@ length(intersect(foreASD_result$symbol, jack_fu$gene_gencodeV33))
 
 
 * foreASD outputs 17597 genes, of which 178 are in 185 risk genes in fu paper, and 15999 overlapping with all genes in fu paper.  
+
+
+
+### gene symbol, ENSG, ENSP
+
+
+```{r, message=F, warning=F}
+#if (!requireNamespace("BiocManager", quietly = TRUE))
+#    install.packages("BiocManager")
+
+#BiocManager::install("biomaRt")
+library(biomaRt)
+
+
+ensembl <- useMart("ensembl", dataset = "hsapiens_gene_ensembl", host = "https://grch37.ensembl.org")
+
+# List of gene symbols
+jack_fu_genes=jack_fu$gene_gencodeV33
+
+
+# Define function to split queries
+query_genes_in_batches <- function(genes, batch_size = 50) {
+  results <- list()
+  for (i in seq(1, length(genes), by = batch_size)) {
+    batch <- genes[i:min(i + batch_size - 1, length(genes))]
+    cat("Querying batch:", i, "to", min(i + batch_size - 1, length(genes)), "\n")
+    
+    batch_result <- tryCatch({
+      getBM(attributes = c("hgnc_symbol", "ensembl_gene_id", "ensembl_peptide_id"),
+            filters = "hgnc_symbol",
+            values = batch,
+            mart = ensembl)
+    }, error = function(e) {
+      cat("Error in batch query:", e$message, "\n")
+      return(NULL)
+    })
+    
+    results <- append(results, list(batch_result))
+  }
+  return(do.call(rbind, results))
+}
+
+# Run the batch query
+jack_fu_gene_info <- query_genes_in_batches(jack_fu_genes, batch_size = 1000)
+#write.csv(jack_fu_gene_info, file="C:\\Users\\hans\\OneDrive - Marquette University\\AI_for_Autism\\jack_fu_gene_info.csv")
+
+bs_genes_info=query_genes_in_batches(bs_genes, batch_size = 1000)
+#write.csv(bs_genes_info, file="C:\\Users\\hans\\OneDrive - Marquette University\\AI_for_Autism\\bs_genes_info.csv")
+
+
+
+```
 
 
 

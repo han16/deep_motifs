@@ -44,6 +44,9 @@ ggplot(result_round1, aes(x = result_round1$RISK_PROBABILITY_FUSION)) +
 ```
 
 
+
+
+
 ```{r, message=F, warning=F}
 score_cutoff=0.5
 result_round1 %>% filter(RISK_PROBABILITY_FUSION>score_cutoff) %>% select(gene, gene_gencodeV33, chromosome, RISK_PROBABILITY_FUSION)%>% arrange(desc(RISK_PROBABILITY_FUSION)) %>% 
@@ -53,3 +56,45 @@ datatable(extensions = 'Buttons',
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 ```
+
+
+
+* with score cutoff 0.5, 447 genes are selected. 
+
+
+
+## new genes not in SFARI cate 1 
+
+
+```{r, message=F, warning=F}
+SFARI_genes=as_tibble(read.csv(file.path(root, "../../../Dataset/SFARI_base/SFARI-Gene_genes_08-19-2024release_09-16-2024export.csv")))
+positive_genes=SFARI_genes %>% filter (gene.score=="1") %>% select(gene.symbol) %>% pull()
+
+score_cutoff=0.5
+
+motifs_new_genes=result_round1 %>% filter(RISK_PROBABILITY_FUSION>score_cutoff) %>% select(gene)%>% filter (! gene %in% positive_genes) %>% pull()
+
+length(result_round1 %>% filter(RISK_PROBABILITY_FUSION>score_cutoff) %>% select(gene)%>% filter (gene %in% positive_genes) %>% pull())
+
+
+SFARI_score_for_motif_new_genes <- ifelse(
+  motifs_new_genes %in% SFARI_genes$gene.symbol,
+  SFARI_genes$gene.score[match(motifs_new_genes, SFARI_genes$gene.symbol)],
+  NA
+)
+
+sum(is.na(SFARI_score_for_motif_new_genes))
+  
+result_round1 %>% filter(RISK_PROBABILITY_FUSION>score_cutoff) %>% select(gene, gene_gencodeV33, chromosome, RISK_PROBABILITY_FUSION)%>% filter (! gene %in% positive_genes)%>% mutate (SFARI_score=SFARI_score_for_motif_new_genes) %>%arrange(desc(RISK_PROBABILITY_FUSION)) %>% 
+datatable(extensions = 'Buttons',
+          caption = "new ASD genes (not in SFARI cate 1)", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+* 233 genes are in SFARI category 1, but 208 are used and appear in final result. Among 208 genes, 206 are captured by motifs, being among 447 genes, and 2 genes ("ACTB", "PCCB") are missed.  
+
+* among 241 new ASD genes (not in cate 1), 154 are not in SFARI list at all. 

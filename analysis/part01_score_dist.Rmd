@@ -49,12 +49,42 @@ ggplot(result_round1, aes(x = result_round1$RISK_PROBABILITY_FUSION)) +
 
 ```{r, message=F, warning=F}
 score_cutoff=0.5
-result_round1 %>% filter(RISK_PROBABILITY_FUSION>score_cutoff) %>% select(gene, gene_gencodeV33, chromosome, RISK_PROBABILITY_FUSION)%>% arrange(desc(RISK_PROBABILITY_FUSION)) %>% 
+
+
+SFARI_genes=as_tibble(read.csv(file.path(root, "../../../Dataset/SFARI_base/SFARI-Gene_genes_08-19-2024release_09-16-2024export.csv")))
+positive_genes=SFARI_genes %>% filter (gene.score=="1") %>% select(gene.symbol) %>% pull()
+
+
+motifs_genes=result_round1 %>% filter(RISK_PROBABILITY_FUSION>score_cutoff) %>% select(gene) %>% pull()
+
+
+
+SFARI_score_for_motif_genes <- ifelse(
+  motifs_genes %in% SFARI_genes$gene.symbol,
+  SFARI_genes$gene.score[match(motifs_genes, SFARI_genes$gene.symbol)],
+  NA
+)
+
+result_round1 %>% filter(RISK_PROBABILITY_FUSION>score_cutoff) %>% select(gene, gene_gencodeV33, chromosome, RISK_PROBABILITY_FUSION)%>% mutate(SFARI_score=SFARI_score_for_motif_genes) %>% arrange(desc(RISK_PROBABILITY_FUSION)) %>% 
 datatable(extensions = 'Buttons',
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
+
+
+SFARI_table=table(SFARI_score_for_motif_genes, useNA = "ifany")
+
+
+# Define labels, replacing NA with a readable string
+labels <- names(SFARI_table)
+labels[is.na(labels)] <- "NA"
+
+# Append counts to labels
+labels <- paste(labels, "(", SFARI_table, ")", sep = "")
+
+# Create a pie chart
+pie(SFARI_table, labels = labels, main = "break-down of motifs genes by SFARI categories", col = rainbow(length(SFARI_table)))
 ```
 
 

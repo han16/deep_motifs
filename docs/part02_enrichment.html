@@ -534,15 +534,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16deepmotifstree889e3786cee3742345dbf9e1e4b0b918d40b4a46targetblank889e378a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16deepmotifstree13bbf6251ec98d76a1a734f02557cdc6fb4a4139targetblank13bbf62a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/deep_motifs/tree/889e3786cee3742345dbf9e1e4b0b918d40b4a46" target="_blank">889e378</a>
+<a href="https://github.com/han16/deep_motifs/tree/13bbf6251ec98d76a1a734f02557cdc6fb4a4139" target="_blank">13bbf62</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16deepmotifstree889e3786cee3742345dbf9e1e4b0b918d40b4a46targetblank889e378a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16deepmotifstree13bbf6251ec98d76a1a734f02557cdc6fb4a4139targetblank13bbf62a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -552,7 +552,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/deep_motifs/tree/889e3786cee3742345dbf9e1e4b0b918d40b4a46" target="_blank">889e378</a>.
+<a href="https://github.com/han16/deep_motifs/tree/13bbf6251ec98d76a1a734f02557cdc6fb4a4139" target="_blank">13bbf62</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -566,6 +566,11 @@ depends on. Below is the status of the Git repository when the results
 were generated:
 </p>
 <pre><code>
+Untracked files:
+    Untracked:  VennDiagram.2025-03-17_11-20-00.560113.log
+    Untracked:  VennDiagram.2025-03-17_11-20-38.306435.log
+    Untracked:  analysis/VennDiagram.2025-03-17_11-19-14.852092.log
+
 Unstaged changes:
     Modified:   analysis/part02_enrichment.Rmd
 
@@ -613,6 +618,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/deep_motifs/blob/13bbf6251ec98d76a1a734f02557cdc6fb4a4139/analysis/part02_enrichment.Rmd" target="_blank">13bbf62</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-03-17
+</td>
+<td>
+3/17/2025
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/deep_motifs/13bbf6251ec98d76a1a734f02557cdc6fb4a4139/docs/part02_enrichment.html" target="_blank">13bbf62</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-03-17
+</td>
+<td>
+3/17/2025
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -925,6 +964,67 @@ alternative hypothesis: true odds ratio is not equal to 1
 sample estimates:
 odds ratio 
   33.83331 </code></pre>
+</div>
+<div id="overlapping-with-other-disorder-genes" class="section level2">
+<h2>overlapping with other disorder genes</h2>
+<pre class="r"><code>multiplesheets &lt;- function(fname) {
+   
+  # getting info about all excel sheets
+  sheets &lt;- readxl::excel_sheets(fname)
+  tibble &lt;- lapply(sheets, function(x) readxl::read_excel(fname, sheet = x))
+  data_frame &lt;- lapply(tibble, as.data.frame)
+    
+  # assigning names to data frames
+  names(data_frame) &lt;- sheets
+    
+  # print data frame
+  print(data_frame)
+}
+
+SCHEMA_gene_results=multiplesheets(&quot;C:\\han\\Dataset\\SCHEMA\\41586_2022_4556_MOESM3_ESM.xlsx&quot;)
+neuro_disorers=SCHEMA_gene_results$`Table S11 - Genes from genome-w`
+DD_ID_gene=as_tibble(neuro_disorers) %&gt;% filter(Category==&quot;DD/ID genes&quot;) %&gt;% dplyr::select(`Gene name`) %&gt;% pull()
+SCZ_GWAS_gene=as_tibble(neuro_disorers) %&gt;% filter(Category==&quot;Schizophrenia GWAS genes&quot;) %&gt;% dplyr::select(`Gene name`) %&gt;% pull()
+
+x=list(
+  MOTIFs_gene=top_genes,
+  #Autism_gene=as_tibble(neuro_disorers) %&gt;% filter(Category==&quot;ASD genes&quot;) %&gt;% dplyr::select(`Gene name`) %&gt;% pull(),
+  Autism_gene=jack_fu_185_asd_genes,
+  DD_ID_gene=DD_ID_gene,
+  SCZ_GWAS_gene=SCZ_GWAS_gene
+
+)
+library(VennDiagram)
+
+display_venn &lt;- function(x, ...){
+  library(VennDiagram)
+  grid.newpage()
+  venn_object &lt;- venn.diagram(x, filename = NULL, ...)
+  grid.draw(venn_object)
+}
+
+#png(&quot;C:\\Users\\hans\\OneDrive - Marquette University\\SCZ-DAWN\\Figures\\Fig_overlapping_genes.png&quot;)
+
+display_venn(
+        x,
+    #    category.names = c(&quot;MIRAGE FDR genes&quot; , &quot;Autism genes&quot; , &quot;DD/ID genes&quot;, &quot;SCZ GWAS genes&quot;),
+    category.names = c(&quot;MOTIFs genes&quot; , &quot;Autism genes&quot; , &quot;DD/ID genes&quot;, &quot;SCZ GWAS genes&quot;),
+        # Circles
+        lwd = 2,
+        lty = &#39;blank&#39;,
+     #   fill = c(&quot;#999999&quot;, &quot;#E69F00&quot;, &quot;#56B4E9&quot;, &quot;#009E73&quot;),
+    fill = c(&quot;red&quot;, &quot;blue&quot;, &quot;green&quot;, &quot;yellow&quot;),
+        # Numbers
+        cex = 1.5,
+        fontface = &quot;italic&quot;,
+        # Set names
+        cat.cex = 1.5,
+        cat.fontface = &quot;bold&quot;,
+        cat.default.pos = &quot;outer&quot;,
+       # cat.dist = c(0.055, 0.055, 0.1, 0.1, 0.3 )
+         cat.dist = c(0.055, 0.055, 0.1, 0.1 )
+)</code></pre>
+<p><img src="figure/part02_enrichment.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -966,20 +1066,21 @@ loaded via a namespace (and not attached):
  [1] sass_0.4.9           utf8_1.2.4           generics_0.1.3      
  [4] futile.options_1.0.1 stringi_1.8.4        hms_1.1.3           
  [7] digest_0.6.35        magrittr_2.0.3       timechange_0.3.0    
-[10] evaluate_0.23        fastmap_1.1.1        workflowr_1.7.1     
-[13] jsonlite_1.8.8       whisker_0.4.1        formatR_1.14        
-[16] promises_1.3.0       fansi_1.0.6          scales_1.3.0        
-[19] jquerylib_0.1.4      cli_3.6.2            rlang_1.1.3         
-[22] munsell_0.5.1        withr_3.0.0          cachem_1.0.8        
-[25] yaml_2.3.8           tools_4.4.0          tzdb_0.4.0          
-[28] colorspace_2.1-0     httpuv_1.6.15        lambda.r_1.2.4      
-[31] vctrs_0.6.5          R6_2.5.1             lifecycle_1.0.4     
-[34] git2r_0.33.0         htmlwidgets_1.6.4    fs_1.6.4            
-[37] pkgconfig_2.0.3      pillar_1.9.0         bslib_0.7.0         
-[40] later_1.3.2          gtable_0.3.5         glue_1.7.0          
-[43] Rcpp_1.0.12          highr_0.10           xfun_0.43           
-[46] tidyselect_1.2.1     rstudioapi_0.16.0    knitr_1.46          
-[49] htmltools_0.5.8.1    rmarkdown_2.26       compiler_4.4.0      </code></pre>
+[10] evaluate_0.23        fastmap_1.1.1        cellranger_1.1.0    
+[13] workflowr_1.7.1      jsonlite_1.8.8       whisker_0.4.1       
+[16] formatR_1.14         promises_1.3.0       fansi_1.0.6         
+[19] scales_1.3.0         jquerylib_0.1.4      cli_3.6.2           
+[22] rlang_1.1.3          munsell_0.5.1        withr_3.0.0         
+[25] cachem_1.0.8         yaml_2.3.8           tools_4.4.0         
+[28] tzdb_0.4.0           colorspace_2.1-0     httpuv_1.6.15       
+[31] lambda.r_1.2.4       vctrs_0.6.5          R6_2.5.1            
+[34] lifecycle_1.0.4      git2r_0.33.0         htmlwidgets_1.6.4   
+[37] fs_1.6.4             pkgconfig_2.0.3      pillar_1.9.0        
+[40] bslib_0.7.0          later_1.3.2          gtable_0.3.5        
+[43] glue_1.7.0           Rcpp_1.0.12          highr_0.10          
+[46] xfun_0.43            tidyselect_1.2.1     rstudioapi_0.16.0   
+[49] knitr_1.46           htmltools_0.5.8.1    rmarkdown_2.26      
+[52] compiler_4.4.0       readxl_1.4.3        </code></pre>
 </div>
 </div>
 

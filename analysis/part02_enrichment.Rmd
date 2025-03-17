@@ -65,7 +65,70 @@ fisher.test(matrix(c(length(result_round1$gene), length(top_genes), length(inter
 
 
 
+## overlapping with other disorder genes 
 
+
+
+```{r, message=F, warning=F, results=F}
+
+multiplesheets <- function(fname) {
+   
+  # getting info about all excel sheets
+  sheets <- readxl::excel_sheets(fname)
+  tibble <- lapply(sheets, function(x) readxl::read_excel(fname, sheet = x))
+  data_frame <- lapply(tibble, as.data.frame)
+    
+  # assigning names to data frames
+  names(data_frame) <- sheets
+    
+  # print data frame
+  print(data_frame)
+}
+
+SCHEMA_gene_results=multiplesheets("C:\\han\\Dataset\\SCHEMA\\41586_2022_4556_MOESM3_ESM.xlsx")
+neuro_disorers=SCHEMA_gene_results$`Table S11 - Genes from genome-w`
+DD_ID_gene=as_tibble(neuro_disorers) %>% filter(Category=="DD/ID genes") %>% dplyr::select(`Gene name`) %>% pull()
+SCZ_GWAS_gene=as_tibble(neuro_disorers) %>% filter(Category=="Schizophrenia GWAS genes") %>% dplyr::select(`Gene name`) %>% pull()
+
+x=list(
+  MOTIFs_gene=top_genes,
+  #Autism_gene=as_tibble(neuro_disorers) %>% filter(Category=="ASD genes") %>% dplyr::select(`Gene name`) %>% pull(),
+  Autism_gene=jack_fu_185_asd_genes,
+  DD_ID_gene=DD_ID_gene,
+  SCZ_GWAS_gene=SCZ_GWAS_gene
+
+)
+library(VennDiagram)
+
+display_venn <- function(x, ...){
+  library(VennDiagram)
+  grid.newpage()
+  venn_object <- venn.diagram(x, filename = NULL, ...)
+  grid.draw(venn_object)
+}
+
+#png("C:\\Users\\hans\\OneDrive - Marquette University\\SCZ-DAWN\\Figures\\Fig_overlapping_genes.png")
+
+display_venn(
+        x,
+    #    category.names = c("MIRAGE FDR genes" , "Autism genes" , "DD/ID genes", "SCZ GWAS genes"),
+    category.names = c("MOTIFs genes" , "Autism genes" , "DD/ID genes", "SCZ GWAS genes"),
+        # Circles
+        lwd = 2,
+        lty = 'blank',
+     #   fill = c("#999999", "#E69F00", "#56B4E9", "#009E73"),
+    fill = c("red", "blue", "green", "yellow"),
+        # Numbers
+        cex = 1.5,
+        fontface = "italic",
+        # Set names
+        cat.cex = 1.5,
+        cat.fontface = "bold",
+        cat.default.pos = "outer",
+       # cat.dist = c(0.055, 0.055, 0.1, 0.1, 0.3 )
+         cat.dist = c(0.055, 0.055, 0.1, 0.1 )
+)
+```
 
 
 

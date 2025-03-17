@@ -30,7 +30,7 @@ result_round1=result_round1[result_round1['gene'] != 0,]  # remove rows with gen
 ```
 
 
-## risk probability >0.5 
+## enrichment of risk genes with risk probability >0.5 with autism genes in Fu paper 
 
 
 ```{r, message=F, warning=F}
@@ -59,21 +59,13 @@ grid.draw(venn.plot)
 
 ## fisher exact test 
 
-
+fisher.test(matrix(c(length(result_round1$gene), length(top_genes), length(intersect(result_round1$gene, jack_fu_185_asd_genes)), length(intersect(top_genes, jack_fu_185_asd_genes))), nrow = 2))
 
 ```
 
 
 
 
-```{r, message=F, warning=F}
-result_round1 %>% filter(RISK_PROBABILITY_FUSION>score_cutoff) %>% select(gene, gene_gencodeV33, chromosome, RISK_PROBABILITY_FUSION)%>% filter (!gene %in% jack_fu_185_asd_genes) %>% arrange(desc(RISK_PROBABILITY_FUSION)) %>% 
-datatable(extensions = 'Buttons',
-          caption = "New genes (not in 185 ASD genes)",
-            options = list(dom = 'Blfrtip',
-                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
-                           lengthMenu = list(c(10,25,50,-1),
-                                             c(10,25,50,"All"))))
-```
+
 
 

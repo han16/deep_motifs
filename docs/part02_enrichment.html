@@ -400,7 +400,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2025-03-17
+<strong>Last updated:</strong> 2025-03-18
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -534,15 +534,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16deepmotifstree13bbf6251ec98d76a1a734f02557cdc6fb4a4139targetblank13bbf62a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16deepmotifstree256c90cab5df3aef4a139a68cbdfb9154ec0f01dtargetblank256c90ca">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/deep_motifs/tree/13bbf6251ec98d76a1a734f02557cdc6fb4a4139" target="_blank">13bbf62</a>
+<a href="https://github.com/han16/deep_motifs/tree/256c90cab5df3aef4a139a68cbdfb9154ec0f01d" target="_blank">256c90c</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16deepmotifstree13bbf6251ec98d76a1a734f02557cdc6fb4a4139targetblank13bbf62a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16deepmotifstree256c90cab5df3aef4a139a68cbdfb9154ec0f01dtargetblank256c90ca"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -552,7 +552,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/deep_motifs/tree/13bbf6251ec98d76a1a734f02557cdc6fb4a4139" target="_blank">13bbf62</a>.
+<a href="https://github.com/han16/deep_motifs/tree/256c90cab5df3aef4a139a68cbdfb9154ec0f01d" target="_blank">256c90c</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -567,9 +567,7 @@ were generated:
 </p>
 <pre><code>
 Untracked files:
-    Untracked:  VennDiagram.2025-03-17_11-20-00.560113.log
-    Untracked:  VennDiagram.2025-03-17_11-20-38.306435.log
-    Untracked:  analysis/VennDiagram.2025-03-17_11-19-14.852092.log
+    Untracked:  analysis/VennDiagram.2025-03-18_10-27-17.227105.log
 
 Unstaged changes:
     Modified:   analysis/part02_enrichment.Rmd
@@ -618,6 +616,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/deep_motifs/blob/256c90cab5df3aef4a139a68cbdfb9154ec0f01d/analysis/part02_enrichment.Rmd" target="_blank">256c90c</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-03-17
+</td>
+<td>
+3/17/2025
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/deep_motifs/256c90cab5df3aef4a139a68cbdfb9154ec0f01d/docs/part02_enrichment.html" target="_blank">256c90c</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-03-17
+</td>
+<td>
+3/17/2025
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1025,6 +1057,71 @@ display_venn(
          cat.dist = c(0.055, 0.055, 0.1, 0.1 )
 )</code></pre>
 <p><img src="figure/part02_enrichment.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
+Past versions of unnamed-chunk-4-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-4-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/deep_motifs/blob/256c90cab5df3aef4a139a68cbdfb9154ec0f01d/docs/figure/part02_enrichment.Rmd/unnamed-chunk-4-1.png" target="_blank">256c90c</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-03-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>## overlap with DD/ID genes
+
+fisher.test(matrix(c(length(result_round1$gene), length(top_genes), length(intersect(result_round1$gene, DD_ID_gene)), length(intersect(top_genes, DD_ID_gene))), nrow = 2))</code></pre>
+<pre><code>
+    Fisher&#39;s Exact Test for Count Data
+
+data:  matrix(c(length(result_round1$gene), length(top_genes), length(intersect(result_round1$gene, DD_ID_gene)), length(intersect(top_genes, DD_ID_gene))), nrow = 2)
+p-value &lt; 2.2e-16
+alternative hypothesis: true odds ratio is not equal to 1
+95 percent confidence interval:
+ 17.48476 27.73127
+sample estimates:
+odds ratio 
+  22.03707 </code></pre>
+<pre class="r"><code>## overlap with SCZ GWAS genes
+
+fisher.test(matrix(c(length(result_round1$gene), length(top_genes), length(intersect(result_round1$gene, SCZ_GWAS_gene)), length(intersect(top_genes, SCZ_GWAS_gene))), nrow = 2))</code></pre>
+<pre><code>
+    Fisher&#39;s Exact Test for Count Data
+
+data:  matrix(c(length(result_round1$gene), length(top_genes), length(intersect(result_round1$gene, SCZ_GWAS_gene)), length(intersect(top_genes, SCZ_GWAS_gene))), nrow = 2)
+p-value = 0.06921
+alternative hypothesis: true odds ratio is not equal to 1
+95 percent confidence interval:
+ 0.7103804 7.3384825
+sample estimates:
+odds ratio 
+  2.703303 </code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">

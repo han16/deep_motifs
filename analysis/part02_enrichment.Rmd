@@ -132,3 +132,14 @@ display_venn(
 
 
 
+```{r, message=F, warning=F}
+## overlap with DD/ID genes
+
+fisher.test(matrix(c(length(result_round1$gene), length(top_genes), length(intersect(result_round1$gene, DD_ID_gene)), length(intersect(top_genes, DD_ID_gene))), nrow = 2))
+
+
+## overlap with SCZ GWAS genes
+
+fisher.test(matrix(c(length(result_round1$gene), length(top_genes), length(intersect(result_round1$gene, SCZ_GWAS_gene)), length(intersect(top_genes, SCZ_GWAS_gene))), nrow = 2))
+```
+

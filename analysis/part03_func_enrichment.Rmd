@@ -34,11 +34,11 @@ score_cutoff=0.5
 top_genes=result_round1 %>% filter(RISK_PROBABILITY_FUSION>score_cutoff) %>% select(gene_gencodeV33) %>% pull
 
 #install.packages("gprofiler2")
-library(gprofiler2)
+library(gprofiler2)   ### https://biit.cs.ut.ee/gprofiler/page/r
 gostres <- gost(query = top_genes,
 organism = "hsapiens")
 head(gostres$result)
 
-p <- gostplot(gostres, capped = T, interactive = T)
+p <- gostplot(gostres, capped = F, interactive = T)
 p
 ```

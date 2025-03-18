@@ -32,7 +32,7 @@ root <- rprojroot::find_rstudio_root_file()
 1. TADA p values, FDRs for all genes in  Fu, et al paper and FDR's in Trost paper 
 
 ```{r, message=F, warning=F}
-jack_fu=as_tibble(read.csv(file.path(root, "../../../Dataset/20231221_PMID_35982160/Fu 2022 Suppl-41588_2022_1104_MOESM3_ESM.csv")))  # 
+jack_fu=as_tibble(read.csv(file.path(root, "../../../Dataset/20231221_PMID_35982160_JackFu/Fu 2022 Suppl-41588_2022_1104_MOESM3_ESM.csv")))  # 
 jack_fu_185_asd_genes=jack_fu %>% filter(ASD185=="TRUE") %>% dplyr::select(gene_gencodeV33, gene_id)
 
 length(jack_fu$gene_gencodeV33)
@@ -179,4 +179,6 @@ bs_genes_info=query_genes_in_batches(bs_genes, batch_size = 1000)
 * [deep-motif score distribution](part01_score_dist.html)  
 
 * [enrichment of top rank genes](part02_enrichment.html)
+
+* [functional enrichment analysis](part03_func_enrichment.html)
 

@@ -377,7 +377,7 @@ div.tocify {
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-ok text-success"
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -388,8 +388,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
-</a>
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -398,13 +398,13 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2025-02-17
+<strong>Last updated:</strong> 2025-03-18
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 0
+aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>deep_motifs/</code> <span
@@ -427,18 +427,21 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
-</a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate"
+<div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git
-repository, you know the exact version of the code that produced these
-results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
 </div>
 </div>
 </div>
@@ -529,15 +532,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16deepmotifstreec784f9ba15a493a27baad0d3b0f1aa2ec004ea5atargetblankc784f9ba">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16deepmotifstreebb54cbde537e56651d0df89f00493bc21a63ef77targetblankbb54cbda">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/deep_motifs/tree/c784f9ba15a493a27baad0d3b0f1aa2ec004ea5a" target="_blank">c784f9b</a>
+<a href="https://github.com/han16/deep_motifs/tree/bb54cbde537e56651d0df89f00493bc21a63ef77" target="_blank">bb54cbd</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16deepmotifstreec784f9ba15a493a27baad0d3b0f1aa2ec004ea5atargetblankc784f9ba"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16deepmotifstreebb54cbde537e56651d0df89f00493bc21a63ef77targetblankbb54cbda"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -547,7 +550,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/deep_motifs/tree/c784f9ba15a493a27baad0d3b0f1aa2ec004ea5a" target="_blank">c784f9b</a>.
+<a href="https://github.com/han16/deep_motifs/tree/bb54cbde537e56651d0df89f00493bc21a63ef77" target="_blank">bb54cbd</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -561,7 +564,12 @@ depends on. Below is the status of the Git repository when the results
 were generated:
 </p>
 <pre><code>
-working directory clean
+Untracked files:
+    Untracked:  analysis/part03_func_enrichment.Rmd
+
+Unstaged changes:
+    Modified:   analysis/index.Rmd
+
 </code></pre>
 <p>
 Note that any generated files, e.g. HTML, png, CSS, etc., are not
@@ -605,6 +613,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/deep_motifs/blob/1115d48291a2e1ad149ed2ed48a790c9ca6bf709/analysis/index.Rmd" target="_blank">1115d48</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-03-12
+</td>
+<td>
+3/12/2025
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/deep_motifs/a9894a3a61260921d9aa07401ff1a8960b4fb696/docs/index.html" target="_blank">a9894a3</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-03-11
+</td>
+<td>
+3/11/2025
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -891,6 +933,7 @@ library(ggplot2)
 library(DT)
 library(VennDiagram)
 library(rprojroot)
+library(dplyr)
 root &lt;- rprojroot::find_rstudio_root_file()</code></pre>
 <div id="brainspan-data-analysis" class="section level2">
 <h2>BrainSpan data analysis</h2>
@@ -904,8 +947,8 @@ root &lt;- rprojroot::find_rstudio_root_file()</code></pre>
 <li>TADA p values, FDRs for all genes in Fu, et al paper and FDR’s in
 Trost paper</li>
 </ol>
-<pre class="r"><code>jack_fu=as_tibble(read.csv(file.path(root, &quot;../../../Dataset/20231221_PMID_35982160/Fu 2022 Suppl-41588_2022_1104_MOESM3_ESM.csv&quot;)))  # 
-jack_fu_185_asd_genes=jack_fu %&gt;% filter(ASD185==&quot;TRUE&quot;) %&gt;% select(gene_gencodeV33, gene_id)
+<pre class="r"><code>jack_fu=as_tibble(read.csv(file.path(root, &quot;../../../Dataset/20231221_PMID_35982160_JackFu/Fu 2022 Suppl-41588_2022_1104_MOESM3_ESM.csv&quot;)))  # 
+jack_fu_185_asd_genes=jack_fu %&gt;% filter(ASD185==&quot;TRUE&quot;) %&gt;% dplyr::select(gene_gencodeV33, gene_id)
 
 length(jack_fu$gene_gencodeV33)</code></pre>
 <pre><code>[1] 18159</code></pre>
@@ -977,6 +1020,92 @@ length(foreASD_result$symbol)</code></pre>
 <li>foreASD outputs 17597 genes, of which 178 are in 185 risk genes in
 fu paper, and 15999 overlapping with all genes in fu paper.</li>
 </ul>
+<div id="gene-symbol-ensg-ensp" class="section level3">
+<h3>gene symbol, ENSG, ENSP</h3>
+<pre class="r"><code>#if (!requireNamespace(&quot;BiocManager&quot;, quietly = TRUE))
+#    install.packages(&quot;BiocManager&quot;)
+
+#BiocManager::install(&quot;biomaRt&quot;)
+library(biomaRt)
+
+
+ensembl &lt;- useMart(&quot;ensembl&quot;, dataset = &quot;hsapiens_gene_ensembl&quot;, host = &quot;https://grch37.ensembl.org&quot;)
+
+# List of gene symbols
+jack_fu_genes=jack_fu$gene_gencodeV33
+
+
+# Define function to split queries
+query_genes_in_batches &lt;- function(genes, batch_size = 50) {
+  results &lt;- list()
+  for (i in seq(1, length(genes), by = batch_size)) {
+    batch &lt;- genes[i:min(i + batch_size - 1, length(genes))]
+    cat(&quot;Querying batch:&quot;, i, &quot;to&quot;, min(i + batch_size - 1, length(genes)), &quot;\n&quot;)
+    
+    batch_result &lt;- tryCatch({
+      getBM(attributes = c(&quot;hgnc_symbol&quot;, &quot;ensembl_gene_id&quot;, &quot;ensembl_peptide_id&quot;),
+            filters = &quot;hgnc_symbol&quot;,
+            values = batch,
+            mart = ensembl)
+    }, error = function(e) {
+      cat(&quot;Error in batch query:&quot;, e$message, &quot;\n&quot;)
+      return(NULL)
+    })
+    
+    results &lt;- append(results, list(batch_result))
+  }
+  return(do.call(rbind, results))
+}
+
+# Run the batch query
+jack_fu_gene_info &lt;- query_genes_in_batches(jack_fu_genes, batch_size = 1000)</code></pre>
+<pre><code>Querying batch: 1 to 1000 
+Querying batch: 1001 to 2000 
+Querying batch: 2001 to 3000 
+Querying batch: 3001 to 4000 
+Querying batch: 4001 to 5000 
+Querying batch: 5001 to 6000 
+Querying batch: 6001 to 7000 
+Querying batch: 7001 to 8000 
+Querying batch: 8001 to 9000 
+Querying batch: 9001 to 10000 
+Querying batch: 10001 to 11000 
+Querying batch: 11001 to 12000 
+Querying batch: 12001 to 13000 
+Querying batch: 13001 to 14000 
+Querying batch: 14001 to 15000 
+Querying batch: 15001 to 16000 
+Querying batch: 16001 to 17000 
+Querying batch: 17001 to 18000 
+Querying batch: 18001 to 18159 
+Error in batch query: Query ERROR: caught BioMart::Exception: non-BioMart die(): 
+not well-formed (invalid token) at line 1, column 1358, byte 1358 at /nfs/public/ro/ensweb-software/sharedsw/2022_01_17_ct7/linuxbrew/Cellar/perl/5.34.0/lib/perl5/site_perl/5.34.0/x86_64-linux-thread-multi/XML/Parser.pm line 187.
+XML::Simple called at /nfs/public/ro/ensweb/live/grch37-mart/www_113/biomart-perl/lib/BioMart/Query.pm line 1935.
+ </code></pre>
+<pre class="r"><code>#write.csv(jack_fu_gene_info, file=&quot;C:\\Users\\hans\\OneDrive - Marquette University\\AI_for_Autism\\jack_fu_gene_info.csv&quot;)
+
+bs_genes_info=query_genes_in_batches(bs_genes, batch_size = 1000)</code></pre>
+<pre><code>Querying batch: 1 to 1000 
+Querying batch: 1001 to 2000 
+Querying batch: 2001 to 3000 
+Querying batch: 3001 to 4000 
+Querying batch: 4001 to 5000 
+Querying batch: 5001 to 6000 
+Querying batch: 6001 to 7000 
+Querying batch: 7001 to 8000 
+Querying batch: 8001 to 9000 
+Querying batch: 9001 to 10000 
+Querying batch: 10001 to 11000 
+Querying batch: 11001 to 12000 
+Querying batch: 12001 to 13000 
+Querying batch: 13001 to 14000 
+Querying batch: 14001 to 15000 
+Querying batch: 15001 to 16000 
+Querying batch: 16001 to 17000 
+Querying batch: 17001 to 18000 
+Querying batch: 18001 to 18018 </code></pre>
+<pre class="r"><code>#write.csv(bs_genes_info, file=&quot;C:\\Users\\hans\\OneDrive - Marquette University\\AI_for_Autism\\bs_genes_info.csv&quot;)</code></pre>
+</div>
 </div>
 <div id="train-the-model" class="section level2">
 <h2>train the model</h2>
@@ -988,6 +1117,8 @@ fu paper, and 15999 overlapping with all genes in fu paper.</li>
 distribution</a></p></li>
 <li><p><a href="part02_enrichment.html">enrichment of top rank
 genes</a></p></li>
+<li><p><a href="part03_func_enrichment.html">functional enrichment
+analysis</a></p></li>
 </ul>
 <br>
 <p>
@@ -1020,30 +1151,40 @@ attached base packages:
 [8] base     
 
 other attached packages:
- [1] rprojroot_2.0.4     VennDiagram_1.7.3   futile.logger_1.4.3
- [4] DT_0.33             lubridate_1.9.3     forcats_1.0.0      
- [7] stringr_1.5.1       dplyr_1.1.4         purrr_1.0.2        
-[10] readr_2.1.5         tidyr_1.3.1         tibble_3.2.1       
-[13] ggplot2_3.5.1       tidyverse_2.0.0    
+ [1] biomaRt_2.60.1      rprojroot_2.0.4     VennDiagram_1.7.3  
+ [4] futile.logger_1.4.3 DT_0.33             lubridate_1.9.3    
+ [7] forcats_1.0.0       stringr_1.5.1       dplyr_1.1.4        
+[10] purrr_1.0.2         readr_2.1.5         tidyr_1.3.1        
+[13] tibble_3.2.1        ggplot2_3.5.1       tidyverse_2.0.0    
 
 loaded via a namespace (and not attached):
- [1] sass_0.4.9           utf8_1.2.4           generics_0.1.3      
- [4] futile.options_1.0.1 stringi_1.8.4        hms_1.1.3           
- [7] digest_0.6.35        magrittr_2.0.3       timechange_0.3.0    
-[10] evaluate_0.23        fastmap_1.1.1        workflowr_1.7.1     
-[13] jsonlite_1.8.8       whisker_0.4.1        formatR_1.14        
-[16] promises_1.3.0       fansi_1.0.6          scales_1.3.0        
-[19] jquerylib_0.1.4      cli_3.6.2            rlang_1.1.3         
-[22] munsell_0.5.1        withr_3.0.0          cachem_1.0.8        
-[25] yaml_2.3.8           tools_4.4.0          tzdb_0.4.0          
-[28] colorspace_2.1-0     httpuv_1.6.15        lambda.r_1.2.4      
-[31] vctrs_0.6.5          R6_2.5.1             lifecycle_1.0.4     
-[34] git2r_0.33.0         htmlwidgets_1.6.4    fs_1.6.4            
-[37] pkgconfig_2.0.3      pillar_1.9.0         bslib_0.7.0         
-[40] later_1.3.2          gtable_0.3.5         glue_1.7.0          
-[43] Rcpp_1.0.12          xfun_0.43            tidyselect_1.2.1    
-[46] rstudioapi_0.16.0    knitr_1.46           htmltools_0.5.8.1   
-[49] rmarkdown_2.26       compiler_4.4.0      </code></pre>
+ [1] tidyselect_1.2.1        blob_1.2.4              filelock_1.0.3         
+ [4] Biostrings_2.72.0       fastmap_1.1.1           BiocFileCache_2.12.0   
+ [7] promises_1.3.0          digest_0.6.35           timechange_0.3.0       
+[10] lifecycle_1.0.4         KEGGREST_1.44.0         RSQLite_2.3.6          
+[13] magrittr_2.0.3          compiler_4.4.0          rlang_1.1.3            
+[16] sass_0.4.9              progress_1.2.3          tools_4.4.0            
+[19] utf8_1.2.4              yaml_2.3.8              knitr_1.46             
+[22] lambda.r_1.2.4          prettyunits_1.2.0       htmlwidgets_1.6.4      
+[25] curl_5.2.1              bit_4.0.5               xml2_1.3.6             
+[28] workflowr_1.7.1         withr_3.0.0             BiocGenerics_0.50.0    
+[31] stats4_4.4.0            fansi_1.0.6             git2r_0.33.0           
+[34] colorspace_2.1-0        scales_1.3.0            cli_3.6.2              
+[37] rmarkdown_2.26          crayon_1.5.2            generics_0.1.3         
+[40] rstudioapi_0.16.0       httr_1.4.7              tzdb_0.4.0             
+[43] DBI_1.2.3               cachem_1.0.8            zlibbioc_1.50.0        
+[46] AnnotationDbi_1.66.0    formatR_1.14            XVector_0.44.0         
+[49] vctrs_0.6.5             jsonlite_1.8.8          IRanges_2.38.0         
+[52] hms_1.1.3               S4Vectors_0.42.0        bit64_4.0.5            
+[55] jquerylib_0.1.4         glue_1.7.0              stringi_1.8.4          
+[58] gtable_0.3.5            later_1.3.2             GenomeInfoDb_1.40.0    
+[61] UCSC.utils_1.0.0        munsell_0.5.1           pillar_1.9.0           
+[64] rappdirs_0.3.3          htmltools_0.5.8.1       GenomeInfoDbData_1.2.12
+[67] dbplyr_2.5.0            R6_2.5.1                httr2_1.0.1            
+[70] evaluate_0.23           Biobase_2.64.0          futile.options_1.0.1   
+[73] png_0.1-8               memoise_2.0.1           httpuv_1.6.15          
+[76] bslib_0.7.0             Rcpp_1.0.12             whisker_0.4.1          
+[79] xfun_0.43               fs_1.6.4                pkgconfig_2.0.3        </code></pre>
 </div>
 </div>
 

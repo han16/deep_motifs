@@ -417,7 +417,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2025-03-31
+<strong>Last updated:</strong> 2025-04-01
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -551,15 +551,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16deepmotifstreed496ea0d5984f0af9ef01d0943bbf53522ac5721targetblankd496ea0a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16deepmotifstree92c7f1d0d6281802939b4a9363bc7def2b77162btargetblank92c7f1da">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/deep_motifs/tree/d496ea0d5984f0af9ef01d0943bbf53522ac5721" target="_blank">d496ea0</a>
+<a href="https://github.com/han16/deep_motifs/tree/92c7f1d0d6281802939b4a9363bc7def2b77162b" target="_blank">92c7f1d</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16deepmotifstreed496ea0d5984f0af9ef01d0943bbf53522ac5721targetblankd496ea0a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16deepmotifstree92c7f1d0d6281802939b4a9363bc7def2b77162btargetblank92c7f1da"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -569,7 +569,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/deep_motifs/tree/d496ea0d5984f0af9ef01d0943bbf53522ac5721" target="_blank">d496ea0</a>.
+<a href="https://github.com/han16/deep_motifs/tree/92c7f1d0d6281802939b4a9363bc7def2b77162b" target="_blank">92c7f1d</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -584,10 +584,19 @@ were generated:
 </p>
 <pre><code>
 Untracked files:
-    Untracked:  analysis/part04_clustering_analysis.Rmd
+    Untracked:  VennDiagram.2025-04-01_10-42-23.373925.log
+    Untracked:  analysis/VennDiagram.2025-04-01_10-32-02.404995.log
+    Untracked:  analysis/VennDiagram.2025-04-01_10-32-23.588555.log
+    Untracked:  analysis/VennDiagram.2025-04-01_10-38-28.065519.log
+    Untracked:  analysis/VennDiagram.2025-04-01_10-41-53.32988.log
+    Untracked:  analysis/VennDiagram.2025-04-01_10-42-57.748601.log
+    Untracked:  analysis/VennDiagram.2025-04-01_10-43-21.217154.log
+    Untracked:  analysis/VennDiagram.2025-04-01_10-43-40.547875.log
+    Untracked:  analysis/VennDiagram.2025-04-01_10-43-56.323022.log
+    Untracked:  analysis/VennDiagram.2025-04-01_10-44-09.657174.log
+    Untracked:  analysis/VennDiagram.2025-04-01_10-44-22.652508.log
 
 Unstaged changes:
-    Modified:   analysis/index.Rmd
     Modified:   analysis/part01_score_dist.Rmd
 
 </code></pre>
@@ -634,6 +643,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/deep_motifs/blob/92c7f1d0d6281802939b4a9363bc7def2b77162b/analysis/part01_score_dist.Rmd" target="_blank">92c7f1d</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-03-31
+</td>
+<td>
+3/31/2025
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/deep_motifs/92c7f1d0d6281802939b4a9363bc7def2b77162b/docs/part01_score_dist.html" target="_blank">92c7f1d</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-03-31
+</td>
+<td>
+3/31/2025
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -858,6 +901,8 @@ result_round1=result_round1[result_round1[&#39;gene&#39;] != 0,]  # remove rows 
 
 forecASD_results=as_tibble(read.csv(file.path(root, &quot;../DiWangResults/forecASD_results.csv&quot;)))
 forecASD_results=forecASD_results[forecASD_results[&#39;gene&#39;] != 0,]  # remove rows with gene=0</code></pre>
+<div id="histogram-of-scores" class="section level2">
+<h2>histogram of scores</h2>
 <pre class="r"><code>ggplot(result_round1, aes(x = result_round1$RISK_PROBABILITY_FUSION)) +
   geom_histogram(binwidth = 0.1, fill = &quot;blue&quot;, color = &quot;black&quot;, aes(y = ..count..)) +
   stat_bin(binwidth = 0.1, geom = &quot;text&quot;, aes(label = ..count..), vjust = -0.5, color = &quot;red&quot;) +
@@ -942,6 +987,43 @@ han
   geom_vline(xintercept = 0.5, color = &quot;green&quot;, linetype = &quot;dashed&quot;, size = 1)+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title </code></pre>
 <p><img src="figure/part01_score_dist.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
+Past versions of unnamed-chunk-4-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-4-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/deep_motifs/blob/92c7f1d0d6281802939b4a9363bc7def2b77162b/docs/figure/part01_score_dist.Rmd/unnamed-chunk-4-1.png" target="_blank">92c7f1d</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-03-31
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code># Combine the data into a data frame
 data &lt;- data.frame(
   scores = c(result_round1$RISK_PROBABILITY_FUSION, forecASD_results$risk.score),
@@ -960,6 +1042,46 @@ ggplot(data, aes(x = scores, fill = group)) +
   geom_vline(xintercept = 0.5, color = &quot;green&quot;, linetype = &quot;dashed&quot;, size = 1)+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title </code></pre>
 <p><img src="figure/part01_score_dist.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
+Past versions of unnamed-chunk-5-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-5-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/deep_motifs/blob/92c7f1d0d6281802939b4a9363bc7def2b77162b/docs/figure/part01_score_dist.Rmd/unnamed-chunk-5-1.png" target="_blank">92c7f1d</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-03-31
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="implicated-risk-genes" class="section level2">
+<h2>implicated risk genes</h2>
 <pre class="r"><code>score_cutoff=0.5
 
 
@@ -998,6 +1120,43 @@ labels &lt;- paste(labels, &quot;(&quot;, SFARI_table, &quot;)&quot;, sep = &quo
 # Create a pie chart
 pie(SFARI_table, labels = labels, main = &quot;break-down of motifs genes by SFARI categories&quot;, col = rainbow(length(SFARI_table)))</code></pre>
 <p><img src="figure/part01_score_dist.Rmd/unnamed-chunk-6-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-2">
+Past versions of unnamed-chunk-6-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-6-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/deep_motifs/blob/92c7f1d0d6281802939b4a9363bc7def2b77162b/docs/figure/part01_score_dist.Rmd/unnamed-chunk-6-2.png" target="_blank">92c7f1d</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-03-31
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <ul>
 <li>with score cutoff 0.5, 447 genes are selected.</li>
 </ul>
@@ -1039,20 +1198,60 @@ labels &lt;- paste(labels, &quot;(&quot;, SFARI_table, &quot;)&quot;, sep = &quo
 # Create a pie chart
 pie(SFARI_table, labels = labels, main = &quot;break-down of forecASD genes by SFARI categories&quot;, col = rainbow(length(SFARI_table)))</code></pre>
 <p><img src="figure/part01_score_dist.Rmd/unnamed-chunk-7-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-2">
+Past versions of unnamed-chunk-7-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-7-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/deep_motifs/blob/92c7f1d0d6281802939b4a9363bc7def2b77162b/docs/figure/part01_score_dist.Rmd/unnamed-chunk-7-2.png" target="_blank">92c7f1d</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-03-31
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <ul>
 <li>with cutoff 0.5, forecASD identified 471 risk genes.</li>
 </ul>
+</div>
 <div id="deep-motifs-new-genes-not-in-sfari-cate-1"
 class="section level2">
 <h2>deep-motifs new genes not in SFARI cate 1</h2>
 <pre class="r"><code>SFARI_genes=as_tibble(read.csv(file.path(root, &quot;../../../Dataset/SFARI_base/SFARI-Gene_genes_08-19-2024release_09-16-2024export.csv&quot;)))
-positive_genes=SFARI_genes %&gt;% filter (gene.score==&quot;1&quot;) %&gt;% select(gene.symbol) %&gt;% pull()
+
+positive_genes=SFARI_genes %&gt;% filter (gene.score==&quot;1&quot;) %&gt;% dplyr::select(gene.symbol) %&gt;% pull()
+positive_genes=intersect(positive_genes, result_round1$gene)
 
 score_cutoff=0.5
 
-motifs_new_genes=result_round1 %&gt;% filter(RISK_PROBABILITY_FUSION&gt;score_cutoff) %&gt;% select(gene)%&gt;% filter (! gene %in% positive_genes) %&gt;% pull()
+motifs_new_genes=result_round1 %&gt;% filter(RISK_PROBABILITY_FUSION&gt;score_cutoff) %&gt;% dplyr::select(gene)%&gt;% filter (! gene %in% positive_genes) %&gt;% pull()
 
-length(result_round1 %&gt;% filter(RISK_PROBABILITY_FUSION&gt;score_cutoff) %&gt;% select(gene)%&gt;% filter (gene %in% positive_genes) %&gt;% pull())</code></pre>
+length(result_round1 %&gt;% filter(RISK_PROBABILITY_FUSION&gt;score_cutoff) %&gt;% dplyr::select(gene)%&gt;% filter (gene %in% positive_genes) %&gt;% pull())</code></pre>
 <pre><code>[1] 206</code></pre>
 <pre class="r"><code>SFARI_score_for_motif_new_genes &lt;- ifelse(
   motifs_new_genes %in% SFARI_genes$gene.symbol,
@@ -1062,7 +1261,7 @@ length(result_round1 %&gt;% filter(RISK_PROBABILITY_FUSION&gt;score_cutoff) %&gt
 
 sum(is.na(SFARI_score_for_motif_new_genes))</code></pre>
 <pre><code>[1] 154</code></pre>
-<pre class="r"><code>result_round1 %&gt;% filter(RISK_PROBABILITY_FUSION&gt;score_cutoff) %&gt;% select(gene, gene_gencodeV33, chromosome, RISK_PROBABILITY_FUSION)%&gt;% filter (! gene %in% positive_genes)%&gt;% mutate (SFARI_score=SFARI_score_for_motif_new_genes) %&gt;%arrange(desc(RISK_PROBABILITY_FUSION)) %&gt;% 
+<pre class="r"><code>result_round1 %&gt;% filter(RISK_PROBABILITY_FUSION&gt;score_cutoff) %&gt;% dplyr::select(gene, gene_gencodeV33, chromosome, RISK_PROBABILITY_FUSION)%&gt;% filter (! gene %in% positive_genes)%&gt;% mutate (SFARI_score=SFARI_score_for_motif_new_genes) %&gt;%arrange(desc(RISK_PROBABILITY_FUSION)) %&gt;% 
 datatable(extensions = &#39;Buttons&#39;,
           caption = &quot;new ASD genes (not in SFARI cate 1)&quot;, 
             options = list(dom = &#39;Blfrtip&#39;,
@@ -1079,8 +1278,9 @@ final result. Among 208 genes, 206 are captured by motifs, being among
 list at all.</p></li>
 </ul>
 </div>
-<div id="deep-motifs-genes-vs-forecasd-genes" class="section level2">
-<h2>deep-motifs genes vs forecASD genes</h2>
+<div id="ranking-of-deep-motifs-genes-vs-forecasd-genes"
+class="section level2">
+<h2>ranking of deep-motifs genes vs forecASD genes</h2>
 <pre class="r"><code>total_risk_genes=unique(c(forecASD_genes, motifs_genes))
 result_round1_sorted=result_round1 %&gt;% arrange(desc(RISK_PROBABILITY_FUSION))
 forecASD_results_sorted=forecASD_results %&gt;% arrange(desc(risk.score))
@@ -1103,7 +1303,7 @@ df_long &lt;- df %&gt;%
 # Plot the slope graph with gene labels on both sides
 ggplot(df_long, aes(x = Ranking, y = Rank, group = Gene)) +
   geom_line(aes(color = Gene), size = 1) +  # Connecting lines
-  geom_point(size = 4) +                    # Points at each ranking
+  geom_point(size = 1) +                    # Points at each ranking
   # Add gene labels on the left side for Rank1
   geom_text(data = df_long %&gt;% filter(Ranking == &quot;Rank1_forecASD&quot;), 
             aes(label = Gene), 
@@ -1117,6 +1317,134 @@ ggplot(df_long, aes(x = Ranking, y = Rank, group = Gene)) +
   theme_minimal() +
   theme(legend.position = &quot;none&quot;)            # Remove legend for clarity</code></pre>
 <p><img src="figure/part01_score_dist.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
+Past versions of unnamed-chunk-9-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-9-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/deep_motifs/blob/92c7f1d0d6281802939b4a9363bc7def2b77162b/docs/figure/part01_score_dist.Rmd/unnamed-chunk-9-1.png" target="_blank">92c7f1d</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-03-31
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code># Perform the test
+result &lt;- wilcox.test(total_risk_genes_rank1, total_risk_genes_rank2, paired = TRUE, alternative = &quot;two.sided&quot;)
+
+# Display the results
+print(result)</code></pre>
+<pre><code>
+    Wilcoxon signed rank test with continuity correction
+
+data:  total_risk_genes_rank1 and total_risk_genes_rank2
+V = 131438, p-value = 0.001744
+alternative hypothesis: true location shift is not equal to 0</code></pre>
+</div>
+<div id="genes-overlapping-among-deep-motifs-forecasd-and-sfari"
+class="section level2">
+<h2>genes overlapping among deep motifs, forecASD, and SFARI</h2>
+<pre class="r"><code>x=list(
+  MOTIFs_gene=motifs_genes,
+  #Autism_gene=as_tibble(neuro_disorers) %&gt;% filter(Category==&quot;ASD genes&quot;) %&gt;% dplyr::select(`Gene name`) %&gt;% pull(),
+  ForecASD_gene=forecASD_genes,
+  SFARI_genes=positive_genes
+
+)
+library(VennDiagram)
+
+display_venn &lt;- function(x, ...){
+  library(VennDiagram)
+  grid.newpage()
+  venn_object &lt;- venn.diagram(x, filename = NULL, ...)
+  grid.draw(venn_object)
+}
+
+#png(&quot;C:\\Users\\hans\\OneDrive - Marquette University\\SCZ-DAWN\\Figures\\Fig_overlapping_genes.png&quot;)
+
+display_venn(
+        x,
+    #    category.names = c(&quot;MIRAGE FDR genes&quot; , &quot;Autism genes&quot; , &quot;DD/ID genes&quot;, &quot;SCZ GWAS genes&quot;),
+    category.names = c(&quot;MOTIFs genes&quot; , &quot;ForecASD genes&quot; , &quot;SFARI genes&quot;),
+        # Circles
+        lwd = 2,
+        lty = &#39;blank&#39;,
+     #   fill = c(&quot;#999999&quot;, &quot;#E69F00&quot;, &quot;#56B4E9&quot;, &quot;#009E73&quot;),
+    fill = c(&quot;red&quot;, &quot;blue&quot;, &quot;green&quot;),
+        # Numbers
+        cex = 1.5,
+        fontface = &quot;italic&quot;,
+        # Set names
+        cat.cex = 1.5,
+        cat.fontface = &quot;bold&quot;,
+        cat.default.pos = &quot;outer&quot;,
+       # cat.dist = c(0.055, 0.055, 0.1, 0.1, 0.3 )
+    cat.pos = c(-20, 20, 180),  # Adjust angles as needed
+         cat.dist = c(0.055, 0.055, -0.15) # Adjust distances from the circles
+)</code></pre>
+<p><img src="figure/part01_score_dist.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-10-1">
+Past versions of unnamed-chunk-10-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-10-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/deep_motifs/blob/92c7f1d0d6281802939b4a9363bc7def2b77162b/docs/figure/part01_score_dist.Rmd/unnamed-chunk-10-1.png" target="_blank">92c7f1d</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-03-31
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1144,27 +1472,35 @@ time zone: America/Chicago
 tzcode source: internal
 
 attached base packages:
-[1] stats     graphics  grDevices utils     datasets  methods   base     
+[1] grid      stats     graphics  grDevices utils     datasets  methods  
+[8] base     
 
 other attached packages:
- [1] rprojroot_2.0.4 DT_0.33         lubridate_1.9.3 forcats_1.0.0  
- [5] stringr_1.5.1   dplyr_1.1.4     purrr_1.0.2     readr_2.1.5    
- [9] tidyr_1.3.1     tibble_3.2.1    ggplot2_3.5.1   tidyverse_2.0.0
+ [1] VennDiagram_1.7.3   futile.logger_1.4.3 rprojroot_2.0.4    
+ [4] DT_0.33             lubridate_1.9.3     forcats_1.0.0      
+ [7] stringr_1.5.1       dplyr_1.1.4         purrr_1.0.2        
+[10] readr_2.1.5         tidyr_1.3.1         tibble_3.2.1       
+[13] ggplot2_3.5.1       tidyverse_2.0.0    
 
 loaded via a namespace (and not attached):
- [1] sass_0.4.9        utf8_1.2.4        generics_0.1.3    stringi_1.8.4    
- [5] hms_1.1.3         digest_0.6.35     magrittr_2.0.3    timechange_0.3.0 
- [9] evaluate_0.23     grid_4.4.0        fastmap_1.1.1     workflowr_1.7.1  
-[13] jsonlite_1.8.8    whisker_0.4.1     promises_1.3.0    fansi_1.0.6      
-[17] crosstalk_1.2.1   scales_1.3.0      jquerylib_0.1.4   cli_3.6.2        
-[21] rlang_1.1.3       munsell_0.5.1     withr_3.0.0       cachem_1.0.8     
-[25] yaml_2.3.8        tools_4.4.0       tzdb_0.4.0        colorspace_2.1-0 
-[29] httpuv_1.6.15     vctrs_0.6.5       R6_2.5.1          lifecycle_1.0.4  
-[33] git2r_0.33.0      htmlwidgets_1.6.4 fs_1.6.4          pkgconfig_2.0.3  
-[37] pillar_1.9.0      bslib_0.7.0       later_1.3.2       gtable_0.3.5     
-[41] glue_1.7.0        Rcpp_1.0.12       highr_0.10        xfun_0.43        
-[45] tidyselect_1.2.1  rstudioapi_0.16.0 knitr_1.46        farver_2.1.2     
-[49] htmltools_0.5.8.1 labeling_0.4.3    rmarkdown_2.26    compiler_4.4.0   </code></pre>
+ [1] sass_0.4.9           utf8_1.2.4           generics_0.1.3      
+ [4] futile.options_1.0.1 stringi_1.8.4        hms_1.1.3           
+ [7] digest_0.6.35        magrittr_2.0.3       timechange_0.3.0    
+[10] evaluate_0.23        fastmap_1.1.1        workflowr_1.7.1     
+[13] jsonlite_1.8.8       whisker_0.4.1        formatR_1.14        
+[16] promises_1.3.0       fansi_1.0.6          crosstalk_1.2.1     
+[19] scales_1.3.0         jquerylib_0.1.4      cli_3.6.2           
+[22] rlang_1.1.3          munsell_0.5.1        withr_3.0.0         
+[25] cachem_1.0.8         yaml_2.3.8           tools_4.4.0         
+[28] tzdb_0.4.0           colorspace_2.1-0     httpuv_1.6.15       
+[31] lambda.r_1.2.4       vctrs_0.6.5          R6_2.5.1            
+[34] lifecycle_1.0.4      git2r_0.33.0         htmlwidgets_1.6.4   
+[37] fs_1.6.4             pkgconfig_2.0.3      pillar_1.9.0        
+[40] bslib_0.7.0          later_1.3.2          gtable_0.3.5        
+[43] glue_1.7.0           Rcpp_1.0.12          highr_0.10          
+[46] xfun_0.43            tidyselect_1.2.1     rstudioapi_0.16.0   
+[49] knitr_1.46           farver_2.1.2         htmltools_0.5.8.1   
+[52] labeling_0.4.3       rmarkdown_2.26       compiler_4.4.0      </code></pre>
 </div>
 </div>
 

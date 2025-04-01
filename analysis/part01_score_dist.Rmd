@@ -32,7 +32,7 @@ forecASD_results=forecASD_results[forecASD_results['gene'] != 0,]  # remove rows
 
 
 
-
+## histogram of scores 
 
 
 
@@ -82,6 +82,8 @@ ggplot(data, aes(x = scores, fill = group)) +
 ```
 
 
+
+## implicated risk genes 
 
 
 ```{r, message=F, warning=F}
@@ -180,13 +182,15 @@ pie(SFARI_table, labels = labels, main = "break-down of forecASD genes by SFARI 
 
 ```{r, message=F, warning=F}
 SFARI_genes=as_tibble(read.csv(file.path(root, "../../../Dataset/SFARI_base/SFARI-Gene_genes_08-19-2024release_09-16-2024export.csv")))
-positive_genes=SFARI_genes %>% filter (gene.score=="1") %>% select(gene.symbol) %>% pull()
+
+positive_genes=SFARI_genes %>% filter (gene.score=="1") %>% dplyr::select(gene.symbol) %>% pull()
+positive_genes=intersect(positive_genes, result_round1$gene)
 
 score_cutoff=0.5
 
-motifs_new_genes=result_round1 %>% filter(RISK_PROBABILITY_FUSION>score_cutoff) %>% select(gene)%>% filter (! gene %in% positive_genes) %>% pull()
+motifs_new_genes=result_round1 %>% filter(RISK_PROBABILITY_FUSION>score_cutoff) %>% dplyr::select(gene)%>% filter (! gene %in% positive_genes) %>% pull()
 
-length(result_round1 %>% filter(RISK_PROBABILITY_FUSION>score_cutoff) %>% select(gene)%>% filter (gene %in% positive_genes) %>% pull())
+length(result_round1 %>% filter(RISK_PROBABILITY_FUSION>score_cutoff) %>% dplyr::select(gene)%>% filter (gene %in% positive_genes) %>% pull())
 
 
 SFARI_score_for_motif_new_genes <- ifelse(
@@ -197,7 +201,7 @@ SFARI_score_for_motif_new_genes <- ifelse(
 
 sum(is.na(SFARI_score_for_motif_new_genes))
   
-result_round1 %>% filter(RISK_PROBABILITY_FUSION>score_cutoff) %>% select(gene, gene_gencodeV33, chromosome, RISK_PROBABILITY_FUSION)%>% filter (! gene %in% positive_genes)%>% mutate (SFARI_score=SFARI_score_for_motif_new_genes) %>%arrange(desc(RISK_PROBABILITY_FUSION)) %>% 
+result_round1 %>% filter(RISK_PROBABILITY_FUSION>score_cutoff) %>% dplyr::select(gene, gene_gencodeV33, chromosome, RISK_PROBABILITY_FUSION)%>% filter (! gene %in% positive_genes)%>% mutate (SFARI_score=SFARI_score_for_motif_new_genes) %>%arrange(desc(RISK_PROBABILITY_FUSION)) %>% 
 datatable(extensions = 'Buttons',
           caption = "new ASD genes (not in SFARI cate 1)", 
             options = list(dom = 'Blfrtip',
@@ -213,7 +217,7 @@ datatable(extensions = 'Buttons',
 
 
 
-## deep-motifs genes vs forecASD genes 
+## ranking of deep-motifs genes vs forecASD genes 
 
 
 
@@ -240,7 +244,7 @@ df_long <- df %>%
 # Plot the slope graph with gene labels on both sides
 ggplot(df_long, aes(x = Ranking, y = Rank, group = Gene)) +
   geom_line(aes(color = Gene), size = 1) +  # Connecting lines
-  geom_point(size = 4) +                    # Points at each ranking
+  geom_point(size = 1) +                    # Points at each ranking
   # Add gene labels on the left side for Rank1
   geom_text(data = df_long %>% filter(Ranking == "Rank1_forecASD"), 
             aes(label = Gene), 
@@ -254,12 +258,61 @@ ggplot(df_long, aes(x = Ranking, y = Rank, group = Gene)) +
   theme_minimal() +
   theme(legend.position = "none")            # Remove legend for clarity
 
+
+# Perform the test
+result <- wilcox.test(total_risk_genes_rank1, total_risk_genes_rank2, paired = TRUE, alternative = "two.sided")
+
+# Display the results
+print(result)
+
 ```
 
 
 
 
 
+## genes overlapping among deep motifs, forecASD, and SFARI
 
 
 
+```{r, message=F, warning=F}
+
+x=list(
+  MOTIFs_gene=motifs_genes,
+  #Autism_gene=as_tibble(neuro_disorers) %>% filter(Category=="ASD genes") %>% dplyr::select(`Gene name`) %>% pull(),
+  ForecASD_gene=forecASD_genes,
+  SFARI_genes=positive_genes
+
+)
+library(VennDiagram)
+
+display_venn <- function(x, ...){
+  library(VennDiagram)
+  grid.newpage()
+  venn_object <- venn.diagram(x, filename = NULL, ...)
+  grid.draw(venn_object)
+}
+
+#png("C:\\Users\\hans\\OneDrive - Marquette University\\SCZ-DAWN\\Figures\\Fig_overlapping_genes.png")
+
+display_venn(
+        x,
+    #    category.names = c("MIRAGE FDR genes" , "Autism genes" , "DD/ID genes", "SCZ GWAS genes"),
+    category.names = c("MOTIFs genes" , "ForecASD genes" , "SFARI genes"),
+        # Circles
+        lwd = 2,
+        lty = 'blank',
+     #   fill = c("#999999", "#E69F00", "#56B4E9", "#009E73"),
+    fill = c("red", "blue", "green"),
+        # Numbers
+        cex = 1.5,
+        fontface = "italic",
+        # Set names
+        cat.cex = 1.5,
+        cat.fontface = "bold",
+        cat.default.pos = "outer",
+       # cat.dist = c(0.055, 0.055, 0.1, 0.1, 0.3 )
+    cat.pos = c(-20, 20, 180),  # Adjust angles as needed
+         cat.dist = c(0.055, 0.055, -0.15) # Adjust distances from the circles
+)
+```

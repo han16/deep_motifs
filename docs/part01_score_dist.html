@@ -551,15 +551,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16deepmotifstreeaf7bc41cf86f6db5db480ee34e1250c068e5e3d0targetblankaf7bc41a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16deepmotifstree2d46373bccde0cf697579fa28700aae20cec0415targetblank2d46373a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/deep_motifs/tree/af7bc41cf86f6db5db480ee34e1250c068e5e3d0" target="_blank">af7bc41</a>
+<a href="https://github.com/han16/deep_motifs/tree/2d46373bccde0cf697579fa28700aae20cec0415" target="_blank">2d46373</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16deepmotifstreeaf7bc41cf86f6db5db480ee34e1250c068e5e3d0targetblankaf7bc41a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16deepmotifstree2d46373bccde0cf697579fa28700aae20cec0415targetblank2d46373a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -569,7 +569,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/deep_motifs/tree/af7bc41cf86f6db5db480ee34e1250c068e5e3d0" target="_blank">af7bc41</a>.
+<a href="https://github.com/han16/deep_motifs/tree/2d46373bccde0cf697579fa28700aae20cec0415" target="_blank">2d46373</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -583,9 +583,6 @@ depends on. Below is the status of the Git repository when the results
 were generated:
 </p>
 <pre><code>
-Untracked files:
-    Untracked:  VennDiagram.2025-04-02_11-21-17.222608.log
-
 Unstaged changes:
     Modified:   analysis/part01_score_dist.Rmd
 
@@ -633,6 +630,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/deep_motifs/blob/2d46373bccde0cf697579fa28700aae20cec0415/analysis/part01_score_dist.Rmd" target="_blank">2d46373</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-04-02
+</td>
+<td>
+4/2/2025
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/deep_motifs/2d46373bccde0cf697579fa28700aae20cec0415/docs/part01_score_dist.html" target="_blank">2d46373</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-04-02
+</td>
+<td>
+4/2/2025
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1073,6 +1104,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/han16/deep_motifs/blob/2d46373bccde0cf697579fa28700aae20cec0415/docs/figure/part01_score_dist.Rmd/unnamed-chunk-4-1.png" target="_blank">2d46373</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-04-02
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/han16/deep_motifs/blob/92c7f1d0d6281802939b4a9363bc7def2b77162b/docs/figure/part01_score_dist.Rmd/unnamed-chunk-4-1.png" target="_blank">92c7f1d</a>
 </td>
 <td>
@@ -1108,7 +1150,7 @@ don &lt;- gwasResults %&gt;%
   # Add a cumulative position of each SNP
   arrange(chr, pos) %&gt;%
   mutate( poscum=pos+tot) %&gt;%
-  mutate( is_annotate=ifelse(Gene %in% gwasResults$Gene[gwasResults$post_prob &gt; pp_threshold], &quot;yes&quot;, &quot;no&quot;))
+  mutate( is_annotate=ifelse(Gene %in% gwasResults$Gene[gwasResults$post_prob &gt; 0.98], &quot;yes&quot;, &quot;no&quot;))
 
 # Then we need to prepare the X axis. Indeed we do not want to display the cumulative position of SNP in bp, but just show the chromosome name instead.
 axisdf = don %&gt;% group_by(chr) %&gt;% summarize(center=( max(poscum) + min(poscum) ) / 2 )
@@ -1125,7 +1167,7 @@ manhplot &lt;- ggplot(don, aes(x=poscum, y=post_prob)) +
   
   ylab(&quot;Deep MOTIFS score&quot;) +
   #ylim(0,max(log10(don$BF)) + 2) +
-  ylim(0,1) +
+  ylim(0,1.2) +
   xlab(&quot;Chromosome&quot;) +
   
   geom_hline(yintercept = pp_threshold, col = &quot;red&quot;) +
@@ -1144,7 +1186,7 @@ manhplot &lt;- ggplot(don, aes(x=poscum, y=post_prob)) +
     axis.title.y = element_text(size = 28),
     axis.text.y = element_text(size = 26, color = &quot;black&quot;),
   ) +
-  geom_label_repel( data=subset(don, is_annotate==&quot;yes&quot;), aes(label=Gene), size=7)
+  geom_label_repel( data=subset(don, is_annotate==&quot;yes&quot;), aes(label=Gene), size=3)
 manhplot</code></pre>
 <p><img src="figure/part01_score_dist.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -1171,6 +1213,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/han16/deep_motifs/blob/2d46373bccde0cf697579fa28700aae20cec0415/docs/figure/part01_score_dist.Rmd/unnamed-chunk-5-1.png" target="_blank">2d46373</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-04-02
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/han16/deep_motifs/blob/92c7f1d0d6281802939b4a9363bc7def2b77162b/docs/figure/part01_score_dist.Rmd/unnamed-chunk-5-1.png" target="_blank">92c7f1d</a>
 </td>
 <td>
@@ -1191,6 +1244,43 @@ han
   geom_vline(xintercept = 0.5, color = &quot;green&quot;, linetype = &quot;dashed&quot;, size = 1)+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title </code></pre>
 <p><img src="figure/part01_score_dist.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
+Past versions of unnamed-chunk-6-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-6-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/deep_motifs/blob/2d46373bccde0cf697579fa28700aae20cec0415/docs/figure/part01_score_dist.Rmd/unnamed-chunk-6-1.png" target="_blank">2d46373</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-04-02
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code># Combine the data into a data frame
 data &lt;- data.frame(
   scores = c(result_round1$RISK_PROBABILITY_FUSION, forecASD_results$risk.score),
@@ -1209,6 +1299,43 @@ ggplot(data, aes(x = scores, fill = group)) +
   geom_vline(xintercept = 0.5, color = &quot;green&quot;, linetype = &quot;dashed&quot;, size = 1)+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title </code></pre>
 <p><img src="figure/part01_score_dist.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
+Past versions of unnamed-chunk-7-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-7-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/deep_motifs/blob/2d46373bccde0cf697579fa28700aae20cec0415/docs/figure/part01_score_dist.Rmd/unnamed-chunk-7-1.png" target="_blank">2d46373</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-04-02
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="implicated-risk-genes" class="section level2">
 <h2>implicated risk genes</h2>
@@ -1250,6 +1377,43 @@ labels &lt;- paste(labels, &quot;(&quot;, SFARI_table, &quot;)&quot;, sep = &quo
 # Create a pie chart
 pie(SFARI_table, labels = labels, main = &quot;break-down of motifs genes by SFARI categories&quot;, col = rainbow(length(SFARI_table)))</code></pre>
 <p><img src="figure/part01_score_dist.Rmd/unnamed-chunk-8-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-2">
+Past versions of unnamed-chunk-8-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-8-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/deep_motifs/blob/2d46373bccde0cf697579fa28700aae20cec0415/docs/figure/part01_score_dist.Rmd/unnamed-chunk-8-2.png" target="_blank">2d46373</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-04-02
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <ul>
 <li>with score cutoff 0.5, 447 genes are selected.</li>
 </ul>
@@ -1291,6 +1455,43 @@ labels &lt;- paste(labels, &quot;(&quot;, SFARI_table, &quot;)&quot;, sep = &quo
 # Create a pie chart
 pie(SFARI_table, labels = labels, main = &quot;break-down of forecASD genes by SFARI categories&quot;, col = rainbow(length(SFARI_table)))</code></pre>
 <p><img src="figure/part01_score_dist.Rmd/unnamed-chunk-9-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-2">
+Past versions of unnamed-chunk-9-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-9-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/deep_motifs/blob/2d46373bccde0cf697579fa28700aae20cec0415/docs/figure/part01_score_dist.Rmd/unnamed-chunk-9-2.png" target="_blank">2d46373</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-04-02
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <ul>
 <li>with cutoff 0.5, forecASD identified 471 risk genes.</li>
 </ul>
@@ -1373,6 +1574,43 @@ ggplot(df_long, aes(x = Ranking, y = Rank, group = Gene)) +
   theme_minimal() +
   theme(legend.position = &quot;none&quot;)            # Remove legend for clarity</code></pre>
 <p><img src="figure/part01_score_dist.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-1">
+Past versions of unnamed-chunk-11-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-11-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/deep_motifs/blob/2d46373bccde0cf697579fa28700aae20cec0415/docs/figure/part01_score_dist.Rmd/unnamed-chunk-11-1.png" target="_blank">2d46373</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-04-02
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code># Perform the test
 result &lt;- wilcox.test(total_risk_genes_rank1, total_risk_genes_rank2, paired = TRUE, alternative = &quot;two.sided&quot;)
 
@@ -1427,6 +1665,43 @@ display_venn(
          cat.dist = c(0.055, 0.055, -0.15) # Adjust distances from the circles
 )</code></pre>
 <p><img src="figure/part01_score_dist.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-1">
+Past versions of unnamed-chunk-12-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-12-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/deep_motifs/blob/2d46373bccde0cf697579fa28700aae20cec0415/docs/figure/part01_score_dist.Rmd/unnamed-chunk-12-1.png" target="_blank">2d46373</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-04-02
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">

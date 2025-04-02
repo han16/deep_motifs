@@ -119,7 +119,7 @@ don <- gwasResults %>%
   # Add a cumulative position of each SNP
   arrange(chr, pos) %>%
   mutate( poscum=pos+tot) %>%
-  mutate( is_annotate=ifelse(Gene %in% gwasResults$Gene[gwasResults$post_prob > pp_threshold], "yes", "no"))
+  mutate( is_annotate=ifelse(Gene %in% gwasResults$Gene[gwasResults$post_prob > 0.98], "yes", "no"))
 
 # Then we need to prepare the X axis. Indeed we do not want to display the cumulative position of SNP in bp, but just show the chromosome name instead.
 axisdf = don %>% group_by(chr) %>% summarize(center=( max(poscum) + min(poscum) ) / 2 )
@@ -136,7 +136,7 @@ manhplot <- ggplot(don, aes(x=poscum, y=post_prob)) +
   
   ylab("Deep MOTIFS score") +
   #ylim(0,max(log10(don$BF)) + 2) +
-  ylim(0,1) +
+  ylim(0,1.2) +
   xlab("Chromosome") +
   
   geom_hline(yintercept = pp_threshold, col = "red") +
@@ -155,7 +155,7 @@ manhplot <- ggplot(don, aes(x=poscum, y=post_prob)) +
     axis.title.y = element_text(size = 28),
     axis.text.y = element_text(size = 26, color = "black"),
   ) +
-  geom_label_repel( data=subset(don, is_annotate=="yes"), aes(label=Gene), size=7)
+  geom_label_repel( data=subset(don, is_annotate=="yes"), aes(label=Gene), size=3)
 manhplot
 ```
 

@@ -49,6 +49,126 @@ ggplot(result_round1, aes(x = result_round1$RISK_PROBABILITY_FUSION)) +
 
 
 ```{r, message=F, warning=F}
+## find gene coordinates 
+library(biomaRt)
+
+# Connect to the Ensembl database
+ensembl <- useMart("ensembl", dataset = "hsapiens_gene_ensembl")
+gene_names=result_round1$gene
+
+# Query gene coordinates using biomaRt
+gene_coords <- getBM(
+  attributes = c("hgnc_symbol", "chromosome_name", "start_position", "end_position", "strand"),
+  filters = "hgnc_symbol",
+  values = gene_names,
+  mart = ensembl
+)
+colnames(gene_coords)[1]="gene"
+
+result_round1_with_coordinate=result_round1 %>% right_join(gene_coords, by="gene")
+
+
+
+motifs_manhattan=data.frame(
+  chr=result_round1_with_coordinate$chromosome,
+  BP=result_round1_with_coordinate$start_position,
+  score=result_round1_with_coordinate$RISK_PROBABILITY_FUSION, 
+  gene=result_round1_with_coordinate$gene
+)
+motifs_manhattan=motifs_manhattan %>% drop_na()
+library(qqman)
+
+# Plot the Manhattan plot
+manhattan(
+  motifs_manhattan,
+  chr = "chr",           # Chromosome column
+  bp = "BP",             # Base pair position column
+  p = "score",           # Risk score column
+  snp = "gene",          # Gene name (optional)
+  ylim = c(0, 1),       # Adjust y-axis limit for better visualization
+  main = "Manhattan Plot of Gene Risk Scores",
+  xlab = "Chromosome",
+  ylab = "Deep-MOTIFs scores",
+  col = c("blue", "red"), # Alternating colors for chromosomes
+  suggestiveline = 0.9,  # Add a suggestive line (optional)
+  genomewideline = 0.5   # Add a genome-wide significance line (optional)
+)
+```
+
+
+```{r, message=F, warning=F}
+library(ggrepel)
+gwasResults=data.frame(Gene=result_round1_with_coordinate$gene, post_prob=result_round1_with_coordinate$RISK_PROBABILITY_FUSION, chr=result_round1_with_coordinate$chromosome, pos=result_round1_with_coordinate$start_position)
+gwasResults=gwasResults %>% drop_na()
+
+pp_threshold <- 0.5 
+
+don <- gwasResults %>% 
+  
+  # Compute chromosome size
+  group_by(chr) %>% 
+  summarise(chr_len=max(pos)) %>% 
+  
+  # Calculate cumulative position of each chromosome
+  mutate(tot=cumsum(as.numeric(chr_len))-as.numeric(chr_len)) %>%
+  dplyr::select(-chr_len) %>%
+  
+  # Add this info to the initial dataset
+  left_join(gwasResults, ., by=c("chr"="chr")) %>%
+  
+  # Add a cumulative position of each SNP
+  arrange(chr, pos) %>%
+  mutate( poscum=pos+tot) %>%
+  mutate( is_annotate=ifelse(Gene %in% gwasResults$Gene[gwasResults$post_prob > pp_threshold], "yes", "no"))
+
+# Then we need to prepare the X axis. Indeed we do not want to display the cumulative position of SNP in bp, but just show the chromosome name instead.
+axisdf = don %>% group_by(chr) %>% summarize(center=( max(poscum) + min(poscum) ) / 2 )
+
+manhplot <- ggplot(don, aes(x=poscum, y=post_prob)) +
+  
+  # Show all points
+  geom_point( aes(color=as.factor(chr)), alpha=2, size=3) +
+  scale_color_manual(values = rep(c("grey", "steelblue"), 22 )) +
+  
+  # custom X axis:
+  scale_x_continuous( label = axisdf$chr, breaks= axisdf$center ) +
+  #scale_y_continuous(expand = c(0, 0) ) +     # remove space between plot area and x axis
+  
+  ylab("Deep MOTIFS score") +
+  #ylim(0,max(log10(don$BF)) + 2) +
+  ylim(0,1) +
+  xlab("Chromosome") +
+  
+  geom_hline(yintercept = pp_threshold, col = "red") +
+  annotate("text", x = Inf, y = pp_threshold, label = sprintf("MOTIFS score = %s", pp_threshold), hjust = 1.1, vjust = -1, color = "red", size = 7) +
+  
+  # Custom the theme:
+  theme_bw() +
+  #ggtitle(i) + theme(plot.title = element_text(hjust = 0.5)) +
+  theme( 
+    legend.position="none",
+    panel.border = element_blank(),
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor.x = element_blank(),
+    axis.title.x = element_text(size = 28),
+    axis.text.x = element_text(size = 26, color = "black"),
+    axis.title.y = element_text(size = 28),
+    axis.text.y = element_text(size = 26, color = "black"),
+  ) +
+  geom_label_repel( data=subset(don, is_annotate=="yes"), aes(label=Gene), size=7)
+manhplot
+```
+
+
+
+
+
+
+
+
+
+
+```{r, message=F, warning=F}
 ggplot(forecASD_results, aes(x = forecASD_results$risk.score)) +
   geom_histogram(binwidth = 0.1, fill = "blue", color = "black", aes(y = ..count..)) +
   stat_bin(binwidth = 0.1, geom = "text", aes(label = ..count..), vjust = -0.5, color = "red") +

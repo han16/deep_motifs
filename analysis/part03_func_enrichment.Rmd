@@ -41,4 +41,104 @@ head(gostres$result)
 
 p <- gostplot(gostres, capped = F, interactive = T)
 p
+
 ```
+
+
+
+```{r, message=F, warning=F}
+
+#if (!requireNamespace("BiocManager", quietly = TRUE))
+#  install.packages("BiocManager")
+
+#BiocManager::install(c("clusterProfiler", "org.Hs.eg.db", "enrichplot"))
+
+
+# Load the libraries
+library(clusterProfiler)
+library(org.Hs.eg.db)  # For human gene annotations
+library(enrichplot)    # For visualization
+
+
+
+```
+
+
+
+
+```{r, message=F, warning=F}
+ego <- enrichGO(gene          = top_genes, 
+               OrgDb         = org.Hs.eg.db, 
+               keyType       = "SYMBOL", 
+               ont           = "BP",        # BP: Biological Process, CC: Cellular Component, MF: Molecular Function
+               pAdjustMethod = "BH", 
+               pvalueCutoff  = 0.05, 
+               qvalueCutoff  = 0.2)
+
+# View the result
+#head(ego)
+
+# Dotplot for GO enrichment
+dotplot(ego, showCategory=10, title="GO Enrichment - Biological Process")
+
+
+
+# Compute pairwise term similarity
+ego_sim <- pairwise_termsim(ego)
+
+# Visualize the results using the enrichment map plot
+emapplot(ego_sim)+
+ # theme(legend.position = "none")
+  theme(legend.text = element_text(size = 1))
+
+
+
+
+#emapplot(pairwise_termsim(ego), showCategory = 30, label = FALSE) + 
+#  theme(legend.text = element_text(size = 8))
+```
+
+
+```{r, message=F, warning=F}
+
+# Convert gene symbols to Entrez IDs
+gene_df <- bitr(top_genes, fromType = "SYMBOL", toType = "ENTREZID", OrgDb = org.Hs.eg.db)
+
+# Extract Entrez IDs
+entrez_ids <- gene_df$ENTREZID
+#print(entrez_ids)
+
+ekegg <- enrichKEGG(gene         = entrez_ids, 
+                   organism     = "hsa",      # Human
+                   pAdjustMethod = "BH", 
+                   pvalueCutoff  = 0.05)
+
+# View the result
+#head(ekegg)
+
+# Barplot for KEGG enrichment
+barplot(ekegg, showCategory= nrow(ekegg), title="KEGG Pathway Enrichment")+
+  theme(axis.text.y = element_text(size = 5))
+
+
+# Network plot for KEGG pathways
+cnetplot(ekegg, circular = TRUE, colorEdge = TRUE)
+
+
+
+# Convert Entrez IDs to Gene Symbols
+gene_symbols <- bitr(entrez_ids, fromType = "ENTREZID", toType = "SYMBOL", OrgDb = org.Hs.eg.db)
+
+# Merge the converted gene symbols back into the enrichment result
+ekegg@result$geneID <- sapply(strsplit(ekegg@result$geneID, "/"), function(ids) {
+  symbols <- gene_symbols$SYMBOL[match(ids, gene_symbols$ENTREZID)]
+  paste(symbols, collapse = "/")
+})
+
+# Plot the cnetplot with gene symbols
+cnetplot(ekegg, circular = TRUE, colorEdge = TRUE)
+
+```
+
+
+

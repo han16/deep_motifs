@@ -118,7 +118,9 @@ ggplot(highlight_terms %>% filter(term_id %in% common_term_id), aes(x = term_id,
   geom_bar(stat = "identity", position = position_dodge()) +
   coord_flip() +  # Rotate x and y axes
   theme(axis.text.x = element_text(angle =0, vjust = 0.5, size=15), 
-        axis.text.y = element_text(size = 5))+
+        axis.text.y = element_text(size = 5), 
+        axis.title.x = element_text(size = 15)   # Font size for y-axis label
+        )+
   labs(title = "Comparison of top enriched items for Deep-MOTIFs genes and SFARI genes ", x = "", y = expression(paste(-log[10](p-value))))+
   theme(legend.title = element_blank()# Remove legend title
         )+
@@ -169,10 +171,27 @@ ego <- enrichGO(gene          = top_genes,
 # View the result
 #head(ego)
 
+
+```
+
+
+
+```{r, message=F, warning=F}
 # Dotplot for GO enrichment
-dotplot(ego, showCategory=10, title="GO Enrichment - Biological Process")
+dotplot(ego, showCategory=nrow(ego), title="GO Enrichment - Biological Process")
+
+# Extract significant terms while preserving the enrichResult object
+significant_ego <- ego
+significant_ego@result <- significant_ego@result[significant_ego@result$p.adjust < 0.05, ]
+
+# Create the dot plot with significant terms only
+dotplot(significant_ego, showCategory = nrow(significant_ego), title = "GO Enrichment - Biological Process")
+```
 
 
+
+
+```{r, message=F, warning=F}
 
 # Compute pairwise term similarity
 ego_sim <- pairwise_termsim(ego)
@@ -188,6 +207,11 @@ emapplot(ego_sim)+
 #emapplot(pairwise_termsim(ego), showCategory = 30, label = FALSE) + 
 #  theme(legend.text = element_text(size = 8))
 ```
+
+
+
+
+
 
 
 ```{r, message=F, warning=F}
@@ -232,4 +256,6 @@ cnetplot(ekegg, circular = TRUE, colorEdge = TRUE)
 ```
 
 
+
+* [reference-clusterProfiler 4.0](https://www.sciencedirect.com/science/article/pii/S2666675821000667)
 

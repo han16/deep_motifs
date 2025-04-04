@@ -116,9 +116,13 @@ common_term_id=intersect(highlight_terms_motif_term_id, highlight_terms_sfari_te
 ```{r, message=F, warning=F}
 ggplot(highlight_terms %>% filter(term_id %in% common_term_id), aes(x = term_id, y = -log10(p_value), fill = query)) +
   geom_bar(stat = "identity", position = position_dodge()) +
-  theme(axis.text.x = element_text(angle =30, vjust = 0.5, size=7))+
+  coord_flip() +  # Rotate x and y axes
+  theme(axis.text.x = element_text(angle =0, vjust = 0.5, size=15), 
+        axis.text.y = element_text(size = 5))+
   labs(title = "Comparison of top enriched items for Deep-MOTIFs genes and SFARI genes ", x = "", y = expression(paste(-log[10](p-value))))+
-   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+  theme(legend.title = element_blank()# Remove legend title
+        )+
+   theme(plot.title = element_text(hjust = 0.5, size=12))  #center the title
 
 ```
 

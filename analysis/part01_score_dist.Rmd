@@ -40,7 +40,8 @@ forecASD_results=forecASD_results[forecASD_results['gene'] != 0,]  # remove rows
 ggplot(result_round1, aes(x = result_round1$RISK_PROBABILITY_FUSION)) +
   geom_histogram(binwidth = 0.1, fill = "blue", color = "black", aes(y = ..count..)) +
   stat_bin(binwidth = 0.1, geom = "text", aes(label = ..count..), vjust = -0.5, color = "red") +
-  labs(title = "Histogram of deep motif scores", x = "deep motif score", y = "")+
+  #geom_density(color = "darkorange", size = .2) +
+  labs(title = "Histogram of Deep MOTIFs scores", x = "Deep MOTIFs score", y = "Number of genes")+
   geom_vline(xintercept = 0.5, color = "green", linetype = "dashed", size = 1)+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
 
@@ -48,7 +49,7 @@ ggplot(result_round1, aes(x = result_round1$RISK_PROBABILITY_FUSION)) +
 
 
 
-```{r, message=F, warning=F}
+```{r, message=F, warning=F, eval=F}
 ## find gene coordinates 
 library(biomaRt)
 
@@ -96,7 +97,7 @@ manhattan(
 ```
 
 
-```{r, message=F, warning=F}
+```{r, message=F, warning=F, eval=F}
 library(ggrepel)
 gwasResults=data.frame(Gene=result_round1_with_coordinate$gene, post_prob=result_round1_with_coordinate$RISK_PROBABILITY_FUSION, chr=result_round1_with_coordinate$chromosome, pos=result_round1_with_coordinate$start_position)
 gwasResults=gwasResults %>% drop_na()
@@ -185,20 +186,25 @@ ggplot(forecASD_results, aes(x = forecASD_results$risk.score)) +
 # Combine the data into a data frame
 data <- data.frame(
   scores = c(result_round1$RISK_PROBABILITY_FUSION, forecASD_results$risk.score),
-  group = factor(c(rep("deep-motifs",length(result_round1$RISK_PROBABILITY_FUSION)), rep("forecASD", length(forecASD_results$risk.score))))
+  group = factor(c(rep("Deep-MOTIFs",length(result_round1$RISK_PROBABILITY_FUSION)), rep("forecASD", length(forecASD_results$risk.score))))
 )
 
-# Load ggplot2 for plotting
-library(ggplot2)
 
 # Create the histogram with side-by-side bars
 ggplot(data, aes(x = scores, fill = group)) +
   geom_histogram(position = "dodge", bins = 20, alpha = 0.7) +
-  #geom_histogram(position = "dodge", bins = 20, color = "black") +
-  #stat_bin(aes(label = ..count..), geom = "text", position = position_dodge(width = 0.9), vjust = -0.5) +
-  labs(title = "Histogram of scores by forecASD and deep-motifs", x = "scores", y = "")+
+  stat_bin(
+    aes(label = ..count..),
+    geom = "text",
+    position = position_dodge(width = 0.1),
+    vjust =-0.5,
+    size = 2, 
+    bins = 20
+  ) +
+  labs(title = "", x = "scores", y = "Number of genes")+
   geom_vline(xintercept = 0.5, color = "green", linetype = "dashed", size = 1)+
-  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+  theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title 
+  theme(legend.position = "bottom")
 ```
 
 
@@ -354,29 +360,52 @@ total_risk_genes_rank2=match(total_risk_genes, forecASD_results_sorted$gene)
 df <- data.frame(
   Gene = total_risk_genes,
   Rank1_forecASD = total_risk_genes_rank2,
-  Rank2_deep_motifs = total_risk_genes_rank1
+  Rank2_Deep_MOTIFs = total_risk_genes_rank1
 )
 
 # Reshape data for plotting
 df_long <- df %>%
-  tidyr::pivot_longer(cols = c(Rank1_forecASD, Rank2_deep_motifs), names_to = "Ranking", values_to = "Rank")
+  tidyr::pivot_longer(cols = c(Rank1_forecASD, Rank2_Deep_MOTIFs), names_to = "Ranking", values_to = "Rank")
+
+# Join df_long with SFARI_genes on gene symbol
+df_long=df_long %>% left_join(SFARI_genes %>% dplyr::select(gene.symbol, gene.score), 
+            by = c("Gene" = "gene.symbol"))
+
+
+# Convert gene.score to a factor
+df_long$gene.score <- factor(df_long$gene.score, levels = c("NA", "1", "2", "3"))
+
+gene.score_colors <- c(
+  "NA" = "#1f77b4",  # blue
+  "3" = "blue",  # orange
+  "2" = "#2ca02c",  # green
+  "1" = "#d62728"   # red
+  # Add more as needed
+)
 
 # Plot the slope graph with gene labels on both sides
 ggplot(df_long, aes(x = Ranking, y = Rank, group = Gene)) +
-  geom_line(aes(color = Gene), size = 1) +  # Connecting lines
-  geom_point(size = 1) +                    # Points at each ranking
-  # Add gene labels on the left side for Rank1
-  geom_text(data = df_long %>% filter(Ranking == "Rank1_forecASD"), 
+  geom_line(aes(color = gene.score), size = 1) +  # Connecting lines
+  geom_point(size = 1) +     # Points at each ranking
+  
+  # Labels for left side
+  geom_text(data = df_long %>% filter(Ranking == "Rank1_forecASD"),
             aes(label = Gene), 
             hjust = 1.2, size = 2) +
-  # Add gene labels on the right side for Rank2
-  geom_text(data = df_long %>% filter(Ranking == "Rank2_deep_motifs"), 
+  
+   #Labels for right side
+  geom_text(data = df_long %>% filter(Ranking == "Rank2_Deep_MOTIFs"),
             aes(label = Gene), 
             hjust = -0.2, size = 2) +
+  
+  scale_color_manual(values = gene.score_colors, # 🎨 Custom colors
+                     name = "SFARI gene score"
+                     ) +  
+  
   scale_y_reverse() +                       # Reverse y-axis for ranking
   labs(title = "", x = "", y = "Rank") +
   theme_minimal() +
-  theme(legend.position = "none")            # Remove legend for clarity
+  theme(legend.position = "right")            # Remove legend for clarity
 
 
 # Perform the test

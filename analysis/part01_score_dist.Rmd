@@ -37,14 +37,14 @@ forecASD_results=forecASD_results[forecASD_results['gene'] != 0,]  # remove rows
 
 
 ```{r, message=F, warning=F}
-ggplot(result_round1, aes(x = result_round1$RISK_PROBABILITY_FUSION)) +
+hist_plot1=ggplot(result_round1, aes(x = result_round1$RISK_PROBABILITY_FUSION)) +
   geom_histogram(binwidth = 0.1, fill = "blue", color = "black", aes(y = ..count..)) +
   stat_bin(binwidth = 0.1, geom = "text", aes(label = ..count..), vjust = -0.5, color = "red") +
   #geom_density(color = "darkorange", size = .2) +
   labs(title = "Histogram of Deep MOTIFs scores", x = "Deep MOTIFs score", y = "Number of genes")+
   geom_vline(xintercept = 0.5, color = "green", linetype = "dashed", size = 1)+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
-
+hist_plot1
 ```
 
 
@@ -170,13 +170,13 @@ manhplot
 
 
 ```{r, message=F, warning=F}
-ggplot(forecASD_results, aes(x = forecASD_results$risk.score)) +
+hist_plot2=ggplot(forecASD_results, aes(x = forecASD_results$risk.score)) +
   geom_histogram(binwidth = 0.1, fill = "blue", color = "black", aes(y = ..count..)) +
   stat_bin(binwidth = 0.1, geom = "text", aes(label = ..count..), vjust = -0.5, color = "red") +
   labs(title = "Histogram of forecASD scores", x = "forecASD score", y = "")+
   geom_vline(xintercept = 0.5, color = "green", linetype = "dashed", size = 1)+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
-
+hist_plot2
 ```
 
 
@@ -206,6 +206,21 @@ ggplot(data, aes(x = scores, fill = group)) +
   theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title 
   theme(legend.position = "bottom")
 ```
+
+```{r, message=F, warning=F}
+library(patchwork)
+# Combine plots side by side
+hist_combined <- hist_plot1 + hist_plot2
+
+# Or arrange vertically: p1 / p2
+print(hist_combined)
+```
+
+
+
+
+
+
 
 
 
@@ -240,16 +255,37 @@ datatable(extensions = 'Buttons',
 
 SFARI_table=table(SFARI_score_for_motif_genes, useNA = "ifany")
 
+SFARI_table
 
-# Define labels, replacing NA with a readable string
-labels <- names(SFARI_table)
-labels[is.na(labels)] <- "NA"
+```
+ 
+ 
+ 
+ 
+```{r, message=F, warning=F}
+ 
+ # Create data frame
+df <- data.frame(
+  score = c("1", "2", "3", "NA"),
+  count = c(206, 77, 10, 154)
+)
 
-# Append counts to labels
-labels <- paste(labels, "(", SFARI_table, ")", sep = "")
+# Sort descending by count (important for label matching pie slices)
+df <- df %>%
+  arrange(desc(score)) %>%
+  mutate(
+    ypos = cumsum(count) - count / 2
+  )
 
-# Create a pie chart
-pie(SFARI_table, labels = labels, main = "break-down of motifs genes by SFARI categories", col = rainbow(length(SFARI_table)))
+# Create pie chart with count labels
+pie_fig1=ggplot(df, aes(x = "", y = count, fill = score)) +
+  geom_col(width = 1) +
+  coord_polar(theta = "y") +
+  geom_text(aes(y = ypos, label = count), color = "black", size = 5) +
+  labs(title = "Deep MOTIFs Genes", fill = "SFARI score") +
+  theme_void() +
+  theme(legend.position = "right")
+ pie_fig1
 ```
 
 
@@ -287,20 +323,47 @@ datatable(extensions = 'Buttons',
 
 SFARI_table=table(SFARI_score_for_forecASD_genes, useNA = "ifany")
 
-
-# Define labels, replacing NA with a readable string
-labels <- names(SFARI_table)
-labels[is.na(labels)] <- "NA"
-
-# Append counts to labels
-labels <- paste(labels, "(", SFARI_table, ")", sep = "")
-
-# Create a pie chart
-pie(SFARI_table, labels = labels, main = "break-down of forecASD genes by SFARI categories", col = rainbow(length(SFARI_table)))
+SFARI_table
 ```
 
 
 * with cutoff 0.5, forecASD identified 471 risk genes. 
+
+
+
+```{r, message=F, warning=F}
+ 
+ # Create data frame
+df <- data.frame(
+  score = c("1", "2", "3", "NA"),
+  count = c(176, 50, 9, 236)
+)
+
+# Sort descending by count (important for label matching pie slices)
+df <- df %>%
+  arrange(desc(score)) %>%
+  mutate(
+    ypos = cumsum(count) - count / 2
+  )
+
+# Create pie chart with count labels
+pie_fig2=ggplot(df, aes(x = "", y = count, fill = score)) +
+  geom_col(width = 1) +
+  coord_polar(theta = "y") +
+  geom_text(aes(y = ypos, label = count), color = "black", size = 5) +
+  labs(title = "forecASD Genes", fill = "SFARI score") +
+  theme_void() +
+  theme(legend.position = "right")
+pie_fig2 
+```
+
+
+```{r, message=F, warning=F}
+library(patchwork)
+pie_combine=pie_fig1+pie_fig2
+print(pie_combine)
+```
+
 
 
 ## deep-motifs new genes not in SFARI cate 1 

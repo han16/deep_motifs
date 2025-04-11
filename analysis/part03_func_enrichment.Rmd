@@ -21,6 +21,8 @@ root <- rprojroot::find_rstudio_root_file()
 
 
 
+
+
 ```{r, message=F, warning=F}
 #result_round1=as_tibble(read.csv(file.path(root, "../DiWangResults/ASD_prediction_results/ASD_RISK_PREDICTION_round1.csv"))) # old results 
 
@@ -148,20 +150,53 @@ highlight_terms_wide=highlight_terms%>%  # convert from long format to wide form
 highlight_terms_wide=highlight_terms_wide %>% drop_na()
 dim(highlight_terms_wide)
 
-# Scatter plot
-ggplot(highlight_terms_wide, aes(x = -log10(`pvalue_Deep-MOTIFs genes`), y = -log10(`pvalue_SFARI genes`))) +
-  geom_point(aes(), alpha = 0.6, size = 2) +
-  scale_color_manual(values = c("grey70", "red")) +
-  geom_abline(slope = 1, intercept = 0, linetype = "solid", color="red") +
+
+highlight_terms_wide <- highlight_terms_wide %>%
+  mutate(group = case_when(
+    grepl("^GO:", term_id) ~ "GO",
+    grepl("^HPA:", term_id) ~ "HPA",
+    grepl("^HP:", term_id) ~ "HP",
+    grepl("^TF:", term_id) ~ "TF",
+    TRUE ~ "Others"
+  ))
+
+top10_labels <- highlight_terms_wide %>%
+  mutate(min_p = pmin(`pvalue_Deep-MOTIFs genes`, `pvalue_SFARI genes`)) %>%
+  arrange(min_p) %>%
+  dplyr::slice(1:10)
+
+library(ggrepel)
+
+ggplot(highlight_terms_wide, aes(x = -log10(`pvalue_Deep-MOTIFs genes`), 
+                                 y = -log10(`pvalue_SFARI genes`), 
+                                 color = group)) +
+  geom_point(alpha = 0.6, size = 2) +
+  geom_abline(slope = 1, intercept = 0, linetype = "solid", color = "red", size=1) +
+  scale_color_manual(values = c(
+    "GO" = "orange", 
+    "HPA" = "darkviolet", 
+    "HP" = "990", 
+    "TF" = "skyblue4",
+    "Others" = "grey70")) +
+  geom_text_repel(
+    data = top10_labels,
+    aes(label = term_name),
+    size = 3,
+    max.overlaps = Inf
+  ) +
   labs(
     title = "Comparison of -log10(p-values)",
     x = "-log10(p) Deep-MOTIFs",
     y = "-log10(p) SFARI",
-    color = "Highlighted"
-  )+
-   theme(plot.title = element_text(hjust = 0.5, size=12))  #center the title 
+    color = "Group"
+  ) +
+  theme(plot.title = element_text(hjust = 0.5, size = 12))
+
+
+
 ```
 
+* each point is one significant GO term 
 
 
 

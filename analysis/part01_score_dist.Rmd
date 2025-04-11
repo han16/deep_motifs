@@ -464,7 +464,7 @@ ggplot(df_long, aes(x = Ranking, y = Rank, group = Gene)) +
             hjust = -0.2, size = 2) +
   
   scale_color_manual(values = gene.score_colors, # 🎨 Custom colors
-                     name = "SFARI gene score"
+                     name = "SFARI score"
                      ) +  
   
   scale_y_reverse() +                       # Reverse y-axis for ranking

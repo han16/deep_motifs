@@ -171,12 +171,12 @@ ggplot(highlight_terms_wide, aes(x = -log10(`pvalue_Deep-MOTIFs genes`),
                                  y = -log10(`pvalue_SFARI genes`), 
                                  color = group)) +
   geom_point(alpha = 0.6, size = 2) +
-  geom_abline(slope = 1, intercept = 0, linetype = "solid", color = "red", size=1) +
+  geom_abline(slope = 1, intercept = 0, linetype = "solid", color = "black", size=1) +
   scale_color_manual(values = c(
-    "GO" = "orange", 
-    "HPA" = "darkviolet", 
+    "GO" = "goldenrod2", 
+    "HPA" = "purple4", 
     "HP" = "990", 
-    "TF" = "skyblue4",
+    "TF" = "blue",
     "Others" = "grey70")) +
   geom_text_repel(
     data = top10_labels,
@@ -185,11 +185,12 @@ ggplot(highlight_terms_wide, aes(x = -log10(`pvalue_Deep-MOTIFs genes`),
     max.overlaps = Inf
   ) +
   labs(
-    title = "Comparison of -log10(p-values)",
-    x = "-log10(p) Deep-MOTIFs",
-    y = "-log10(p) SFARI",
+    title = "",
+    x = "-log10(p value): Deep-MOTIFs",
+    y = "-log10(p value): SFARI",
     color = "Group"
   ) +
+  theme(legend.title = element_blank())+
   theme(plot.title = element_text(hjust = 0.5, size = 12))
 
 

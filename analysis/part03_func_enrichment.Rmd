@@ -362,3 +362,188 @@ cnetplot(ekegg, circular = TRUE, colorEdge = TRUE, cex_label_gene=0.4, cex_label
 
 * [reference-clusterProfiler 4.0](https://www.sciencedirect.com/science/article/pii/S2666675821000667)
 
+
+
+## novel pathways in MOTIFs
+
+
+```{r, message=F, warning=F}
+pvalue_threshold=0.05
+gostres2_all <- gost(query = list("Deep-MOTIFs genes"=top_genes, "SFARI genes"=positive_genes), 
+organism = "hsapiens", significant = F, correction_method = "bonferroni")
+
+```
+
+
+
+```{r, message=F, warning=F}
+highlight_terms_motif_term_id=gostres2_all$result %>% filter(query=="Deep-MOTIFs genes")%>% filter(p_value<pvalue_threshold)  %>% dplyr::select(term_id)%>% pull()
+highlight_terms_sfari_term_id=gostres2_all$result %>% filter(query=="SFARI genes")%>% filter(p_value>pvalue_threshold)%>% dplyr::select(term_id)%>% pull()
+common_term_id=intersect(highlight_terms_motif_term_id, highlight_terms_sfari_term_id)
+
+
+highlight_terms=gostres2_all$result %>% filter (term_id %in% common_term_id) %>% dplyr::select(term_id, term_name, query, p_value)
+```
+
+
+
+
+
+```{r, message=F, warning=F}
+highlight_terms_wide=highlight_terms%>%  # convert from long format to wide format 
+  pivot_wider(
+    names_from = query,
+    values_from = p_value,
+    names_prefix = "pvalue_"
+  )
+highlight_terms_wide=highlight_terms_wide %>% drop_na()
+dim(highlight_terms_wide)
+
+highlight_terms_wide%>% 
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+
+```{r, message=F, warning=F}
+highlight_terms_wide <- highlight_terms_wide %>%
+  mutate(group = case_when(
+    grepl("^GO:", term_id) ~ "GO",
+    grepl("^HPA:", term_id) ~ "HPA",
+    grepl("^HP:", term_id) ~ "HP",
+    grepl("^TF:", term_id) ~ "TF",
+    TRUE ~ "Others"
+  ))
+
+top10_labels <- highlight_terms_wide %>%
+  mutate(min_p = pmin(`pvalue_Deep-MOTIFs genes`, `pvalue_SFARI genes`)) %>%
+  arrange(min_p) %>%
+  dplyr::slice(1:10)
+
+library(ggrepel)
+
+ggplot(highlight_terms_wide, aes(x = -log10(`pvalue_Deep-MOTIFs genes`), 
+                                 y = -log10(`pvalue_SFARI genes`), 
+                                 color = group)) +
+  geom_point(alpha = 0.6, size = 2) +
+  #geom_abline(slope = 1, intercept = 0, linetype = "solid", color = "black", size=1) +
+  scale_color_manual(values = c(
+    "GO" = "goldenrod2", 
+    "HPA" = "purple4", 
+    "HP" = "990", 
+    "TF" = "blue",
+    "Others" = "grey70")) +
+  geom_text_repel(
+    data = top10_labels,
+    aes(label = term_name),
+    size = 3,
+    max.overlaps = Inf
+  ) +
+  labs(
+    title = "",
+    x = "-log10(p value): Deep-MOTIFs",
+    y = "-log10(p value): SFARI",
+    color = "Group"
+  ) +
+  theme(legend.title = element_blank())+
+  theme(plot.title = element_text(hjust = 0.5, size = 12))
+
+```
+
+
+
+## missed pathways in MOTIFs
+
+
+```{r, message=F, warning=F}
+pvalue_threshold=0.05
+gostres2_all <- gost(query = list("Deep-MOTIFs genes"=top_genes, "SFARI genes"=positive_genes), 
+organism = "hsapiens", significant = F, correction_method = "bonferroni")
+
+```
+
+
+
+```{r, message=F, warning=F}
+highlight_terms_motif_term_id=gostres2_all$result %>% filter(query=="Deep-MOTIFs genes")%>% filter(p_value>pvalue_threshold)  %>% dplyr::select(term_id)%>% pull()
+highlight_terms_sfari_term_id=gostres2_all$result %>% filter(query=="SFARI genes")%>% filter(p_value<pvalue_threshold)%>% dplyr::select(term_id)%>% pull()
+common_term_id=intersect(highlight_terms_motif_term_id, highlight_terms_sfari_term_id)
+
+
+highlight_terms=gostres2_all$result %>% filter (term_id %in% common_term_id) %>% dplyr::select(term_id, term_name, query, p_value)
+```
+
+
+
+
+
+```{r, message=F, warning=F}
+highlight_terms_wide=highlight_terms%>%  # convert from long format to wide format 
+  pivot_wider(
+    names_from = query,
+    values_from = p_value,
+    names_prefix = "pvalue_"
+  )
+highlight_terms_wide=highlight_terms_wide %>% drop_na()
+dim(highlight_terms_wide)
+
+highlight_terms_wide%>% 
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+
+```{r, message=F, warning=F}
+highlight_terms_wide <- highlight_terms_wide %>%
+  mutate(group = case_when(
+    grepl("^GO:", term_id) ~ "GO",
+    grepl("^HPA:", term_id) ~ "HPA",
+    grepl("^HP:", term_id) ~ "HP",
+    grepl("^TF:", term_id) ~ "TF",
+    TRUE ~ "Others"
+  ))
+
+top10_labels <- highlight_terms_wide %>%
+  mutate(min_p = pmin(`pvalue_Deep-MOTIFs genes`, `pvalue_SFARI genes`)) %>%
+  arrange(min_p) %>%
+  dplyr::slice(1:10)
+
+library(ggrepel)
+
+ggplot(highlight_terms_wide, aes(x = -log10(`pvalue_Deep-MOTIFs genes`), 
+                                 y = -log10(`pvalue_SFARI genes`), 
+                                 color = group)) +
+  geom_point(alpha = 0.6, size = 2) +
+  #geom_abline(slope = 1, intercept = 0, linetype = "solid", color = "black", size=1) +
+  scale_color_manual(values = c(
+    "GO" = "goldenrod2", 
+    "HPA" = "purple4", 
+    "HP" = "990", 
+    "TF" = "blue",
+    "Others" = "grey70")) +
+  geom_text_repel(
+    data = top10_labels,
+    aes(label = term_name),
+    size = 3,
+    max.overlaps = Inf
+  ) +
+  labs(
+    title = "",
+    x = "-log10(p value): Deep-MOTIFs",
+    y = "-log10(p value): SFARI",
+    color = "Group"
+  ) +
+  theme(legend.title = element_blank())+
+  theme(plot.title = element_text(hjust = 0.5, size = 12))
+
+```

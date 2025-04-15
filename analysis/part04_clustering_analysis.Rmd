@@ -64,7 +64,12 @@ query_genes_in_batches <- function(genes, batch_size = 50) {
 top_genes_info <- query_genes_in_batches(top_genes, batch_size = 1000)
 #write.csv(jack_fu_gene_info, file="C:\\Users\\hans\\OneDrive - Marquette University\\AI_for_Autism\\jack_fu_gene_info.csv")
 
+```
 
+
+
+
+```{r, message=F, warning=F}
 ############# load string protein interaction data 
 load("C:\\han\\Projects\\IntegratePPI\\tmp01_STRING_graph.Rdata")  # this is the protein interaction with score>400
 
@@ -79,22 +84,26 @@ top_genes_interaction=data.frame(protein1_gene, protein2_gene) %>% drop_na()  # 
 g <- graph_from_data_frame(top_genes_interaction, directed = FALSE)
 
 # Simplify the graph by removing multi-edges and loops (if any)
-g <- simplify(g, remove.multiple = TRUE, remove.loops = TRUE)
+g <- igraph::simplify(g, remove.multiple = TRUE, remove.loops = TRUE)
 
 # Compute community structure
 fg_community <- fastgreedy.community(g)
 
 # Print community structure
-print(fg_community)
+#print(fg_community)
 
 # Get membership (which community each gene belongs to)
 #membership(fg_community)
 
 # Plot the network with communities
 plot(fg_community, g, vertex.size = 5, vertex.label = NA,  main = "Gene module communities")
+```
+
+
+
 
   
-
+```{r, message=F, warning=F, eval=F}
 
 # Extract the membership of each vertex
 membership_vector <- membership(fg_community)
@@ -105,8 +114,18 @@ print(membership_vector)
 # Group the vertices by community
 communities <- split(V(g)$name, membership_vector)
 
-# Print each community and its members
-for (i in seq_along(communities)) {
-  cat("Community", i, ":", communities[[i]], "\n")
+for (i in seq_along(fg_community)) {
+  # Extract the subgraph of the current community
+  subgraph <- induced_subgraph(g, which(membership(fg_community) == i))
+  
+  # Get edge list
+  edges <- as.data.frame(get.edgelist(subgraph))
+  
+  # Create file name for the community
+  file_name <- paste0("C:\\han\\Projects\\2025_02_deep_motifs\\results\\community_", i, ".csv")
+  
+  # Write edge list to CSV file
+  write.csv(edges, file_name, row.names = FALSE, col.names = c("Source", "Target"))
 }
+
 ```

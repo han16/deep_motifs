@@ -10,6 +10,7 @@ output:
 ```{r, message=F, warning=F}
 rm(list=ls())
 set.seed(123)
+setwd("C:\\han\\Projects\\2025_02_deep_motifs\\deep_motifs\\")
 library(tidyverse)
 library(ggplot2)
 library(DT)
@@ -29,7 +30,7 @@ root <- rprojroot::find_rstudio_root_file()
 
 ## Input data 
 
-1. TADA p values, FDRs for all genes in  Fu, et al paper and FDR's in Trost paper 
+### 1. TADA p values, FDRs for all genes in  Fu, et al paper and FDR's in Trost paper 
 
 ```{r, message=F, warning=F}
 jack_fu=as_tibble(read.csv(file.path(root, "../../../Dataset/20231221_PMID_35982160_JackFu/Fu 2022 Suppl-41588_2022_1104_MOESM3_ESM.csv")))  # 
@@ -58,7 +59,7 @@ length(intersect(jack_fu$gene_gencodeV33, trost_data$gene))
 
 
 
-2. Brainspan from Brueggeman, et al paper 
+### 2. Brainspan from Brueggeman, et al paper 
 
 
 ```{r, message=F, warning=F}
@@ -82,8 +83,13 @@ length(intersect(bs_genes, jack_fu$gene_gencodeV33))
 * of 18159 genes in fu data, 15999 appear in brainspan data 
 
 
+### 3. protein interactions from STRING database, use version 12.0
 
-3. protein interaction from STRING, Brueggeman, et al paper
+
+### 4. SFARI database 
+
+
+##  protein interaction from STRING, Brueggeman, et al paper
 
 
 ```{r, message=F, warning=F}
@@ -101,7 +107,7 @@ length(intersect(string_genes, jack_fu$gene_gencodeV33))
 
 
 
-4. forecASD results 
+##  forecASD results 
 
 ```{r, message=F, warning=F}
 foreASD_result=as_tibble(read.csv("C:\\han\\Projects\\IntegratePPI\\forecASDPaper\\forecASD_table.csv"))
@@ -120,7 +126,7 @@ length(intersect(foreASD_result$symbol, jack_fu$gene_gencodeV33))
 ### gene symbol, ENSG, ENSP
 
 
-```{r, message=F, warning=F}
+```{r, message=F, warning=F, eval=F}
 #if (!requireNamespace("BiocManager", quietly = TRUE))
 #    install.packages("BiocManager")
 

@@ -41,7 +41,7 @@ hist_plot1=ggplot(result_round1, aes(x = result_round1$RISK_PROBABILITY_FUSION))
   geom_histogram(binwidth = 0.1, fill = "blue", color = "black", aes(y = ..count..)) +
   stat_bin(binwidth = 0.1, geom = "text", aes(label = ..count..), vjust = -0.5, color = "red") +
   #geom_density(color = "darkorange", size = .2) +
-  labs(title = "Histogram of Deep MOTIFs scores", x = "Deep MOTIFs score", y = "Number of genes")+
+  labs(title = "Histogram of Deep-MOTIFs scores", x = "Deep-MOTIFs score", y = "Number of genes")+
   geom_vline(xintercept = 0.5, color = "green", linetype = "dashed", size = 1)+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
 hist_plot1
@@ -135,7 +135,7 @@ manhplot <- ggplot(don, aes(x=poscum, y=post_prob)) +
   scale_x_continuous( label = axisdf$chr, breaks= axisdf$center ) +
   #scale_y_continuous(expand = c(0, 0) ) +     # remove space between plot area and x axis
   
-  ylab("Deep MOTIFS score") +
+  ylab("Deep-MOTIFS score") +
   #ylim(0,max(log10(don$BF)) + 2) +
   ylim(0,1.2) +
   xlab("Chromosome") +
@@ -282,7 +282,7 @@ pie_fig1=ggplot(df, aes(x = "", y = count, fill = score)) +
   geom_col(width = 1) +
   coord_polar(theta = "y") +
   geom_text(aes(y = ypos, label = count), color = "black", size = 5) +
-  labs(title = "Deep MOTIFs Genes (447)", fill = "SFARI score") +
+  labs(title = "Deep-MOTIFs Genes (447)", fill = "SFARI score") +
   theme_void() +
   theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
   theme(legend.position = "right")
@@ -511,7 +511,7 @@ display_venn <- function(x, ...){
 
 display_venn(
         x,
-    category.names = c("Deep MOTIFs genes" , "forecASD genes" , "SFARI genes"),
+    category.names = c("Deep-MOTIFs genes" , "forecASD genes" , "SFARI genes"),
         # Circles
         lwd = 2,
         lty = 'blank',

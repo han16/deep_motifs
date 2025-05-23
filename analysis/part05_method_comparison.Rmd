@@ -1,0 +1,136 @@
+---
+title: "comparing methods"
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
+date: "2025-05-23"
+---
+
+
+```{r, message=F, warning=F}
+rm(list=ls())
+set.seed(123)
+library(tidyverse)
+library(ggplot2)
+library(DT)
+library(rprojroot)
+root <- rprojroot::find_rstudio_root_file()
+```
+
+
+```{r, message=F, warning=F}
+
+# Create the matrix
+model_metrics <- matrix(c(
+  0.9355, 0.3279, 0.9262, 0.7143, 0.2128,
+  0.9292, 0.3662, 0.8472, 0.5417, 0.2766,
+  0.9403, 0.5476, 0.9182, 0.6216, 0.4894,
+  0.9686, 0.7561, 0.9416, 0.8857, 0.6596,
+  0.9654, 0.7442, 0.9298, 0.8205, 0.6809,
+  0.9544, 0.5797, 0.8919, 0.9091, 0.4255,
+  0.9544, 0.6027, 0.8739, 0.8462, 0.4681,
+  0.9481, 0.6452, 0.9511, 0.6522, 0.6383,
+  0.9340, 0.6038, 0.9188, 0.5424, 0.6809,
+  0.9748, 0.8182, 0.8234, 0.8780, 0.7660
+), nrow = 10, byrow = TRUE)
+
+# Add row and column names
+rownames(model_metrics) <- c(
+  "Random Forest", "forecASD", "SVM", "XGBoost", "LightGBM",
+  "CNN", "CNN-LSTM", "SAINT", "TabNet", "Deep-MOTIFs"
+)
+
+colnames(model_metrics) <- c("Accuracy", "F1", "ROC_AUC", "Precision", "Recall")
+
+```
+
+
+
+```{r, message=F, warning=F}
+#install.packages("pheatmap")
+library(pheatmap)
+
+# Remove the "Model" column and use model names as rownames
+model_metrics_tbl <- as_tibble(model_metrics, rownames = "Model")
+model_metrics_tbl
+mat <- as.matrix(model_metrics_tbl[,-1])
+rownames(mat) <- model_metrics_tbl$Model
+
+# Create heatmap without clustering
+pheatmap(mat, 
+         cluster_rows = FALSE,
+         cluster_cols = FALSE,
+         display_numbers = TRUE,
+         main = "Model Performance Heatmap",
+         color = colorRampPalette(c("white", "red"))(100))
+```
+
+
+```{r, message=F, warning=F}
+library(pheatmap)
+library(grid)
+
+# Convert to matrix and set row names
+mat <- as.matrix(model_metrics_tbl[,-1])
+rownames(mat) <- model_metrics_tbl$Model
+
+# Create the heatmap object (don't draw yet)
+p <- pheatmap(mat,
+              cluster_rows = FALSE,
+              cluster_cols = FALSE,
+              display_numbers = TRUE,
+              fontsize_number = 12,  # << Increase number font size here
+              main = "Model Performance Heatmap",
+              color = colorRampPalette(c("white", "red"))(100),
+              silent = TRUE)  # Do not draw yet
+
+# Draw the plot
+grid.newpage()
+grid.draw(p$gtable)
+
+# Get the index of the row to highlight (e.g., "Deep-MOTIFs")
+highlight_row <- which(rownames(mat) == "Deep-MOTIFs")
+n_rows <- nrow(mat)
+
+# Coordinates for rectangle (in row units)
+y <- (n_rows - highlight_row + 1)  # Because y=1 is bottom row in grid
+x <- 1  # Start of row
+width <- ncol(mat)
+height <- 1
+
+# Draw rectangle
+grid.rect(x = 0.5,
+          y = (y+1.1) / n_rows,
+          width = 1,
+          height = 0.8 / n_rows,
+          gp = gpar(col = "blue", fill = NA, lwd = 2))
+
+```
+
+
+
+
+```{r, message=F, warning=F}
+#install.packages("fmsb")
+library(fmsb)
+
+# Normalize data for radar plot (scale between 0 and 1)
+normalized <- as.data.frame(scale(model_metrics_tbl[,-1], center = FALSE, scale = apply(model_metrics_tbl[,-1], 2, max)))
+
+# Add max and min rows for radar format
+radar_data <- rbind(rep(1, ncol(normalized)), rep(0, ncol(normalized)), normalized)
+rownames(radar_data)[3:nrow(radar_data)] <- model_metrics_tbl$Model
+
+# Plot for selected models (e.g., top 4)
+colors <- c("#1b9e77", "#d95f02", "#7570b3", "#e7298a")
+
+radarchart(radar_data[c(1,2,4,5,10,11), ], 
+           axistype = 1,
+           pcol = colors,
+           plty = 1,
+           plwd = 2,
+           title = "Radar Chart: Model Comparison")
+
+legend("topright", legend = rownames(radar_data)[4:7], col = colors, lty = 1, lwd = 2)
+```

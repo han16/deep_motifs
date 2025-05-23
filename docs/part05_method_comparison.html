@@ -10,8 +10,9 @@
 
 
 
+<meta name="date" content="2025-05-23" />
 
-<title>Home</title>
+<title>comparing methods</title>
 
 <script src="site_libs/header-attrs-2.26/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -369,7 +370,8 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Home</h1>
+<h1 class="title toc-ignore">comparing methods</h1>
+<h4 class="date">2025-05-23</h4>
 
 </div>
 
@@ -402,9 +404,9 @@ aria-hidden="true"></span> </a>
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 5
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 2
+aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>deep_motifs/</code> <span
@@ -436,10 +438,10 @@ changes </a>
 <div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of
-the R Markdown file created these results, you’ll want to first commit
-it to the Git repo. If you’re still working on the analysis, you can
-ignore this warning. When you’re finished, you can run
+<p>The R Markdown is untracked by Git. To know which version of the R
+Markdown file created these results, you’ll want to first commit it to
+the Git repo. If you’re still working on the analysis, you can ignore
+this warning. When you’re finished, you can run
 <code>wflow_publish</code> to commit the R Markdown file and build the
 HTML.</p>
 </div>
@@ -517,41 +519,15 @@ run.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongabsolute">
-<span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> <strong>File paths:</strong> absolute </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
 </p>
 </div>
-<div id="strongFilepathsstrongabsolute" class="panel-collapse collapse">
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
 <div class="panel-body">
-<p>
-Using absolute paths to the files within your workflowr project makes it
-difficult for you and others to run your code on a different machine.
-Change the absolute path(s) below to the suggested relative path(s) to
-make your code more reproducible.
-</p>
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th style="text-align:left;">
-absolute
-</th>
-<th style="text-align:left;">
-relative
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-C:\\han\\Projects\\2025_02_deep_motifs\\deep_motifs\\
-</td>
-<td style="text-align:left;">
-.
-</td>
-</tr>
-</tbody>
-</table>
+<p>Great job! Using relative paths to the files within your workflowr
+project makes it easier to run your code on other machines.</p>
 </div>
 </div>
 </div>
@@ -593,6 +569,9 @@ were generated:
 Ignored files:
     Ignored:    .Rhistory
 
+Untracked files:
+    Untracked:  analysis/part05_method_comparison.Rmd
+
 Unstaged changes:
     Modified:   analysis/index.Rmd
 
@@ -609,646 +588,132 @@ have uncommitted changes.
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
-
 <p>
-These are the previous versions of the repository in which changes were
-made to the R Markdown (<code>analysis/index.Rmd</code>) and HTML
-(<code>docs/index.html</code>) files. If you’ve configured a remote Git
-repository (see <code>?wflow_git_remote</code>), click on the hyperlinks
-in the table below to view the files as they were in that past version.
+There are no past versions. Publish this analysis with
+<code>wflow_publish()</code> to start tracking its development.
 </p>
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-File
-</th>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-<th>
-Message
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/han16/deep_motifs/blob/522d7a81403db7247f09e47bcd3180524b854b8a/analysis/index.Rmd" target="_blank">522d7a8</a>
-</td>
-<td>
-han
-</td>
-<td>
-2025-05-08
-</td>
-<td>
-5/8/2025
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/han16/deep_motifs/522d7a81403db7247f09e47bcd3180524b854b8a/docs/index.html" target="_blank">522d7a8</a>
-</td>
-<td>
-han
-</td>
-<td>
-2025-05-08
-</td>
-<td>
-5/8/2025
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/han16/deep_motifs/blob/92c7f1d0d6281802939b4a9363bc7def2b77162b/analysis/index.Rmd" target="_blank">92c7f1d</a>
-</td>
-<td>
-han
-</td>
-<td>
-2025-03-31
-</td>
-<td>
-3/31/2025
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/han16/deep_motifs/92c7f1d0d6281802939b4a9363bc7def2b77162b/docs/index.html" target="_blank">92c7f1d</a>
-</td>
-<td>
-han
-</td>
-<td>
-2025-03-31
-</td>
-<td>
-3/31/2025
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/han16/deep_motifs/blob/e15ead43bc923e0f633f7b2e1d72e3151e7d7e75/analysis/index.Rmd" target="_blank">e15ead4</a>
-</td>
-<td>
-han
-</td>
-<td>
-2025-03-18
-</td>
-<td>
-3/18/2025
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/han16/deep_motifs/e15ead43bc923e0f633f7b2e1d72e3151e7d7e75/docs/index.html" target="_blank">e15ead4</a>
-</td>
-<td>
-han
-</td>
-<td>
-2025-03-18
-</td>
-<td>
-3/18/2025
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/han16/deep_motifs/blob/1115d48291a2e1ad149ed2ed48a790c9ca6bf709/analysis/index.Rmd" target="_blank">1115d48</a>
-</td>
-<td>
-han
-</td>
-<td>
-2025-03-12
-</td>
-<td>
-3/12/2025
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/han16/deep_motifs/a9894a3a61260921d9aa07401ff1a8960b4fb696/docs/index.html" target="_blank">a9894a3</a>
-</td>
-<td>
-han
-</td>
-<td>
-2025-03-11
-</td>
-<td>
-3/11/2025
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/han16/deep_motifs/blob/c784f9ba15a493a27baad0d3b0f1aa2ec004ea5a/analysis/index.Rmd" target="_blank">c784f9b</a>
-</td>
-<td>
-han
-</td>
-<td>
-2025-02-14
-</td>
-<td>
-2/14/2025
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/han16/deep_motifs/c784f9ba15a493a27baad0d3b0f1aa2ec004ea5a/docs/index.html" target="_blank">c784f9b</a>
-</td>
-<td>
-han
-</td>
-<td>
-2025-02-14
-</td>
-<td>
-2/14/2025
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/han16/deep_motifs/blob/3b13e50cad03ad7b622d0c368e8fa6244b052027/analysis/index.Rmd" target="_blank">3b13e50</a>
-</td>
-<td>
-han
-</td>
-<td>
-2025-02-14
-</td>
-<td>
-2/14/2025
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/han16/deep_motifs/3b13e50cad03ad7b622d0c368e8fa6244b052027/docs/index.html" target="_blank">3b13e50</a>
-</td>
-<td>
-han
-</td>
-<td>
-2025-02-14
-</td>
-<td>
-2/14/2025
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/han16/deep_motifs/blob/cc957c3bc6bd0da66aef5d2310dbb0c0022be721/analysis/index.Rmd" target="_blank">cc957c3</a>
-</td>
-<td>
-han
-</td>
-<td>
-2025-02-14
-</td>
-<td>
-2/14/2025
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/han16/deep_motifs/cc957c3bc6bd0da66aef5d2310dbb0c0022be721/docs/index.html" target="_blank">cc957c3</a>
-</td>
-<td>
-han
-</td>
-<td>
-2025-02-14
-</td>
-<td>
-2/14/2025
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/han16/deep_motifs/blob/651ec337ffcf7aceec3cca19f9aa2f372a34247d/analysis/index.Rmd" target="_blank">651ec33</a>
-</td>
-<td>
-han
-</td>
-<td>
-2025-02-12
-</td>
-<td>
-2/12/2025
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/han16/deep_motifs/651ec337ffcf7aceec3cca19f9aa2f372a34247d/docs/index.html" target="_blank">651ec33</a>
-</td>
-<td>
-han
-</td>
-<td>
-2025-02-12
-</td>
-<td>
-2/12/2025
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/han16/deep_motifs/blob/e6a17fb29def47b59e855f2250d954d552c3a353/analysis/index.Rmd" target="_blank">e6a17fb</a>
-</td>
-<td>
-han
-</td>
-<td>
-2025-02-11
-</td>
-<td>
-2/11/2025
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/han16/deep_motifs/e6a17fb29def47b59e855f2250d954d552c3a353/docs/index.html" target="_blank">e6a17fb</a>
-</td>
-<td>
-han
-</td>
-<td>
-2025-02-11
-</td>
-<td>
-2/11/2025
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/han16/deep_motifs/blob/cc66086b74fbc7ef25feee517ce7441f02009382/analysis/index.Rmd" target="_blank">cc66086</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-06-26
-</td>
-<td>
-6/26/2024
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/han16/deep_motifs/cc66086b74fbc7ef25feee517ce7441f02009382/docs/index.html" target="_blank">cc66086</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-06-26
-</td>
-<td>
-6/26/2024
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/han16/deep_motifs/blob/827e1e7122e76eb6d3ad015771d75b32d8ec944a/analysis/index.Rmd" target="_blank">827e1e7</a>
-</td>
-<td>
-han
-</td>
-<td>
-2023-11-13
-</td>
-<td>
-11/13/2023
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/han16/deep_motifs/827e1e7122e76eb6d3ad015771d75b32d8ec944a/docs/index.html" target="_blank">827e1e7</a>
-</td>
-<td>
-han
-</td>
-<td>
-2023-11-13
-</td>
-<td>
-11/13/2023
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/han16/deep_motifs/cd78defd216cf841cdf7484cb97fd39682e1b8ab/docs/index.html" target="_blank">cd78def</a>
-</td>
-<td>
-han
-</td>
-<td>
-2023-09-28
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/han16/deep_motifs/blob/163d5b69fe22e9a18c416f3011c01a2d11bfc899/analysis/index.Rmd" target="_blank">163d5b6</a>
-</td>
-<td>
-han
-</td>
-<td>
-2023-09-28
-</td>
-<td>
-Start workflowr project.
-</td>
-</tr>
-</tbody>
-</table>
-</div>
 <hr>
 </div>
 </div>
 </div>
 <pre class="r"><code>rm(list=ls())
 set.seed(123)
-setwd(&quot;C:\\han\\Projects\\2025_02_deep_motifs\\deep_motifs\\&quot;)
 library(tidyverse)
 library(ggplot2)
 library(DT)
-library(VennDiagram)
 library(rprojroot)
-library(dplyr)
 root &lt;- rprojroot::find_rstudio_root_file()</code></pre>
-<div id="brainspan-data-analysis" class="section level2">
-<h2>BrainSpan data analysis</h2>
-<ul>
-<li><a href="COBS_brainspan.html">Run COBS on BrainSpan data</a></li>
-</ul>
-</div>
-<div id="input-data" class="section level2">
-<h2>Input data</h2>
-<div
-id="tada-p-values-fdrs-for-all-genes-in-fu-et-al-paper-and-fdrs-in-trost-paper"
-class="section level3">
-<h3>1. TADA p values, FDRs for all genes in Fu, et al paper and FDR’s in
-Trost paper</h3>
-<pre class="r"><code>jack_fu=as_tibble(read.csv(file.path(root, &quot;../../../Dataset/20231221_PMID_35982160_JackFu/Fu 2022 Suppl-41588_2022_1104_MOESM3_ESM.csv&quot;)))  # 
-jack_fu_185_asd_genes=jack_fu %&gt;% filter(ASD185==&quot;TRUE&quot;) %&gt;% dplyr::select(gene_gencodeV33, gene_id)
+<pre class="r"><code># Create the matrix
+model_metrics &lt;- matrix(c(
+  0.9355, 0.3279, 0.9262, 0.7143, 0.2128,
+  0.9292, 0.3662, 0.8472, 0.5417, 0.2766,
+  0.9403, 0.5476, 0.9182, 0.6216, 0.4894,
+  0.9686, 0.7561, 0.9416, 0.8857, 0.6596,
+  0.9654, 0.7442, 0.9298, 0.8205, 0.6809,
+  0.9544, 0.5797, 0.8919, 0.9091, 0.4255,
+  0.9544, 0.6027, 0.8739, 0.8462, 0.4681,
+  0.9481, 0.6452, 0.9511, 0.6522, 0.6383,
+  0.9340, 0.6038, 0.9188, 0.5424, 0.6809,
+  0.9748, 0.8182, 0.8234, 0.8780, 0.7660
+), nrow = 10, byrow = TRUE)
 
-length(jack_fu$gene_gencodeV33)</code></pre>
-<pre><code>[1] 18159</code></pre>
-<pre class="r"><code>sum(jack_fu_185_asd_genes$gene_gencodeV33 %in% jack_fu$gene_gencodeV33)</code></pre>
-<pre><code>[1] 185</code></pre>
-<pre class="r"><code>trost_data=as_tibble(read.table(&quot;C:/han/Dataset/20250114_PMID_36368308_trost/TADA+_ASD_gene_list.all.tsv&quot;, header = TRUE, sep = &quot;\t&quot;, stringsAsFactors = FALSE))
+# Add row and column names
+rownames(model_metrics) &lt;- c(
+  &quot;Random Forest&quot;, &quot;forecASD&quot;, &quot;SVM&quot;, &quot;XGBoost&quot;, &quot;LightGBM&quot;,
+  &quot;CNN&quot;, &quot;CNN-LSTM&quot;, &quot;SAINT&quot;, &quot;TabNet&quot;, &quot;Deep-MOTIFs&quot;
+)
 
-length(trost_data$gene)</code></pre>
-<pre><code>[1] 17348</code></pre>
-<pre class="r"><code>sum(jack_fu_185_asd_genes$gene_gencodeV33 %in% trost_data$gene)</code></pre>
-<pre><code>[1] 182</code></pre>
-<pre class="r"><code>length(intersect(jack_fu$gene_gencodeV33, trost_data$gene))</code></pre>
-<pre><code>[1] 16143</code></pre>
-<ul>
-<li><p>18159 genes in fu data, and 17348 in trost data, 16143 are
-overlapping with each other</p></li>
-<li><p>among 185 risk genes in fu data, 182 in trost data.</p></li>
-</ul>
-<pre class="r"><code>head(jack_fu)</code></pre>
-<pre><code># A tibble: 6 × 27
-  gene  gene_gencodeV33 gene_id       chromosome ASD72 ASD185 DD309 DD477 NDD373
-  &lt;chr&gt; &lt;chr&gt;           &lt;chr&gt;              &lt;int&gt; &lt;lgl&gt; &lt;lgl&gt;  &lt;lgl&gt; &lt;lgl&gt; &lt;lgl&gt; 
-1 MED13 MED13           ENSG00000108…         17 TRUE  TRUE   FALSE TRUE  TRUE  
-2 NIPBL NIPBL           ENSG00000164…          5 TRUE  TRUE   FALSE TRUE  TRUE  
-3 SMC3  SMC3            ENSG00000108…         10 FALSE FALSE  TRUE  TRUE  TRUE  
-4 CNOT1 CNOT1           ENSG00000125…         16 FALSE FALSE  TRUE  TRUE  TRUE  
-5 RLF   RLF             ENSG00000117…          1 FALSE FALSE  FALSE FALSE FALSE 
-6 PCF11 PCF11           ENSG00000165…         11 FALSE FALSE  FALSE FALSE FALSE 
-# ℹ 18 more variables: NDD664 &lt;lgl&gt;, Satterstrom102 &lt;lgl&gt;, SCZ10 &lt;lgl&gt;,
-#   SCZ244 &lt;lgl&gt;, FDR_TADA_ASD &lt;dbl&gt;, FDR_TADA_DD &lt;dbl&gt;, FDR_TADA_NDD &lt;dbl&gt;,
-#   p_TADA_ASD &lt;dbl&gt;, p_TADA_DD &lt;dbl&gt;, p_TADA_NDD &lt;dbl&gt;, l10BF_ASD_PTV &lt;dbl&gt;,
-#   l10BF_ASD_misB &lt;dbl&gt;, l10BF_ASD_misA &lt;dbl&gt;, l10BF_ASD_DEL &lt;dbl&gt;,
-#   l10BF_ASD_DUP &lt;dbl&gt;, l10BF_DD_PTV &lt;dbl&gt;, l10BF_DD_misB &lt;dbl&gt;,
-#   l10BF_DD_misA &lt;dbl&gt;</code></pre>
-<ul>
-<li>7 columns are used: “gene”, “gene_gencodeV33”, “gene_id”,
-“chromosome”, “ASD185”, “FDR_TADA_ASD”, “p_TADA_ASD”</li>
-</ul>
-</div>
-<div id="brainspan-from-brueggeman-et-al-paper" class="section level3">
-<h3>2. Brainspan from Brueggeman, et al paper</h3>
-<pre class="r"><code>load(&quot;C:\\han\\Projects\\IntegratePPI\\forecASDPaper\\01_BrainSpan_matrix.RData&quot;) # bs is the brainspan data in foreASD paper
-sfari_gene_ids=as_tibble(read.table(&quot;C:\\han\\Dataset\\20240610_PMID_33244169_forecASD\\sfari_gene_ids.txt&quot;, header=T, sep = &quot;\t&quot;, fill = TRUE, stringsAsFactors = FALSE))
-meta = read.csv(&quot;C:\\han\\Dataset\\20240610_PMID_33244169_forecASD\\composite_table.csv&quot;,stringsAsFactors = F, row.names = 1)  # tada data is in meta
+colnames(model_metrics) &lt;- c(&quot;Accuracy&quot;, &quot;F1&quot;, &quot;ROC_AUC&quot;, &quot;Precision&quot;, &quot;Recall&quot;)</code></pre>
+<pre class="r"><code>#install.packages(&quot;pheatmap&quot;)
+library(pheatmap)
 
+# Remove the &quot;Model&quot; column and use model names as rownames
+model_metrics_tbl &lt;- as_tibble(model_metrics, rownames = &quot;Model&quot;)
+model_metrics_tbl</code></pre>
+<pre><code># A tibble: 10 × 6
+   Model         Accuracy    F1 ROC_AUC Precision Recall
+   &lt;chr&gt;            &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;  &lt;dbl&gt;
+ 1 Random Forest    0.936 0.328   0.926     0.714  0.213
+ 2 forecASD         0.929 0.366   0.847     0.542  0.277
+ 3 SVM              0.940 0.548   0.918     0.622  0.489
+ 4 XGBoost          0.969 0.756   0.942     0.886  0.660
+ 5 LightGBM         0.965 0.744   0.930     0.820  0.681
+ 6 CNN              0.954 0.580   0.892     0.909  0.426
+ 7 CNN-LSTM         0.954 0.603   0.874     0.846  0.468
+ 8 SAINT            0.948 0.645   0.951     0.652  0.638
+ 9 TabNet           0.934 0.604   0.919     0.542  0.681
+10 Deep-MOTIFs      0.975 0.818   0.823     0.878  0.766</code></pre>
+<pre class="r"><code>mat &lt;- as.matrix(model_metrics_tbl[,-1])
+rownames(mat) &lt;- model_metrics_tbl$Model
 
-#bs_genes=sapply(rownames(bs), function(x) (sfari_gene_ids$Gene.name[which(sfari_gene_ids$Gene.stable.ID==x)]))
-bs_genes=unlist(sapply(rownames(bs), function(x) (meta$symbol[which(meta$ensembl_string==x)])))
+# Create heatmap without clustering
+pheatmap(mat, 
+         cluster_rows = FALSE,
+         cluster_cols = FALSE,
+         display_numbers = TRUE,
+         main = &quot;Model Performance Heatmap&quot;,
+         color = colorRampPalette(c(&quot;white&quot;, &quot;red&quot;))(100))</code></pre>
+<p><img src="figure/part05_method_comparison.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>library(pheatmap)
+library(grid)
 
+# Convert to matrix and set row names
+mat &lt;- as.matrix(model_metrics_tbl[,-1])
+rownames(mat) &lt;- model_metrics_tbl$Model
 
-length(intersect(bs_genes, jack_fu_185_asd_genes$gene_gencodeV33))</code></pre>
-<pre><code>[1] 178</code></pre>
-<pre class="r"><code>length(intersect(bs_genes, jack_fu$gene_gencodeV33))</code></pre>
-<pre><code>[1] 15999</code></pre>
-<pre class="r"><code>dim(bs)</code></pre>
-<pre><code>[1] 19049   800</code></pre>
-<ul>
-<li><p>among 185 risk genes in fu paper, 178 appear in brainspan
-data</p></li>
-<li><p>of 18159 genes in fu data, 15999 appear in brainspan
-data</p></li>
-<li><p>each gene has 800 columns</p></li>
-</ul>
-</div>
-<div id="protein-interactions-from-string-database-use-version-12.0"
-class="section level3">
-<h3>3. protein interactions from STRING database, use version 12.0</h3>
-</div>
-<div id="sfari-database" class="section level3">
-<h3>4. SFARI database</h3>
-<pre class="r"><code>sfari_data=read.csv(&quot;C:\\han\\Dataset\\SFARI_base\\SFARI-Gene_genes_08-19-2024release_09-16-2024export.csv&quot;, header=T)
-dim(sfari_data %&gt;% filter(gene.score&lt;2))</code></pre>
-<pre><code>[1] 233  10</code></pre>
-<ul>
-<li>use 233 risk genes with <code>gene.score</code> equal to 1 as
-positive samples</li>
-</ul>
-</div>
-</div>
-<div id="protein-interaction-from-string-brueggeman-et-al-paper"
-class="section level2">
-<h2>protein interaction from STRING, Brueggeman, et al paper</h2>
-<pre class="r"><code>load(&quot;C:\\han\\Projects\\IntegratePPI\\forecASDPaper\\tmp01_STRING_graph.Rdata&quot;)
+# Create the heatmap object (don&#39;t draw yet)
+p &lt;- pheatmap(mat,
+              cluster_rows = FALSE,
+              cluster_cols = FALSE,
+              display_numbers = TRUE,
+              fontsize_number = 12,  # &lt;&lt; Increase number font size here
+              main = &quot;Model Performance Heatmap&quot;,
+              color = colorRampPalette(c(&quot;white&quot;, &quot;red&quot;))(100),
+              silent = TRUE)  # Do not draw yet
 
-string_genes=unlist(sapply(rownames(string.path), function(x) (meta$symbol[which(meta$ensembl_string==x)])))
+# Draw the plot
+grid.newpage()
+grid.draw(p$gtable)
 
+# Get the index of the row to highlight (e.g., &quot;Deep-MOTIFs&quot;)
+highlight_row &lt;- which(rownames(mat) == &quot;Deep-MOTIFs&quot;)
+n_rows &lt;- nrow(mat)
 
-length(intersect(string_genes, jack_fu_185_asd_genes$gene_gencodeV33))</code></pre>
-<pre><code>[1] 178</code></pre>
-<pre class="r"><code>length(intersect(string_genes, jack_fu$gene_gencodeV33))</code></pre>
-<pre><code>[1] 15999</code></pre>
-<ul>
-<li>178/185 risk genes in fu paper, with a total of 15999 overlapping
-genes.</li>
-</ul>
-</div>
-<div id="forecasd-results" class="section level2">
-<h2>forecASD results</h2>
-<pre class="r"><code>foreASD_result=as_tibble(read.csv(&quot;C:\\han\\Projects\\IntegratePPI\\forecASDPaper\\forecASD_table.csv&quot;))
+# Coordinates for rectangle (in row units)
+y &lt;- (n_rows - highlight_row + 1)  # Because y=1 is bottom row in grid
+x &lt;- 1  # Start of row
+width &lt;- ncol(mat)
+height &lt;- 1
 
-length(foreASD_result$symbol)</code></pre>
-<pre><code>[1] 17957</code></pre>
-<pre class="r"><code>length(intersect(foreASD_result$symbol, jack_fu_185_asd_genes$gene_gencodeV33))</code></pre>
-<pre><code>[1] 178</code></pre>
-<pre class="r"><code>length(intersect(foreASD_result$symbol, jack_fu$gene_gencodeV33))</code></pre>
-<pre><code>[1] 15999</code></pre>
-<ul>
-<li>foreASD outputs 17597 genes, of which 178 are in 185 risk genes in
-fu paper, and 15999 overlapping with all genes in fu paper.</li>
-</ul>
-<div id="gene-symbol-ensg-ensp" class="section level3">
-<h3>gene symbol, ENSG, ENSP</h3>
-<pre class="r"><code>#if (!requireNamespace(&quot;BiocManager&quot;, quietly = TRUE))
-#    install.packages(&quot;BiocManager&quot;)
+# Draw rectangle
+grid.rect(x = 0.5,
+          y = (y+1.1) / n_rows,
+          width = 1,
+          height = 0.8 / n_rows,
+          gp = gpar(col = &quot;blue&quot;, fill = NA, lwd = 2))</code></pre>
+<p><img src="figure/part05_method_comparison.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>#install.packages(&quot;fmsb&quot;)
+library(fmsb)
 
-#BiocManager::install(&quot;biomaRt&quot;)
-library(biomaRt)
+# Normalize data for radar plot (scale between 0 and 1)
+normalized &lt;- as.data.frame(scale(model_metrics_tbl[,-1], center = FALSE, scale = apply(model_metrics_tbl[,-1], 2, max)))
 
+# Add max and min rows for radar format
+radar_data &lt;- rbind(rep(1, ncol(normalized)), rep(0, ncol(normalized)), normalized)
+rownames(radar_data)[3:nrow(radar_data)] &lt;- model_metrics_tbl$Model
 
-ensembl &lt;- useMart(&quot;ensembl&quot;, dataset = &quot;hsapiens_gene_ensembl&quot;, host = &quot;https://grch37.ensembl.org&quot;)
+# Plot for selected models (e.g., top 4)
+colors &lt;- c(&quot;#1b9e77&quot;, &quot;#d95f02&quot;, &quot;#7570b3&quot;, &quot;#e7298a&quot;)
 
-# List of gene symbols
-jack_fu_genes=jack_fu$gene_gencodeV33
+radarchart(radar_data[c(1,2,4,5,10,11), ], 
+           axistype = 1,
+           pcol = colors,
+           plty = 1,
+           plwd = 2,
+           title = &quot;Radar Chart: Model Comparison&quot;)
 
-
-# Define function to split queries
-query_genes_in_batches &lt;- function(genes, batch_size = 50) {
-  results &lt;- list()
-  for (i in seq(1, length(genes), by = batch_size)) {
-    batch &lt;- genes[i:min(i + batch_size - 1, length(genes))]
-    cat(&quot;Querying batch:&quot;, i, &quot;to&quot;, min(i + batch_size - 1, length(genes)), &quot;\n&quot;)
-    
-    batch_result &lt;- tryCatch({
-      getBM(attributes = c(&quot;hgnc_symbol&quot;, &quot;ensembl_gene_id&quot;, &quot;ensembl_peptide_id&quot;),
-            filters = &quot;hgnc_symbol&quot;,
-            values = batch,
-            mart = ensembl)
-    }, error = function(e) {
-      cat(&quot;Error in batch query:&quot;, e$message, &quot;\n&quot;)
-      return(NULL)
-    })
-    
-    results &lt;- append(results, list(batch_result))
-  }
-  return(do.call(rbind, results))
-}
-
-# Run the batch query
-jack_fu_gene_info &lt;- query_genes_in_batches(jack_fu_genes, batch_size = 1000)
-#write.csv(jack_fu_gene_info, file=&quot;C:\\Users\\hans\\OneDrive - Marquette University\\AI_for_Autism\\jack_fu_gene_info.csv&quot;)
-
-bs_genes_info=query_genes_in_batches(bs_genes, batch_size = 1000)
-#write.csv(bs_genes_info, file=&quot;C:\\Users\\hans\\OneDrive - Marquette University\\AI_for_Autism\\bs_genes_info.csv&quot;)</code></pre>
-</div>
-</div>
-<div id="train-the-model" class="section level2">
-<h2>train the model</h2>
-</div>
-<div id="results" class="section level2">
-<h2>results</h2>
-<ul>
-<li><p><a href="part01_score_dist.html">deep-motif score
-distribution</a></p></li>
-<li><p><a href="part02_enrichment.html">enrichment of top rank
-genes</a></p></li>
-<li><p><a href="part03_func_enrichment.html">functional enrichment
-analysis</a></p></li>
-<li><p><a href="part04_clustering_analysis.html">clustering
-analysis</a></p></li>
-</ul>
+legend(&quot;topright&quot;, legend = rownames(radar_data)[4:7], col = colors, lty = 1, lwd = 2)</code></pre>
+<p><img src="figure/part05_method_comparison.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1280,31 +745,24 @@ attached base packages:
 [8] base     
 
 other attached packages:
- [1] rprojroot_2.0.4     VennDiagram_1.7.3   futile.logger_1.4.3
- [4] DT_0.33             lubridate_1.9.3     forcats_1.0.0      
- [7] stringr_1.5.1       dplyr_1.1.4         purrr_1.0.2        
-[10] readr_2.1.5         tidyr_1.3.1         tibble_3.2.1       
-[13] ggplot2_3.5.1       tidyverse_2.0.0    
+ [1] fmsb_0.7.6      pheatmap_1.0.12 rprojroot_2.0.4 DT_0.33        
+ [5] lubridate_1.9.3 forcats_1.0.0   stringr_1.5.1   dplyr_1.1.4    
+ [9] purrr_1.0.2     readr_2.1.5     tidyr_1.3.1     tibble_3.2.1   
+[13] ggplot2_3.5.1   tidyverse_2.0.0
 
 loaded via a namespace (and not attached):
- [1] sass_0.4.9           utf8_1.2.4           generics_0.1.3      
- [4] futile.options_1.0.1 stringi_1.8.4        hms_1.1.3           
- [7] digest_0.6.35        magrittr_2.0.3       timechange_0.3.0    
-[10] evaluate_0.23        fastmap_1.1.1        workflowr_1.7.1     
-[13] jsonlite_1.8.8       whisker_0.4.1        formatR_1.14        
-[16] promises_1.3.0       fansi_1.0.6          scales_1.3.0        
-[19] jquerylib_0.1.4      cli_3.6.2            rlang_1.1.3         
-[22] munsell_0.5.1        withr_3.0.0          cachem_1.0.8        
-[25] yaml_2.3.8           tools_4.4.0          tzdb_0.4.0          
-[28] colorspace_2.1-0     httpuv_1.6.15        lambda.r_1.2.4      
-[31] vctrs_0.6.5          R6_2.5.1             lifecycle_1.0.4     
-[34] git2r_0.33.0         htmlwidgets_1.6.4    fs_1.6.4            
-[37] pkgconfig_2.0.3      pillar_1.9.0         bslib_0.7.0         
-[40] later_1.3.2          gtable_0.3.5         glue_1.7.0          
-[43] Rcpp_1.0.12          xfun_0.43            tidyselect_1.2.1    
-[46] highr_0.10           rstudioapi_0.16.0    knitr_1.46          
-[49] htmltools_0.5.8.1    rmarkdown_2.26       compiler_4.4.0      </code></pre>
-</div>
+ [1] sass_0.4.9         utf8_1.2.4         generics_0.1.3     stringi_1.8.4     
+ [5] hms_1.1.3          digest_0.6.35      magrittr_2.0.3     RColorBrewer_1.1-3
+ [9] timechange_0.3.0   evaluate_0.23      fastmap_1.1.1      workflowr_1.7.1   
+[13] jsonlite_1.8.8     promises_1.3.0     fansi_1.0.6        scales_1.3.0      
+[17] jquerylib_0.1.4    cli_3.6.2          rlang_1.1.3        munsell_0.5.1     
+[21] withr_3.0.0        cachem_1.0.8       yaml_2.3.8         tools_4.4.0       
+[25] tzdb_0.4.0         colorspace_2.1-0   httpuv_1.6.15      vctrs_0.6.5       
+[29] R6_2.5.1           lifecycle_1.0.4    git2r_0.33.0       htmlwidgets_1.6.4 
+[33] fs_1.6.4           pkgconfig_2.0.3    pillar_1.9.0       bslib_0.7.0       
+[37] later_1.3.2        gtable_0.3.5       glue_1.7.0         Rcpp_1.0.12       
+[41] highr_0.10         xfun_0.43          tidyselect_1.2.1   rstudioapi_0.16.0 
+[45] knitr_1.46         htmltools_0.5.8.1  rmarkdown_2.26     compiler_4.4.0    </code></pre>
 </div>
 
 

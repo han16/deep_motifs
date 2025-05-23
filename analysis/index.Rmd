@@ -57,6 +57,11 @@ length(intersect(jack_fu$gene_gencodeV33, trost_data$gene))
 
 
 
+```{r, message=F, warning=F}
+head(jack_fu)
+```
+
+* 7 columns are used:  "gene", "gene_gencodeV33", "gene_id", "chromosome", "ASD185", "FDR_TADA_ASD", "p_TADA_ASD"
 
 
 ### 2. Brainspan from Brueggeman, et al paper 
@@ -75,18 +80,29 @@ bs_genes=unlist(sapply(rownames(bs), function(x) (meta$symbol[which(meta$ensembl
 length(intersect(bs_genes, jack_fu_185_asd_genes$gene_gencodeV33))
 length(intersect(bs_genes, jack_fu$gene_gencodeV33))
 
-
+dim(bs)
 ```
 
 * among 185 risk genes in fu paper, 178 appear in brainspan data 
 
 * of 18159 genes in fu data, 15999 appear in brainspan data 
 
+* each gene has 800 columns 
+
+
 
 ### 3. protein interactions from STRING database, use version 12.0
 
 
 ### 4. SFARI database 
+
+```{r, message=F, warning=F}
+sfari_data=read.csv("C:\\han\\Dataset\\SFARI_base\\SFARI-Gene_genes_08-19-2024release_09-16-2024export.csv", header=T)
+dim(sfari_data %>% filter(gene.score<2))
+```
+
+* use 233 risk genes with `gene.score` equal to 1 as positive samples 
+
 
 
 ##  protein interaction from STRING, Brueggeman, et al paper

@@ -19,6 +19,9 @@ root <- rprojroot::find_rstudio_root_file()
 ```
 
 
+## methods comparison 
+
+
 ```{r, message=F, warning=F}
 
 # Create the matrix

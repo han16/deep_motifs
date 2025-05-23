@@ -197,6 +197,7 @@ bs_genes_info=query_genes_in_batches(bs_genes, batch_size = 1000)
 
 ## results 
 
+* [method comparisons](part05_method_comparison.html)
 
 * [deep-motif score distribution](part01_score_dist.html)  
 

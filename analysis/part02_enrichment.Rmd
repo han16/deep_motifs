@@ -61,6 +61,7 @@ grid.draw(venn.plot)
 
 fisher.test(matrix(c(length(result_round1$gene), length(top_genes), length(intersect(result_round1$gene, jack_fu_185_asd_genes)), length(intersect(top_genes, jack_fu_185_asd_genes))), nrow = 2))
 
+jack_fu %>% filter(gene%in% c("ADSL", "DHCR7")) %>% select(p_TADA_ASD, FDR_TADA_ASD)
 ```
 
 

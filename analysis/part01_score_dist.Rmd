@@ -484,6 +484,36 @@ print(result)
 
 
 
+```{r, message=F, warning=F}
+jack_fu=as_tibble(read.csv(file.path(root, "../../../Dataset/20231221_PMID_35982160_JackFu/Fu 2022 Suppl-41588_2022_1104_MOESM3_ESM.csv")))
+highlight_genes=c("ADSL", "DHCR7")
+jack_fu %>% filter(gene %in% highlight_genes) %>% select(-all_of(c("FDR_TADA_DD", "FDR_TADA_NDD", "p_TADA_DD", "p_TADA_NDD"))) %>% 
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+
+
+```{r, message=F, warning=F}
+trost=as_tibble(read_tsv(file.path(root, "../../../Dataset/20250114_PMID_36368308_trost/TADA+_ASD_gene_list.all.tsv")))
+highlight_genes=c("ADSL", "DHCR7")
+trost %>% filter(gene %in% highlight_genes)  %>% 
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
 
 ## genes overlapping among deep motifs, forecASD, and SFARI
 

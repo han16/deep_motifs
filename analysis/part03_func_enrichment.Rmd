@@ -174,7 +174,8 @@ ggplot(highlight_terms_wide, aes(x = -log10(`pvalue_Deep-MOTIFs genes`),
   geom_abline(slope = 1, intercept = 0, linetype = "solid", color = "black", size=1) +
   scale_color_manual(values = c(
     "GO" = "goldenrod2", 
-    "HPA" = "purple4", 
+   # "HPA" = "purple4", 
+   "HPA" = "black",
     "HP" = "990", 
     "TF" = "blue",
     "Others" = "grey70")) +

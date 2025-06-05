@@ -41,7 +41,7 @@ positive_genes=intersect(positive_genes, result_round1$gene)
 
 
 
-### motif genes 
+### deep motif genes 
 
 
 ```{r, message=F, warning=F}
@@ -61,9 +61,10 @@ datatable(extensions = 'Buttons',
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 
-
+dim(gostres$result)
 ```
 
+* for 447 Deep-MOTIFs genes, there are 1722 significant enriched items. 
 
 
 
@@ -90,6 +91,8 @@ gostres2 <- gost(query = list("Deep-MOTIFs genes"=top_genes, "SFARI genes"=posit
 organism = "hsapiens", significant = TRUE, correction_method = "bonferroni")
 ```
 
+* in total 2960 significant enrichment items for 447 Deep-MOTIFs genes and 208 SFARI risk genes. 
+
 
 ```{r, message=F, warning=F}
 gostplot(gostres2, capped = F, interactive = TRUE)
@@ -112,8 +115,11 @@ highlight_terms_motif_term_id=highlight_terms %>% filter(query=="Deep-MOTIFs gen
 highlight_terms_sfari_term_id=highlight_terms %>% filter(query=="SFARI genes") %>% dplyr::select(term_id)%>% pull()
 common_term_id=intersect(highlight_terms_motif_term_id, highlight_terms_sfari_term_id)
 #highlight_terms %>% filter(term_id %in% common_term_id)
+length(common_term_id)
 
 ```
+
+
 
 
 ```{r, message=F, warning=F}
@@ -278,6 +284,8 @@ dotplot(ego, showCategory=nrow(ego), title="")+
 
 
 
+
+
 ```{r, message=F, warning=F, eval=F}
 
 # Compute pairwise term similarity
@@ -322,7 +330,46 @@ ekegg <- enrichKEGG(gene         = entrez_ids,
 barplot(ekegg, showCategory= nrow(ekegg), title="KEGG Pathway Enrichment")+
   theme(axis.text.y = element_text(size = 5))
 
+
+#Sort ekegg results by Count in descending order
+ekegg_sorted <- ekegg
+ekegg_sorted@result <- ekegg@result[order(ekegg@result$Count, decreasing = TRUE), ]
+
+# Plot with sorted categories
+barplot(ekegg_sorted,
+        showCategory = nrow(ekegg_sorted),  # show all
+        title = "KEGG Pathway Enrichment") +
+  theme(axis.text.y = element_text(size = 5), 
+        plot.title = element_text(hjust = 0.5))  # Center title
+
 ```
+
+
+```{r, message=F, warning=F}
+# Extract and filter
+df <- as.data.frame(ekegg@result)
+df_filtered <- df[df$p.adjust < 0.05, ]
+
+# Sort by Fold Enrichment
+df_filtered <- df_filtered[order(df_filtered$FoldEnrichment, decreasing = TRUE), ]
+
+# Plot
+ggplot(df_filtered, aes(x = reorder(Description, FoldEnrichment), 
+                        y = FoldEnrichment,
+                        fill = p.adjust)) +
+  geom_col() +
+  coord_flip() +
+  scale_fill_gradient(low = "red", high = "blue", name = "Adj. p-value") +
+  labs(title = "KEGG Pathway Enrichment (p.adjust < 0.05)",
+       x = "",
+       y = "Fold Enrichment") +
+  #theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    axis.text.y = element_text(size = 6)
+  )
+```
+
 
 
 
@@ -354,14 +401,98 @@ ekegg@result$geneID <- sapply(strsplit(ekegg@result$geneID, "/"), function(ids) 
   paste(symbols, collapse = "/")
 })
 length(unique(ekegg@gene))
+
+
 # Plot the cnetplot with gene symbols
 cnetplot(ekegg, circular = TRUE, colorEdge = TRUE, cex_label_gene=0.4, cex_label_category=1)
+
 
 ```
 
 
 
+
+
+
 * [reference-clusterProfiler 4.0](https://www.sciencedirect.com/science/article/pii/S2666675821000667)
+
+
+```{r, message=F, warning=F}
+# Your gene list (symbols or IDs from ekegg)
+all_genes <- unique(unlist(strsplit(ekegg@result$geneID, split = "/")))
+
+# Define new genes (example)
+new_genes <- setdiff(all_genes, positive_genes)  # replace with your actual new genes
+
+# Example: your gene groups vector (names are gene symbols or IDs)
+gene_group <- ifelse(all_genes %in% new_genes, "new", "old")
+names(gene_group) <- all_genes
+
+# Create a vector of colors by gene group
+group_colors <- c(new = "red", old = "grey50", category = "orange")
+
+
+# Generate cnetplot and assign it to a variable
+p <- cnetplot(ekegg,
+              circular = TRUE,
+              colorEdge = TRUE,
+              cex_label_gene = 0.4,
+              cex_label_category = 1)
+
+# Assign 'node_group' based on 'name'
+p$data <- p$data %>%
+  mutate(node_group = case_when(
+    name %in% new_genes ~ "new",
+    name %in% positive_genes ~ "old",
+    TRUE ~ "category"
+  )) %>%
+  # Map group to color column used by plot
+  mutate(color = group_colors[node_group])
+
+# Now force ggplot to use your colors for the nodes
+p + 
+  # Override color scale to identity so colors in 'color' column are used directly
+  scale_color_identity()
+
+```
+
+
+
+
+
+```{r, message=F, warning=F}
+# show how many genes are displayed in the graph
+top_n <- 5  # change this number to your desired showCategory
+top_terms <- ekegg@result %>%
+  arrange(p.adjust) %>%
+  slice_head(n = top_n)
+
+genes_shown <- unique(unlist(strsplit(top_terms$geneID, "/")))
+length(genes_shown)  # Number of genes that will appear
+
+```
+
+```{r, message=F, warning=F}
+#library(dplyr)
+#ekegg@result %>%
+#  arrange(p.adjust) %>%
+#  select(ID, Description, p.adjust) %>%
+#  head(10)  # Top 10 enriched terms
+
+
+#list top 10 enriched terms 
+ekegg_result_sorted <- ekegg@result[order(ekegg@result$p.adjust), ]
+head(ekegg_result_sorted[, c("ID", "Description", "p.adjust")], 20)
+```
+
+
+
+
+```{r, message=F, warning=F, eval=F}
+pdf("cnetplot_all56terms.pdf", width = 16, height = 12)
+cnetplot(ekegg, showCategory = 56, circular = TRUE, colorEdge = TRUE)
+dev.off()
+```
 
 
 

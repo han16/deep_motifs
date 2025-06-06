@@ -470,7 +470,22 @@ top_terms <- ekegg@result %>%
 genes_shown <- unique(unlist(strsplit(top_terms$geneID, "/")))
 length(genes_shown)  # Number of genes that will appear
 
+novel_genes=intersect(genes_shown, new_genes)
+
+length(novel_genes)
+
+setdiff(novel_genes, SFARI_genes$gene.symbol)
+
 ```
+
+
+* 63 genes were displayed in top 5 enriched pathways 
+
+* 32 are novel gene by Deep-MOTIFs, 22 of which are not in any SFARI categories.  
+
+
+
+
 
 ```{r, message=F, warning=F}
 #library(dplyr)

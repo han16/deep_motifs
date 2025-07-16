@@ -221,13 +221,41 @@ highlight_terms_wide=highlight_terms%>%  # convert from long format to wide form
     names_prefix = "pvalue_"
   )
 #highlight_terms_wide=highlight_terms_wide %>% drop_na()  # remove enriched terms with NA  pvalue from either deep motifs or sfari 
+
+highlight_terms_wide %>%
+  filter(is.na(`pvalue_Deep-MOTIFs genes`) & !is.na(`pvalue_SFARI genes`)) %>%
+  arrange(`pvalue_SFARI genes`) %>%
+  mutate(rank = row_number())%>% 
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+highlight_terms_wide %>%
+  filter(!is.na(`pvalue_Deep-MOTIFs genes`) & is.na(`pvalue_SFARI genes`)) %>%
+  arrange(`pvalue_Deep-MOTIFs genes`) %>%
+  mutate(rank = row_number())%>% 
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
 highlight_terms_wide <- highlight_terms_wide %>%
-  mutate(across(where(is.numeric), ~replace_na(., 1)))  # rreplace NA with 1 
+  mutate(across(where(is.numeric), ~replace_na(., 1)))  # replace NA with 1 
 
 dim(highlight_terms_wide)
 length(unique(highlight_terms$term_id))
 
 
+
+```
+
+
+
+```{r, message=F, warning=F}
 highlight_terms_wide <- highlight_terms_wide %>%
   mutate(group = case_when(
     grepl("^GO:", term_id) ~ "GO",

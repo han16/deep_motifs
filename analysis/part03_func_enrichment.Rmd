@@ -111,6 +111,8 @@ pvalue_threshold=0.05
 #                        filename = NULL)
 
 highlight_terms=gostres2$result %>% filter(p_value<pvalue_threshold) %>% dplyr::select(term_id, term_name,  query, p_value)
+length(highlight_terms)
+
 highlight_terms_motif_term_id=highlight_terms %>% filter(query=="Deep-MOTIFs genes") %>% dplyr::select(term_id)%>% pull()
 highlight_terms_sfari_term_id=highlight_terms %>% filter(query=="SFARI genes") %>% dplyr::select(term_id)%>% pull()
 common_term_id=intersect(highlight_terms_motif_term_id, highlight_terms_sfari_term_id)
@@ -147,13 +149,16 @@ ggplot(highlight_terms %>% filter(term_id %in% common_term_id), aes(x = term_id,
 
 ```{r, message=F, warning=F}
 
+
+
 highlight_terms_wide=highlight_terms%>%  # convert from long format to wide format 
   pivot_wider(
     names_from = query,
     values_from = p_value,
     names_prefix = "pvalue_"
   )
-highlight_terms_wide=highlight_terms_wide %>% drop_na()
+highlight_terms_wide=highlight_terms_wide %>% drop_na()  # remove enriched terms with NA  pvalue from either deep motifs or sfari 
+
 dim(highlight_terms_wide)
 
 
@@ -205,6 +210,69 @@ ggplot(highlight_terms_wide, aes(x = -log10(`pvalue_Deep-MOTIFs genes`),
 ```
 
 * each point is one significant GO term 
+
+
+
+```{r, message=F, warning=F}
+highlight_terms_wide=highlight_terms%>%  # convert from long format to wide format 
+  pivot_wider(
+    names_from = query,
+    values_from = p_value,
+    names_prefix = "pvalue_"
+  )
+#highlight_terms_wide=highlight_terms_wide %>% drop_na()  # remove enriched terms with NA  pvalue from either deep motifs or sfari 
+highlight_terms_wide <- highlight_terms_wide %>%
+  mutate(across(where(is.numeric), ~replace_na(., 1)))  # rreplace NA with 1 
+
+dim(highlight_terms_wide)
+length(unique(highlight_terms$term_id))
+
+
+highlight_terms_wide <- highlight_terms_wide %>%
+  mutate(group = case_when(
+    grepl("^GO:", term_id) ~ "GO",
+    grepl("^HPA:", term_id) ~ "HPA",
+    grepl("^HP:", term_id) ~ "HP",
+    grepl("^TF:", term_id) ~ "TF",
+    TRUE ~ "Others"
+  ))
+
+top10_labels <- highlight_terms_wide %>%
+  mutate(min_p = pmin(`pvalue_Deep-MOTIFs genes`, `pvalue_SFARI genes`)) %>%
+  arrange(min_p) %>%
+  dplyr::slice(1:10)
+
+library(ggrepel)
+
+ggplot(highlight_terms_wide, aes(x = -log10(`pvalue_Deep-MOTIFs genes`), 
+                                 y = -log10(`pvalue_SFARI genes`), 
+                                 color = group)) +
+  geom_point(alpha = 0.6, size = 2) +
+  geom_abline(slope = 1, intercept = 0, linetype = "solid", color = "black", size=1) +
+  scale_color_manual(values = c(
+    "GO" = "goldenrod2", 
+   # "HPA" = "purple4", 
+   "HPA" = "black",
+    "HP" = "990", 
+    "TF" = "blue",
+    "Others" = "grey70")) +
+  geom_text_repel(
+    data = top10_labels,
+    aes(label = term_name),
+    size = 3,
+    max.overlaps = Inf
+  ) +
+  labs(
+    title = "",
+    x = "-log10(p value): Deep-MOTIFs",
+    y = "-log10(p value): SFARI",
+    color = "Group"
+  ) +
+  theme(legend.title = element_blank())+
+  theme(plot.title = element_text(hjust = 0.5, size = 12))
+```
+
+
 
 
 

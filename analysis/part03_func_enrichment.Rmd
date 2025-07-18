@@ -272,7 +272,7 @@ top10_labels <- highlight_terms_wide %>%
 
 library(ggrepel)
 
-ggplot(highlight_terms_wide, aes(x = -log10(`pvalue_Deep-MOTIFs genes`), 
+gene_set_enrichment=ggplot(highlight_terms_wide, aes(x = -log10(`pvalue_Deep-MOTIFs genes`), 
                                  y = -log10(`pvalue_SFARI genes`), 
                                  color = group)) +
   geom_point(alpha = 0.6, size = 2) +
@@ -287,19 +287,127 @@ ggplot(highlight_terms_wide, aes(x = -log10(`pvalue_Deep-MOTIFs genes`),
   geom_text_repel(
     data = top10_labels,
     aes(label = term_name),
-    size = 3,
+    size = 5,
     max.overlaps = Inf
   ) +
   labs(
-    title = "",
+    title = "(B)",
     x = "-log10(p value): Deep-MOTIFs",
     y = "-log10(p value): SFARI",
     color = "Group"
   ) +
+  theme_minimal() +
   theme(legend.title = element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, size = 12))
+  #theme(plot.title = element_text(hjust = 0.5, size = 12))
+  theme(
+    legend.title = element_blank(),
+    plot.title = element_text(hjust = 0.5, size = 20),  # Increased from 12 to 16
+    axis.title = element_text(size = 16),
+    axis.text = element_text(size = 16),
+    legend.text = element_text(size = 16)
+  )
+gene_set_enrichment
 ```
 
+
+### plot graphs in paper 
+
+```{r, message=F, warning=F}
+forecASD_results=as_tibble(read.csv(file.path(root, "../DiWangResults/forecASD_results.csv")))
+forecASD_results=forecASD_results[forecASD_results['gene'] != 0,]  # remove rows with gene=0
+
+forecASD_genes= forecASD_results%>% filter(risk.score>score_cutoff) %>% dplyr::select(gene) %>% pull()
+motifs_genes=result_round1 %>% filter(RISK_PROBABILITY_FUSION>score_cutoff) %>% dplyr::select(gene) %>% pull()
+
+total_risk_genes=unique(c(forecASD_genes, motifs_genes))
+result_round1_sorted=result_round1 %>% arrange(desc(RISK_PROBABILITY_FUSION))
+forecASD_results_sorted=forecASD_results %>% arrange(desc(risk.score))
+
+total_risk_genes_rank1 <- match(total_risk_genes, result_round1_sorted$gene)
+total_risk_genes_rank2=match(total_risk_genes, forecASD_results_sorted$gene)
+
+
+# Combine into a data frame
+df <- data.frame(
+  Gene = total_risk_genes,
+  forecASD = total_risk_genes_rank2,
+  Deep_MOTIFs = total_risk_genes_rank1
+)
+
+# Reshape data for plotting
+df_long <- df %>%
+  tidyr::pivot_longer(cols = c(forecASD, Deep_MOTIFs), names_to = "Ranking", values_to = "Rank")
+
+# Join df_long with SFARI_genes on gene symbol
+df_long=df_long %>% left_join(SFARI_genes %>% dplyr::select(gene.symbol, gene.score), 
+            by = c("Gene" = "gene.symbol"))
+
+
+
+# Ensure 'Ranking' is a factor to control plot order
+df_long$Ranking <- factor(df_long$Ranking, levels = c("forecASD", "Deep_MOTIFs"))
+
+# Convert gene.score to factor with NA as character
+df_long$gene.score <- as.character(df_long$gene.score)
+df_long$gene.score[is.na(df_long$gene.score)] <- "NA"
+df_long$gene.score <- factor(df_long$gene.score, levels = c("1", "2", "3", "NA"))
+
+# Define colors in the same order
+gene.score_colors <- c("1" = "#E41A1C", "2" = "blue", "3" = "#4DAF4A", "NA" = "grey70")
+
+# Plot
+ranking_change <- ggplot(df_long, aes(x = Ranking, y = Rank, group = Gene)) +
+  geom_line(aes(color = gene.score), size = 1) +
+  geom_point(size = 1) +
+  
+  # Left labels (forecASD)
+  geom_text(data = df_long %>% filter(Ranking == "forecASD"),
+            aes(label = Gene), 
+            hjust = 1.1, size = 4) +
+  
+  # Right labels (Deep_MOTIFs)
+  geom_text(data = df_long %>% filter(Ranking == "Deep_MOTIFs"),
+            aes(label = Gene), 
+            hjust = -0.1, size = 4) +
+  
+  scale_color_manual(name = "SFARI score",  # <-- Adds legend title
+                     values = gene.score_colors, 
+                     breaks = c("1", "2", "3", "NA")  # explicitly define order in legend
+            )+
+  scale_y_reverse() +
+  labs(title = "(A)", x = "", y = "Rank") +
+  
+  theme_minimal(base_size = 12) +
+  theme(
+    legend.position = "right",
+    #legend.title = element_blank(),
+    plot.title = element_text(hjust = 0.5, size = 20),
+    axis.title = element_text(size = 16),
+    axis.text = element_text(size = 16),
+    legend.text = element_text(size = 18),
+    
+    # Reduce spacing between axis title and plot
+    axis.title.y = element_text(margin = margin(r = 5)),
+
+    # Remove extra padding from x axis text
+    axis.text.x = element_text(margin = margin(t = 0, b = 0))
+  ) +
+  
+  # Expand plot limits to make room for labels
+  scale_x_discrete(expand = expansion(mult = c(0.2, 0.2)))  # Adds space on both sides
+
+ranking_change
+```
+
+
+
+
+
+```{r, message=F, warning=F, eval=F}
+library(gridExtra)
+all <- grid.arrange(ranking_change,  gene_set_enrichment, nrow=1) 
+ggsave(all,filename = paste0("C:\\Users\\hans\\OneDrive - Marquette University\\AI_for_Autism\\Fig\\Gene_Enrichment.pdf"),width = 14,height = 7,dpi = 600)
+```
 
 
 

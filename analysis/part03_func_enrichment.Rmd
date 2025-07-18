@@ -275,7 +275,7 @@ library(ggrepel)
 gene_set_enrichment=ggplot(highlight_terms_wide, aes(x = -log10(`pvalue_Deep-MOTIFs genes`), 
                                  y = -log10(`pvalue_SFARI genes`), 
                                  color = group)) +
-  geom_point(alpha = 0.6, size = 2) +
+  geom_point(alpha = 0.6, size = 2, shape =16) +
   geom_abline(slope = 1, intercept = 0, linetype = "solid", color = "black", size=1) +
   scale_color_manual(values = c(
     "GO" = "goldenrod2", 
@@ -286,9 +286,15 @@ gene_set_enrichment=ggplot(highlight_terms_wide, aes(x = -log10(`pvalue_Deep-MOT
     "Others" = "grey70")) +
   geom_text_repel(
     data = top10_labels,
-    aes(label = term_name),
+    aes(x = -log10(`pvalue_Deep-MOTIFs genes`), 
+      y = -log10(`pvalue_SFARI genes`),
+     label = term_name, 
+     color = group
+     ),
     size = 5,
-    max.overlaps = Inf
+    max.overlaps = Inf,
+    inherit.aes = FALSE, 
+    show.legend = FALSE  # prevent new legend items
   ) +
   labs(
     title = "(B)",
@@ -300,7 +306,7 @@ gene_set_enrichment=ggplot(highlight_terms_wide, aes(x = -log10(`pvalue_Deep-MOT
   theme(legend.title = element_blank())+
   #theme(plot.title = element_text(hjust = 0.5, size = 12))
   theme(
-    legend.title = element_blank(),
+    #legend.title = element_blank(),
     plot.title = element_text(hjust = 0.5, size = 20),  # Increased from 12 to 16
     axis.title = element_text(size = 16),
     axis.text = element_text(size = 16),
@@ -558,20 +564,25 @@ df_filtered <- df[df$p.adjust < 0.05, ]
 df_filtered <- df_filtered[order(df_filtered$FoldEnrichment, decreasing = TRUE), ]
 
 # Plot
-ggplot(df_filtered, aes(x = reorder(Description, FoldEnrichment), 
+kegg_pathway=ggplot(df_filtered, aes(x = reorder(Description, FoldEnrichment), 
                         y = FoldEnrichment,
                         fill = p.adjust)) +
   geom_col() +
   coord_flip() +
   scale_fill_gradient(low = "red", high = "blue", name = "Adj. p-value") +
-  labs(title = "KEGG Pathway Enrichment (p.adjust < 0.05)",
+  labs(title = "(A) KEGG Pathway Enrichment",
        x = "",
        y = "Fold Enrichment") +
-  #theme_minimal() +
+  theme_minimal() +
   theme(
-    plot.title = element_text(hjust = 0.5),
-    axis.text.y = element_text(size = 6)
+    plot.title = element_text(hjust = 0.5, size = 20),
+    axis.text.y = element_text(size = 10), 
+    axis.text.x = element_text(size = 14), 
+    legend.title = element_text(size = 14),      # increase legend title
+    legend.text = element_text(size = 12),        # increase legend label text, 
+     axis.title.x = element_text(size = 18)       # y-axis title (this line was added)
   )
+kegg_pathway
 ```
 
 
@@ -636,11 +647,19 @@ names(gene_group) <- all_genes
 group_colors <- c(new = "red", old = "grey50", category = "orange")
 
 
+# Replace long description with line break version
+ekegg@result$Description <- gsub(
+  "ATP-dependent chromatin remodeling",
+  "ATP-dependent\nchromatin remodeling",
+  ekegg@result$Description
+)
+
+
 # Generate cnetplot and assign it to a variable
 p <- cnetplot(ekegg,
               circular = TRUE,
               colorEdge = TRUE,
-              cex_label_gene = 0.4,
+              cex_label_gene = 0.6,
               cex_label_category = 1)
 
 # Assign 'node_group' based on 'name'
@@ -654,12 +673,32 @@ p$data <- p$data %>%
   mutate(color = group_colors[node_group])
 
 # Now force ggplot to use your colors for the nodes
-p + 
+net_plot=p + 
   # Override color scale to identity so colors in 'color' column are used directly
-  scale_color_identity()
-
+  scale_color_identity()+
+  ggtitle("(B) Top five KEGG pathways")+  # Replace with your desired title
+  theme(plot.title = element_text(hjust = 0.5, size=20), 
+        legend.position = "right", 
+        legend.title = element_blank(),                      # Remove legend title
+    legend.text = element_text(size = 14)                # Bigger legend labels
+    )
+net_plot
 ```
 
+
+
+
+
+
+
+
+
+
+```{r, message=F, warning=F, eval=F}
+library(gridExtra)
+all <- grid.arrange(kegg_pathway,  net_plot, nrow=1) 
+ggsave(all,filename = paste0("C:\\Users\\hans\\OneDrive - Marquette University\\AI_for_Autism\\Fig\\KEGG-pathway-Deep-MOTIFs.pdf"),width = 18,height = 7,dpi = 600)
+```
 
 
 

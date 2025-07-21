@@ -687,7 +687,7 @@ net_plot
 
 
 
-```{r, message=F, warning=F, eval=F}
+```{r, message=F, warning=F, eval=T}
 # Extract top 5 pathways
 ekegg_top5 <- ekegg
 ekegg_top5@result <- ekegg@result[1:5, ]
@@ -719,15 +719,16 @@ annotation_df <- gene_pathway_df %>%
   mutate(
     IS_SFARI_gene = in_positive[gene],
     IS_MOTIFs_gene = in_deep_motifs[gene]
-  ) %>%
-  group_by(gene) %>%
-  summarize(
-    pathway = paste(unique(pathway), collapse = "; "),
-    IS_SFARI_gene = first(IS_SFARI_gene),
-    IS_MOTIFs_gene = first(IS_MOTIFs_gene),
-    .groups = "drop"
-  ) %>%
-  rename(Genes_in_pathways = gene)
+  )
+
+annotation_df%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
 
 ```
 

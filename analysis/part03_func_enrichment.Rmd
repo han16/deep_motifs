@@ -570,12 +570,12 @@ kegg_pathway=ggplot(df_filtered, aes(x = reorder(Description, FoldEnrichment),
   geom_col() +
   coord_flip() +
   scale_fill_gradient(low = "red", high = "blue", name = "Adj. p-value") +
-  labs(title = "(A) KEGG Pathway Enrichment",
+  labs(title = "(A) Significant KEGG Pathways",
        x = "",
        y = "Fold Enrichment") +
   theme_minimal() +
   theme(
-    plot.title = element_text(hjust = 0.5, size = 20),
+    plot.title = element_text(hjust = 0.5, size = 25),
     axis.text.y = element_text(size = 10), 
     axis.text.x = element_text(size = 14), 
     legend.title = element_text(size = 14),      # increase legend title
@@ -676,14 +676,96 @@ p$data <- p$data %>%
 net_plot=p + 
   # Override color scale to identity so colors in 'color' column are used directly
   scale_color_identity()+
-  ggtitle("(B) Top five KEGG pathways")+  # Replace with your desired title
-  theme(plot.title = element_text(hjust = 0.5, size=20), 
+  ggtitle("(B) Genes in top five KEGG pathways")+  # Replace with your desired title
+  theme(plot.title = element_text(hjust = 0.5, size=25), 
         legend.position = "right", 
         legend.title = element_blank(),                      # Remove legend title
     legend.text = element_text(size = 14)                # Bigger legend labels
     )
 net_plot
 ```
+
+
+
+```{r, message=F, warning=F, eval=F}
+# Extract top 5 pathways
+ekegg_top5 <- ekegg
+ekegg_top5@result <- ekegg@result[1:5, ]
+
+# Convert to tibble to use dplyr functions safely
+ekegg_df <- as_tibble(ekegg_top5@result)
+
+# Extract gene–pathway relationships
+gene_pathway_df <- ekegg_df %>%
+  dplyr::select(Description, geneID) %>%
+  tidyr::separate_rows(geneID, sep = "/") %>%
+  dplyr::rename(pathway = Description, gene = geneID) %>%
+  dplyr::distinct()
+
+
+# Filter genes shown in the cnetplot
+Genes_in_pathways <- unique(p$data$name[p$data$node_group %in% c("new", "old")])
+gene_pathway_df <- gene_pathway_df %>%
+  filter(gene %in% Genes_in_pathways)
+
+# Add annotations
+in_positive <- ifelse(gene_pathway_df$gene %in% positive_genes, "Yes", "NO")
+in_deep_motifs <- ifelse(gene_pathway_df$gene %in% top_genes, "Yes", "NO")
+
+names(in_positive) <- gene_pathway_df$gene
+names(in_deep_motifs) <- gene_pathway_df$gene
+
+annotation_df <- gene_pathway_df %>%
+  mutate(
+    IS_SFARI_gene = in_positive[gene],
+    IS_MOTIFs_gene = in_deep_motifs[gene]
+  ) %>%
+  group_by(gene) %>%
+  summarize(
+    pathway = paste(unique(pathway), collapse = "; "),
+    IS_SFARI_gene = first(IS_SFARI_gene),
+    IS_MOTIFs_gene = first(IS_MOTIFs_gene),
+    .groups = "drop"
+  ) %>%
+  rename(Genes_in_pathways = gene)
+
+```
+
+
+
+
+
+```{r, message=F, warning=F}
+
+# Extract node data from the cnetplot object
+node_data <- p$data
+
+# Get number of unique genes (exclude categories)
+num_genes <- length(unique(node_data$name[node_data$node_group %in% c("new", "old")]))
+num_genes
+
+# Get number of unique pathways (categories)
+num_pathways <- length(unique(node_data$name[node_data$node_group == "category"]))
+num_pathways
+
+Genes_in_pathways=node_data$name[node_data$node_group %in% c("new", "old")]
+
+in_positive <- ifelse(Genes_in_pathways %in% positive_genes, "Yes", "NO")
+in_deep_motifs=ifelse(Genes_in_pathways %in% top_genes, "Yes", "NO")
+
+data.frame(Genes_in_pathways, IS_SFARI_gene=in_positive, IS_MOTIFs_gene=in_deep_motifs)%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+
+
+
 
 
 

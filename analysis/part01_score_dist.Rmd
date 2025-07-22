@@ -28,6 +28,9 @@ result_round1=result_round1[result_round1['gene'] != 0,]  # remove rows with gen
 
 forecASD_results=as_tibble(read.csv(file.path(root, "../DiWangResults/forecASD_results.csv")))
 forecASD_results=forecASD_results[forecASD_results['gene'] != 0,]  # remove rows with gene=0
+
+Deep_MOTIFs_result=data.frame(Ensembl_Gene_ID=result_round1$X, Gene=result_round1$gene,Chromosome=result_round1$chromosome, Deep_MOTIFs_score=result_round1$RISK_PROBABILITY_FUSION)
+#write.csv(Deep_MOTIFs_result, file="C:\\Users\\hans\\OneDrive - Marquette University\\AI_for_Autism\\supp\\Deep_MOTIFs_result.csv")
 ```
 
 

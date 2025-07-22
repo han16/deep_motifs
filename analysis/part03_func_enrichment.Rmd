@@ -61,10 +61,10 @@ datatable(extensions = 'Buttons',
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 
-dim(gostres$result)
+length(unique(gostres$result$term_name))
 ```
 
-* for 447 Deep-MOTIFs genes, there are 1722 significant enriched items. 
+* for 447 Deep-MOTIFs genes, there are 2160 significant enriched items. 
 
 
 
@@ -89,9 +89,24 @@ pp <- publish_gostplot(p, highlight_terms = c("HP:0000729", "HP:0025783", "HP:00
 library(gprofiler2)   ### https://biit.cs.ut.ee/gprofiler/page/r
 gostres2 <- gost(query = list("Deep-MOTIFs genes"=top_genes, "SFARI genes"=positive_genes), 
 organism = "hsapiens", significant = TRUE, correction_method = "bonferroni")
+dim(gostres2$result)
+length(unique(gostres2$result$term_name))
+
 ```
 
-* in total 2960 significant enrichment items for 447 Deep-MOTIFs genes and 208 SFARI risk genes. 
+
+```{r, message=F, warning=F}
+# output the enrichment results 
+#install.packages("writexl")  # if not already installed
+library(writexl)
+
+df <- gostres2$result
+df[] <- lapply(df, function(x) if (is.list(x)) sapply(x, toString) else x)
+
+#write_xlsx(df, "C:\\Users\\hans\\OneDrive - Marquette University\\AI_for_Autism\\supp\\GO_enrichment.xlsx")
+```
+
+* in total 2239 significant enrichment items for 447 Deep-MOTIFs genes and 208 SFARI risk genes. 
 
 
 ```{r, message=F, warning=F}
@@ -220,7 +235,7 @@ highlight_terms_wide=highlight_terms%>%  # convert from long format to wide form
     values_from = p_value,
     names_prefix = "pvalue_"
   )
-#highlight_terms_wide=highlight_terms_wide %>% drop_na()  # remove enriched terms with NA  pvalue from either deep motifs or sfari 
+
 
 highlight_terms_wide %>%
   filter(is.na(`pvalue_Deep-MOTIFs genes`) & !is.na(`pvalue_SFARI genes`)) %>%
@@ -231,7 +246,14 @@ datatable(extensions = 'Buttons',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
+length(unique(highlight_terms_wide %>%
+  filter(is.na(`pvalue_Deep-MOTIFs genes`) & !is.na(`pvalue_SFARI genes`)) %>% dplyr::select(term_name) %>% pull()))
+```
 
+
+
+
+```{r, message=F, warning=F}
 
 highlight_terms_wide %>%
   filter(!is.na(`pvalue_Deep-MOTIFs genes`) & is.na(`pvalue_SFARI genes`)) %>%
@@ -243,12 +265,11 @@ datatable(extensions = 'Buttons',
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 
-highlight_terms_wide <- highlight_terms_wide %>%
-  mutate(across(where(is.numeric), ~replace_na(., 1)))  # replace NA with 1 
+#highlight_terms_wide <- highlight_terms_wide %>%
+#  mutate(across(where(is.numeric), ~replace_na(., 1)))  # replace NA with 1 
 
-dim(highlight_terms_wide)
-length(unique(highlight_terms$term_id))
-
+length(unique(highlight_terms_wide %>%
+  filter(!is.na(`pvalue_Deep-MOTIFs genes`) & is.na(`pvalue_SFARI genes`)) %>% dplyr::select(term_name) %>% pull()))
 
 
 ```

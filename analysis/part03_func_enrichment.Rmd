@@ -606,6 +606,154 @@ kegg_pathway=ggplot(df_filtered, aes(x = reorder(Description, FoldEnrichment),
 kegg_pathway
 ```
 
+#### SFARI genes 
+
+```{r, message=F, warning=F}
+
+# Convert gene symbols to Entrez IDs
+gene_df <- bitr(positive_genes, fromType = "SYMBOL", toType = "ENTREZID", OrgDb = org.Hs.eg.db)
+
+# Extract Entrez IDs
+entrez_ids <- gene_df$ENTREZID
+#print(entrez_ids)
+
+sfari_ekegg <- enrichKEGG(gene         = entrez_ids, 
+                   organism     = "hsa",      # Human
+                   pAdjustMethod = "BH", 
+                   pvalueCutoff  = 0.05)
+
+
+# Extract and filter
+sfari_df <- as.data.frame(sfari_ekegg@result)
+sfari_df_filtered <- sfari_df[sfari_df$p.adjust < 0.05, ]
+
+# Sort by Fold Enrichment
+sfari_df_filtered <- sfari_df_filtered[order(sfari_df_filtered$FoldEnrichment, decreasing = TRUE), ]
+
+# Plot
+sfari_kegg_pathway=ggplot(sfari_df_filtered, aes(x = reorder(Description, FoldEnrichment), 
+                        y = FoldEnrichment,
+                        fill = p.adjust)) +
+  geom_col() +
+  coord_flip() +
+  scale_fill_gradient(low = "red", high = "blue", name = "Adj. p-value") +
+  labs(title = "SFARI",
+       x = "",
+       y = "Fold Enrichment") +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5, size = 25),
+    axis.text.y = element_text(size = 10), 
+    axis.text.x = element_text(size = 14), 
+    legend.title = element_text(size = 14),      # increase legend title
+    legend.text = element_text(size = 12),        # increase legend label text, 
+     axis.title.x = element_text(size = 18)       # y-axis title (this line was added)
+  )
+sfari_kegg_pathway
+#kegg_pathway
+
+```
+
+
+
+#### compare SFARI vs MOTIFs
+
+```{r, message=F, warning=F}
+# Add a source column to both data frames
+df_filtered$Source <- "Deep-MOTIFs"
+sfari_df_filtered$Source <- "SFARI"
+
+# Combine both data frames
+combined_df <- rbind(df_filtered, sfari_df_filtered)
+
+# Make sure 'Description' is treated as a factor and keeps order
+combined_df$Description <- factor(combined_df$Description, 
+                                  levels = unique(combined_df$Description[order(combined_df$FoldEnrichment)]))
+
+
+# Order by Count within Deep-MOTIFs
+ordered_levels <- combined_df %>%
+  filter(Source == "Deep-MOTIFs") %>%
+  arrange(Count) %>%
+  pull(Description)
+
+# Apply factor levels to Description in combined_df
+combined_df$Description <- factor(combined_df$Description, levels = ordered_levels)
+
+combined_df$Count[is.na(combined_df$Count)] <- 0  # replace NA with 0 
+combined_df <- combined_df[!is.na(combined_df$Description), ]  # remove NA Description 
+# Plot
+kegg_comparison_plot <- ggplot(combined_df, aes(x = Description, 
+                                                 y = Count,
+                                                 fill = Source)) +
+  geom_col(position = position_dodge(width = 0.7)) +
+  coord_flip() +
+  labs(title = "(A) KEGG Pathway Comparison",
+       x = "",
+       y = "Gene Count") +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5, size = 25),
+    axis.text.y = element_text(size = 10), 
+    axis.text.x = element_text(size = 14), 
+    legend.title = element_text(size = 14),      
+    legend.text = element_text(size = 12),        
+    axis.title.x = element_text(size = 18)
+  ) +
+ guides(fill = guide_legend(title = NULL))+
+  scale_fill_manual(values = c("SFARI" = "steelblue", "Deep-MOTIFs" = "tomato"))
+
+kegg_comparison_plot
+```
+
+
+
+```{r, message=F, warning=F}
+ ggplot(combined_df, aes(x = Description, 
+                                                 y = -log(p.adjust),
+                                                 fill = Source)) +
+  geom_col(position = position_dodge(width = 0.7)) +
+  coord_flip() +
+  labs(title = "(A) KEGG Pathway Comparison",
+       x = "",
+       y = "Gene Count") +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5, size = 25),
+    axis.text.y = element_text(size = 10), 
+    axis.text.x = element_text(size = 14), 
+    legend.title = element_text(size = 14),      
+    legend.text = element_text(size = 12),        
+    axis.title.x = element_text(size = 18)
+  ) +
+  scale_fill_manual(values = c("SFARI" = "steelblue", "Deep-MOTIFs" = "tomato"))
+
+```
+
+
+```{r, message=F, warning=F}
+kegg_comparison_plot=ggplot(combined_df, aes(x = Description, y = Count, fill = p.adjust)) +
+  geom_col() +
+  facet_wrap(~Source) +
+  scale_fill_gradient(low = "red", high = "blue", name = "Adj. p-value") +
+  coord_flip() +
+  labs(title = "(A) KEGG Pathway Comparison",
+       x = "",
+       y = "Gene Count") +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5, size = 25),
+    strip.text = element_text(size = 18, face = "bold"),  # facet subtitle size
+    axis.text.y = element_text(size = 10), 
+    axis.text.x = element_text(size = 14), 
+    legend.title = element_text(size = 14),      
+    legend.text = element_text(size = 12),        
+    axis.title.x = element_text(size = 18),
+    axis.title.y = element_blank()                # remove y-axis label
+  )
+kegg_comparison_plot
+
+```
 
 
 
@@ -613,7 +761,17 @@ kegg_pathway
 
 ```{r, message=F, warning=F}
 
+# Convert gene symbols to Entrez IDs
+gene_df <- bitr(top_genes, fromType = "SYMBOL", toType = "ENTREZID", OrgDb = org.Hs.eg.db)
 
+# Extract Entrez IDs
+entrez_ids <- gene_df$ENTREZID
+#print(entrez_ids)
+
+ekegg <- enrichKEGG(gene         = entrez_ids, 
+                   organism     = "hsa",      # Human
+                   pAdjustMethod = "BH", 
+                   pvalueCutoff  = 0.05)
 
 # Network plot for KEGG pathways
 cnetplot(ekegg, circular = TRUE, colorEdge = TRUE, cex_label_gene=0.5, cex_label_category=5)
@@ -800,8 +958,8 @@ datatable(extensions = 'Buttons',
 
 ```{r, message=F, warning=F, eval=F}
 library(gridExtra)
-all <- grid.arrange(kegg_pathway,  net_plot, nrow=1) 
-ggsave(all,filename = paste0("C:\\Users\\hans\\OneDrive - Marquette University\\AI_for_Autism\\Fig\\KEGG-pathway-Deep-MOTIFs.pdf"),width = 18,height = 7,dpi = 600)
+all <- grid.arrange(kegg_comparison_plot,  net_plot, nrow=1) 
+ggsave(all,filename = paste0("C:\\Users\\hans\\OneDrive - Marquette University\\AI_for_Autism\\Fig\\KEGG-pathway-Deep-MOTIFs.pdf"),width = 18,height = 7,dpi = 800)
 ```
 
 

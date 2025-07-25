@@ -160,7 +160,14 @@ ggplot(df_filtered, aes(x = reorder(Description, FoldEnrichment),
     legend.text = element_text(size = 12),        # increase legend label text, 
      axis.title.x = element_text(size = 18)       # y-axis title (this line was added)
   )
+length(unique(df_filtered$Description))
+
 ```
+
+
+*  63 significant enriched deep-motifs pathways 
+
+
 
 #### SFARI genes 
 
@@ -208,40 +215,48 @@ sfari_kegg_pathway=ggplot(sfari_df_filtered, aes(x = reorder(Description, FoldEn
 sfari_kegg_pathway
 #kegg_pathway
 
+
+length(unique(sfari_df_filtered$Description))
 ```
+
+
+* 59 significant sfari enriched pathways  
 
 
 
 #### compare SFARI vs MOTIFs
 
 ```{r, message=F, warning=F}
-# Add a source column to both data frames
+library(dplyr)
+library(ggplot2)
+
+# Add Source column
 df_filtered$Source <- "Deep-MOTIFs"
 sfari_df_filtered$Source <- "SFARI"
 
-# Combine both data frames
-combined_df <- rbind(df_filtered, sfari_df_filtered)
+# Combine datasets
+combined_df <- bind_rows(df_filtered, sfari_df_filtered)
 
-# Make sure 'Description' is treated as a factor and keeps order
-combined_df$Description <- factor(combined_df$Description, 
-                                  levels = unique(combined_df$Description[order(combined_df$FoldEnrichment)]))
+# Replace NA counts with 0
+combined_df$Count[is.na(combined_df$Count)] <- 0
 
+# Step 1: Get Description order from SFARI (largest to smallest)
+sfari_order <- combined_df %>%
+  filter(Source == "SFARI") %>%
+  arrange(desc(Count)) %>%
+  pull(Description) %>%
+  unique()
 
-# Order by Count within Deep-MOTIFs
-ordered_levels <- combined_df %>%
-  filter(Source == "Deep-MOTIFs") %>%
-  arrange(Count) %>%
-  pull(Description)
+# Step 2: Add in Deep-MOTIFs-only descriptions to the bottom
+all_desc <- unique(combined_df$Description)
+deep_only_desc <- setdiff(all_desc, sfari_order)
+final_levels <- c(sfari_order, deep_only_desc)
 
-# Apply factor levels to Description in combined_df
-combined_df$Description <- factor(combined_df$Description, levels = ordered_levels)
+# Step 3: Apply new ordering to the Description factor
+combined_df$Description <- factor(combined_df$Description, levels = final_levels)
 
-combined_df$Count[is.na(combined_df$Count)] <- 0  # replace NA with 0 
-combined_df <- combined_df[!is.na(combined_df$Description), ]  # remove NA Description 
-# Plot
- ggplot(combined_df, aes(x = Description, 
-                                                 y = Count,
-                                                 fill = Source)) +
+# Step 4: Plot
+ggplot(combined_df, aes(x = Description, y = Count, fill = Source)) +
   geom_col(position = position_dodge(width = 0.7)) +
   coord_flip() +
   labs(title = "(A) KEGG Pathway Comparison",
@@ -256,10 +271,14 @@ combined_df <- combined_df[!is.na(combined_df$Description), ]  # remove NA Descr
     legend.text = element_text(size = 12),        
     axis.title.x = element_text(size = 18)
   ) +
- guides(fill = guide_legend(title = NULL))+
+  guides(fill = guide_legend(title = NULL)) +
   scale_fill_manual(values = c("SFARI" = "steelblue", "Deep-MOTIFs" = "tomato"))
 
+
+
 ```
+
+* 46 significant enriched pathways both in sfari and deep-motifs 
 
 
 
@@ -287,40 +306,56 @@ combined_df <- combined_df[!is.na(combined_df$Description), ]  # remove NA Descr
 
 
 ```{r, message=F, warning=F}
-combined_df <- combined_df %>%
-  group_by(Source) %>%
-  mutate(Description = fct_reorder(Description, FoldEnrichment))
+#combined_df <- combined_df %>%
+ # group_by(Source) %>%
+#  mutate(Description = fct_reorder(Description, FoldEnrichment))
 
 kegg_comparison_plot=ggplot(combined_df, aes(x = Description, y = FoldEnrichment, fill = p.adjust)) +
   geom_col() +
   facet_wrap(~Source) +
   scale_fill_gradient(low = "red", high = "blue", name = "Adj. p-value") +
   coord_flip() +
-  labs(title = "(A) KEGG pathway comparisons",
+  labs(title = "(A)",
        x = "",
        y = "Fold enrichment") +
   theme_minimal() +
   theme(
-    plot.title = element_text(hjust = 0.5, size = 25),
-    strip.text = element_text(size = 18, face = "bold"),  # facet subtitle size
-    axis.text.y = element_text(size = 10), 
+    plot.title = element_text(hjust = 0.5, size = 50),
+    strip.text = element_text(size = 30, face = "bold"),  # facet subtitle size
+    axis.text.y = element_text(size = 14), 
     axis.text.x = element_text(size = 14), 
     legend.title = element_text(size = 14),      
     legend.text = element_text(size = 12),        
-    axis.title.x = element_text(size = 18),
+    axis.title.x = element_text(size = 30),
     axis.title.y = element_blank()                # remove y-axis label
   )
 kegg_comparison_plot
+```
 
-combined_df %>% filter(Source=="Deep-MOTIFs")%>%
+
+
+
+
+
+
+
+
+```{r, message=F, warning=F}
+wide_df <- combined_df %>%
+  dplyr::select(category, subcategory, Description, FoldEnrichment,p.adjust, Count, Source) %>%
+  pivot_wider(
+    names_from = Source,
+    values_from = c(FoldEnrichment, p.adjust, Count),
+    names_sep = "."
+  )%>%
+  mutate(across(where(is.numeric), ~ round(.x, 4)))
+
+wide_df%>% 
 datatable(extensions = 'Buttons',
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
-
-length(unique(combined_df %>% filter(Source=="Deep-MOTIFs")%>% dplyr::select(Description) %>% pull()))
-
 ```
 
 
@@ -406,7 +441,7 @@ ekegg@result$Description <- gsub(
 p <- cnetplot(ekegg,
               circular = TRUE,
               colorEdge = TRUE,
-              cex_label_gene = 0.6,
+              cex_label_gene = 1,
               cex_label_category = 1)
 
 # Assign 'node_group' based on 'name'
@@ -423,11 +458,11 @@ p$data <- p$data %>%
 net_plot=p + 
   # Override color scale to identity so colors in 'color' column are used directly
   scale_color_identity()+
-  ggtitle("(D) Genes in top five KEGG pathways")+  # Replace with your desired title
-  theme(plot.title = element_text(hjust = 0.5, size=25), 
+  ggtitle("(B)")+  # Replace with your desired title
+  theme(plot.title = element_text(hjust = 0.5, size=50), 
         legend.position = "right", 
         legend.title = element_blank(),                      # Remove legend title
-    legend.text = element_text(size = 14)                # Bigger legend labels
+    legend.text = element_text(size = 20)                # Bigger legend labels
     )
 net_plot
 ```
@@ -502,7 +537,7 @@ length(unique(annotation_df$gene))
 ```{r, message=F, warning=F, eval=F}
 library(gridExtra)
 all <- grid.arrange(kegg_comparison_plot,  net_plot, nrow=1) 
-ggsave(all,filename = paste0("C:\\Users\\hans\\OneDrive - Marquette University\\AI_for_Autism\\Fig\\KEGG-pathway-Deep-MOTIFs.pdf"),width = 18,height = 7,dpi = 800)
+ggsave(all,filename = paste0("C:\\Users\\hans\\OneDrive - Marquette University\\AI_for_Autism\\Fig\\KEGG-pathway-Deep-MOTIFs.pdf"),width = 27,height = 12,dpi = 800)
 ```
 
 

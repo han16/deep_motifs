@@ -455,10 +455,10 @@ changes </a>
 <div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown is untracked by Git. To know which version of the R
-Markdown file created these results, you’ll want to first commit it to
-the Git repo. If you’re still working on the analysis, you can ignore
-this warning. When you’re finished, you can run
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
 <code>wflow_publish</code> to commit the R Markdown file and build the
 HTML.</p>
 </div>
@@ -551,15 +551,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16deepmotifstreeb72befa9aeb95c38d6f968e0676e04599eae8721targetblankb72befaa">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16deepmotifstree08915dee6532930c18dcee96e68fa39676f1008atargetblank08915dea">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/deep_motifs/tree/b72befa9aeb95c38d6f968e0676e04599eae8721" target="_blank">b72befa</a>
+<a href="https://github.com/han16/deep_motifs/tree/08915dee6532930c18dcee96e68fa39676f1008a" target="_blank">08915de</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16deepmotifstreeb72befa9aeb95c38d6f968e0676e04599eae8721targetblankb72befaa"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16deepmotifstree08915dee6532930c18dcee96e68fa39676f1008atargetblank08915dea"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -569,7 +569,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/deep_motifs/tree/b72befa9aeb95c38d6f968e0676e04599eae8721" target="_blank">b72befa</a>.
+<a href="https://github.com/han16/deep_motifs/tree/08915dee6532930c18dcee96e68fa39676f1008a" target="_blank">08915de</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -586,8 +586,8 @@ were generated:
 Ignored files:
     Ignored:    .Rhistory
 
-Untracked files:
-    Untracked:  analysis/part03_func_enrichment_clusterprofiler.Rmd
+Unstaged changes:
+    Modified:   analysis/part03_func_enrichment_clusterprofiler.Rmd
 
 </code></pre>
 <p>
@@ -602,10 +602,75 @@ have uncommitted changes.
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
+
 <p>
-There are no past versions. Publish this analysis with
-<code>wflow_publish()</code> to start tracking its development.
+These are the previous versions of the repository in which changes were
+made to the R Markdown
+(<code>analysis/part03_func_enrichment_clusterprofiler.Rmd</code>) and
+HTML (<code>docs/part03_func_enrichment_clusterprofiler.html</code>)
+files. If you’ve configured a remote Git repository (see
+<code>?wflow_git_remote</code>), click on the hyperlinks in the table
+below to view the files as they were in that past version.
 </p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/deep_motifs/blob/08915dee6532930c18dcee96e68fa39676f1008a/analysis/part03_func_enrichment_clusterprofiler.Rmd" target="_blank">08915de</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-07-25
+</td>
+<td>
+7/25/2025
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/deep_motifs/08915dee6532930c18dcee96e68fa39676f1008a/docs/part03_func_enrichment_clusterprofiler.html" target="_blank">08915de</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-07-25
+</td>
+<td>
+7/25/2025
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 <hr>
 </div>
 </div>
@@ -658,44 +723,49 @@ library(enrichplot)    # For visualization</code></pre>
 dotplot(ego, showCategory=nrow(ego), title=&quot;&quot;)+
   theme(axis.text.y = element_text(size = 6))  # Adjust the size as needed</code></pre>
 <p><img src="figure/part03_func_enrichment_clusterprofiler.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
+Past versions of unnamed-chunk-4-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-4-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/deep_motifs/blob/08915dee6532930c18dcee96e68fa39676f1008a/docs/figure/part03_func_enrichment_clusterprofiler.Rmd/unnamed-chunk-4-1.png" target="_blank">08915de</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-07-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code># Extract significant terms while preserving the enrichResult object
 #significant_ego &lt;- ego
 #significant_ego@result &lt;- significant_ego@result[significant_ego@result$p.adjust &lt; 0.05, ]
 
 # Create the dot plot with significant terms only
 #dotplot(significant_ego, showCategory = nrow(significant_ego), title = &quot;GO Enrichment - Biological Process&quot;)</code></pre>
-<pre class="r"><code>gsego &lt;- gseGO(gene          = sort(top_genes, decreasing = T),  
-               OrgDb         = org.Hs.eg.db,
-               keyType       = &quot;SYMBOL&quot;, 
-               ont           = &quot;All&quot;,        # BP: Biological Process, CC: Cellular Component, MF: Molecular Function
-               pAdjustMethod = &quot;BH&quot;, 
-               pvalueCutoff  = 0.05, 
-               qvalueCutoff  = 0.01)
-
-# View the result
-#head(ego)
-
-# Dotplot for GO enrichment
-dotplot(ego, showCategory=nrow(ego), title=&quot;&quot;)+
-  theme(axis.text.y = element_text(size = 6))  # Adjust the size as needed
-
-# Extract significant terms while preserving the enrichResult object
-#significant_ego &lt;- ego
-#significant_ego@result &lt;- significant_ego@result[significant_ego@result$p.adjust &lt; 0.05, ]
-
-# Create the dot plot with significant terms only
-#dotplot(significant_ego, showCategory = nrow(significant_ego), title = &quot;GO Enrichment - Biological Process&quot;)</code></pre>
-<pre class="r"><code># Compute pairwise term similarity
-ego_sim &lt;- pairwise_termsim(ego)
-
-# Visualize the results using the enrichment map plot
-emapplot(ego_sim, label=&quot;ID&quot;)+
- # theme(legend.position = &quot;none&quot;)
-  theme(legend.text = element_text(size = 10))
-
-
-emap &lt;- emapplot(ego_sim, showCategory = 30, label =F)  # or any number of categories
-emap + theme(legend.text = element_text(size = 10))</code></pre>
 <div id="gene-concept-network" class="section level3">
 <h3>Gene-Concept Network</h3>
 <pre class="r"><code># Convert gene symbols to Entrez IDs
@@ -714,10 +784,11 @@ ekegg &lt;- enrichKEGG(gene         = entrez_ids,
 #head(ekegg)
 
 # Barplot for KEGG enrichment
-barplot(ekegg, showCategory= nrow(ekegg), title=&quot;KEGG Pathway Enrichment&quot;)+
-  theme(axis.text.y = element_text(size = 5))</code></pre>
-<p><img src="figure/part03_func_enrichment_clusterprofiler.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>#Sort ekegg results by Count in descending order
+#barplot(ekegg, showCategory= nrow(ekegg), title=&quot;KEGG Pathway Enrichment&quot;)+
+#  theme(axis.text.y = element_text(size = 5))
+
+
+#Sort ekegg results by Count in descending order
 ekegg_sorted &lt;- ekegg
 ekegg_sorted@result &lt;- ekegg@result[order(ekegg@result$Count, decreasing = TRUE), ]
 
@@ -727,7 +798,7 @@ barplot(ekegg_sorted,
         title = &quot;KEGG Pathway Enrichment&quot;) +
   theme(axis.text.y = element_text(size = 5), 
         plot.title = element_text(hjust = 0.5))  # Center title</code></pre>
-<p><img src="figure/part03_func_enrichment_clusterprofiler.Rmd/unnamed-chunk-7-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/part03_func_enrichment_clusterprofiler.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code># Extract and filter
 df &lt;- as.data.frame(ekegg@result)
 df_filtered &lt;- df[df$p.adjust &lt; 0.05, ]
@@ -736,7 +807,7 @@ df_filtered &lt;- df[df$p.adjust &lt; 0.05, ]
 df_filtered &lt;- df_filtered[order(df_filtered$FoldEnrichment, decreasing = TRUE), ]
 
 # Plot
-kegg_pathway=ggplot(df_filtered, aes(x = reorder(Description, FoldEnrichment), 
+ggplot(df_filtered, aes(x = reorder(Description, FoldEnrichment), 
                         y = FoldEnrichment,
                         fill = p.adjust)) +
   geom_col() +
@@ -753,9 +824,8 @@ kegg_pathway=ggplot(df_filtered, aes(x = reorder(Description, FoldEnrichment),
     legend.title = element_text(size = 14),      # increase legend title
     legend.text = element_text(size = 12),        # increase legend label text, 
      axis.title.x = element_text(size = 18)       # y-axis title (this line was added)
-  )
-kegg_pathway</code></pre>
-<p><img src="figure/part03_func_enrichment_clusterprofiler.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+  )</code></pre>
+<p><img src="figure/part03_func_enrichment_clusterprofiler.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
 <div id="sfari-genes" class="section level4">
 <h4>SFARI genes</h4>
 <pre class="r"><code># Convert gene symbols to Entrez IDs
@@ -798,7 +868,44 @@ sfari_kegg_pathway=ggplot(sfari_df_filtered, aes(x = reorder(Description, FoldEn
      axis.title.x = element_text(size = 18)       # y-axis title (this line was added)
   )
 sfari_kegg_pathway</code></pre>
-<p><img src="figure/part03_func_enrichment_clusterprofiler.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/part03_func_enrichment_clusterprofiler.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
+Past versions of unnamed-chunk-7-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-7-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/deep_motifs/blob/08915dee6532930c18dcee96e68fa39676f1008a/docs/figure/part03_func_enrichment_clusterprofiler.Rmd/unnamed-chunk-7-1.png" target="_blank">08915de</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-07-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>#kegg_pathway</code></pre>
 </div>
 <div id="compare-sfari-vs-motifs" class="section level4">
@@ -827,7 +934,7 @@ combined_df$Description &lt;- factor(combined_df$Description, levels = ordered_l
 combined_df$Count[is.na(combined_df$Count)] &lt;- 0  # replace NA with 0 
 combined_df &lt;- combined_df[!is.na(combined_df$Description), ]  # remove NA Description 
 # Plot
-kegg_comparison_plot &lt;- ggplot(combined_df, aes(x = Description, 
+ ggplot(combined_df, aes(x = Description, 
                                                  y = Count,
                                                  fill = Source)) +
   geom_col(position = position_dodge(width = 0.7)) +
@@ -845,10 +952,45 @@ kegg_comparison_plot &lt;- ggplot(combined_df, aes(x = Description,
     axis.title.x = element_text(size = 18)
   ) +
  guides(fill = guide_legend(title = NULL))+
-  scale_fill_manual(values = c(&quot;SFARI&quot; = &quot;steelblue&quot;, &quot;Deep-MOTIFs&quot; = &quot;tomato&quot;))
-
-kegg_comparison_plot</code></pre>
-<p><img src="figure/part03_func_enrichment_clusterprofiler.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+  scale_fill_manual(values = c(&quot;SFARI&quot; = &quot;steelblue&quot;, &quot;Deep-MOTIFs&quot; = &quot;tomato&quot;))</code></pre>
+<p><img src="figure/part03_func_enrichment_clusterprofiler.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
+Past versions of unnamed-chunk-8-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-8-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/deep_motifs/blob/08915dee6532930c18dcee96e68fa39676f1008a/docs/figure/part03_func_enrichment_clusterprofiler.Rmd/unnamed-chunk-8-1.png" target="_blank">08915de</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-07-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code> ggplot(combined_df, aes(x = Description, 
                                                  y = -log(p.adjust),
                                                  fill = Source)) +
@@ -856,7 +998,7 @@ kegg_comparison_plot</code></pre>
   coord_flip() +
   labs(title = &quot;(A) KEGG Pathway Comparison&quot;,
        x = &quot;&quot;,
-       y = &quot;Gene Count&quot;) +
+       y = &quot;-log(p value)&quot;) +
   theme_minimal() +
   theme(
     plot.title = element_text(hjust = 0.5, size = 25),
@@ -867,15 +1009,56 @@ kegg_comparison_plot</code></pre>
     axis.title.x = element_text(size = 18)
   ) +
   scale_fill_manual(values = c(&quot;SFARI&quot; = &quot;steelblue&quot;, &quot;Deep-MOTIFs&quot; = &quot;tomato&quot;))</code></pre>
-<p><img src="figure/part03_func_enrichment_clusterprofiler.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>kegg_comparison_plot=ggplot(combined_df, aes(x = Description, y = Count, fill = p.adjust)) +
+<p><img src="figure/part03_func_enrichment_clusterprofiler.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
+Past versions of unnamed-chunk-9-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-9-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/deep_motifs/blob/08915dee6532930c18dcee96e68fa39676f1008a/docs/figure/part03_func_enrichment_clusterprofiler.Rmd/unnamed-chunk-9-1.png" target="_blank">08915de</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-07-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>combined_df &lt;- combined_df %&gt;%
+  group_by(Source) %&gt;%
+  mutate(Description = fct_reorder(Description, FoldEnrichment))
+
+kegg_comparison_plot=ggplot(combined_df, aes(x = Description, y = FoldEnrichment, fill = p.adjust)) +
   geom_col() +
   facet_wrap(~Source) +
   scale_fill_gradient(low = &quot;red&quot;, high = &quot;blue&quot;, name = &quot;Adj. p-value&quot;) +
   coord_flip() +
-  labs(title = &quot;(C) KEGG pathway comparisons&quot;,
+  labs(title = &quot;(A) KEGG pathway comparisons&quot;,
        x = &quot;&quot;,
-       y = &quot;Gene Count&quot;) +
+       y = &quot;Fold enrichment&quot;) +
   theme_minimal() +
   theme(
     plot.title = element_text(hjust = 0.5, size = 25),
@@ -888,7 +1071,44 @@ kegg_comparison_plot</code></pre>
     axis.title.y = element_blank()                # remove y-axis label
   )
 kegg_comparison_plot</code></pre>
-<p><img src="figure/part03_func_enrichment_clusterprofiler.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/part03_func_enrichment_clusterprofiler.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-10-1">
+Past versions of unnamed-chunk-10-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-10-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/deep_motifs/blob/08915dee6532930c18dcee96e68fa39676f1008a/docs/figure/part03_func_enrichment_clusterprofiler.Rmd/unnamed-chunk-10-1.png" target="_blank">08915de</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-07-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>combined_df %&gt;% filter(Source==&quot;Deep-MOTIFs&quot;)%&gt;%
 datatable(extensions = &#39;Buttons&#39;,
             options = list(dom = &#39;Blfrtip&#39;,
@@ -896,7 +1116,7 @@ datatable(extensions = &#39;Buttons&#39;,
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-ceb20dc2a931752ae4f3" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-ceb20dc2a931752ae4f3">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["hsa05033","hsa04720","hsa00310","hsa05213","hsa04724","hsa03082","hsa04721","hsa04919","hsa05030","hsa05017","hsa05031","hsa05211","hsa04961","hsa01521","hsa04916","hsa03050","hsa03083","hsa04930","hsa05214","hsa04012","hsa05215","hsa05210","hsa04360","hsa05221","hsa05225","hsa04728","hsa04330","hsa04713","hsa04934","hsa04211","hsa05224","hsa03015","hsa04725","hsa04931","hsa04935","hsa04925","hsa04911","hsa04310","hsa04910","hsa04971","hsa04727","hsa04520","hsa04024","hsa04068","hsa04722","hsa04066","hsa04261","hsa01522","hsa05231","hsa04150","hsa05226","hsa05016","hsa05205","hsa04514","hsa04072","hsa04723","hsa04082","hsa05022","hsa05010","hsa04714","hsa05165","hsa05020","hsa05014"],["Human Diseases","Organismal Systems","Metabolism","Human Diseases","Organismal Systems","Genetic Information Processing","Organismal Systems","Organismal Systems","Human Diseases","Human Diseases","Human Diseases","Human Diseases","Organismal Systems","Human Diseases","Organismal Systems","Genetic Information Processing","Genetic Information Processing","Human Diseases","Human Diseases","Environmental Information Processing","Human Diseases","Human Diseases","Organismal Systems","Human Diseases","Human Diseases","Organismal Systems","Environmental Information Processing","Organismal Systems","Human Diseases","Organismal Systems","Human Diseases","Genetic Information Processing","Organismal Systems","Human Diseases","Organismal Systems","Organismal Systems","Organismal Systems","Environmental Information Processing","Organismal Systems","Organismal Systems","Organismal Systems","Cellular Processes","Environmental Information Processing","Environmental Information Processing","Organismal Systems","Environmental Information Processing","Organismal Systems","Human Diseases","Human Diseases","Environmental Information Processing","Human Diseases","Human Diseases","Human Diseases","Environmental Information Processing","Environmental Information Processing","Organismal Systems",null,"Human Diseases","Human Diseases","Organismal Systems","Human Diseases","Human Diseases","Human Diseases"],["Substance dependence","Nervous system","Amino acid metabolism","Cancer: specific types","Nervous system","Chromosome","Nervous system","Endocrine system","Substance dependence","Neurodegenerative disease","Substance dependence","Cancer: specific types","Excretory system","Drug resistance: antineoplastic","Endocrine system","Folding, sorting and degradation","Chromosome","Endocrine and metabolic disease","Cancer: specific types","Signal transduction","Cancer: specific types","Cancer: specific types","Development and regeneration","Cancer: specific types","Cancer: specific types","Nervous system","Signal transduction","Environmental adaptation","Endocrine and metabolic disease","Aging","Cancer: specific types","Translation","Nervous system","Endocrine and metabolic disease","Endocrine system","Endocrine system","Endocrine system","Signal transduction","Endocrine system","Digestive system","Nervous system","Cellular community - eukaryotes","Signal transduction","Signal transduction","Nervous system","Signal transduction","Circulatory system","Drug resistance: antineoplastic","Cancer: overview","Signal transduction","Cancer: specific types","Neurodegenerative disease","Cancer: overview","Signaling molecules and interaction","Signal transduction","Nervous system",null,"Neurodegenerative disease","Neurodegenerative disease","Environmental adaptation","Infectious disease: viral","Neurodegenerative disease","Neurodegenerative disease"],["hsa05033","hsa04720","hsa00310","hsa05213","hsa04724","hsa03082","hsa04721","hsa04919","hsa05030","hsa05017","hsa05031","hsa05211","hsa04961","hsa01521","hsa04916","hsa03050","hsa03083","hsa04930","hsa05214","hsa04012","hsa05215","hsa05210","hsa04360","hsa05221","hsa05225","hsa04728","hsa04330","hsa04713","hsa04934","hsa04211","hsa05224","hsa03015","hsa04725","hsa04931","hsa04935","hsa04925","hsa04911","hsa04310","hsa04910","hsa04971","hsa04727","hsa04520","hsa04024","hsa04068","hsa04722","hsa04066","hsa04261","hsa01522","hsa05231","hsa04150","hsa05226","hsa05016","hsa05205","hsa04514","hsa04072","hsa04723","hsa04082","hsa05022","hsa05010","hsa04714","hsa05165","hsa05020","hsa05014"],["Nicotine addiction","Long-term potentiation","Lysine degradation","Endometrial cancer","Glutamatergic synapse","ATP-dependent chromatin remodeling","Synaptic vesicle cycle","Thyroid hormone signaling pathway","Cocaine addiction","Spinocerebellar ataxia","Amphetamine addiction","Renal cell carcinoma","Endocrine and other factor-regulated calcium reabsorption","EGFR tyrosine kinase inhibitor resistance","Melanogenesis","Proteasome","Polycomb repressive complex","Type II diabetes mellitus","Glioma","ErbB signaling pathway","Prostate cancer","Colorectal cancer","Axon guidance","Acute myeloid leukemia","Hepatocellular carcinoma","Dopaminergic synapse","Notch signaling pathway","Circadian entrainment","Cushing syndrome","Longevity regulating pathway","Breast cancer","mRNA surveillance pathway","Cholinergic synapse","Insulin resistance","Growth hormone synthesis, secretion and action","Aldosterone synthesis and secretion","Insulin secretion","Wnt signaling pathway","Insulin signaling pathway","Gastric acid secretion","GABAergic synapse","Adherens junction","cAMP signaling pathway","FoxO signaling pathway","Neurotrophin signaling pathway","HIF-1 signaling pathway","Adrenergic signaling in cardiomyocytes","Endocrine resistance","Choline metabolism in cancer","mTOR signaling pathway","Gastric cancer","Huntington disease","Proteoglycans in cancer","Cell adhesion molecules","Phospholipase D signaling pathway","Retrograde endocannabinoid signaling","Neuroactive ligand signaling","Pathways of neurodegeneration - multiple diseases","Alzheimer disease","Thermogenesis","Human papillomavirus infection","Prion disease","Amyotrophic lateral sclerosis"],["8/238","13/238","11/238","9/238","15/238","15/238","10/238","15/238","6/238","17/238","8/238","8/238","6/238","9/238","11/238","5/238","9/238","5/238","8/238","9/238","11/238","9/238","19/238","7/238","17/238","13/238","6/238","9/238","14/238","8/238","13/238","9/238","10/238","9/238","10/238","8/238","7/238","14/238","11/238","6/238","7/238","7/238","17/238","10/238","9/238","8/238","11/238","7/238","7/238","11/238","10/238","20/238","13/238","10/238","9/238","9/238","12/238","28/238","22/238","13/238","18/238","14/238","17/238"],["41/9434","67/9434","63/9434","59/9434","116/9434","117/9434","79/9434","122/9434","49/9434","144/9434","69/9434","70/9434","53/9434","80/9434","101/9434","46/9434","83/9434","47/9434","76/9434","86/9434","106/9434","87/9434","184/9434","68/9434","170/9434","132/9434","62/9434","97/9434","155/9434","90/9434","148/9434","103/9434","116/9434","109/9434","122/9434","98/9434","86/9434","174/9434","138/9434","76/9434","89/9434","93/9434","226/9434","133/9434","120/9434","110/9434","154/9434","99/9434","99/9434","158/9434","150/9434","311/9434","204/9434","160/9434","149/9434","149/9434","199/9434","483/9434","391/9434","235/9434","333/9434","278/9434","371/9434"],[0.1951219512195122,0.1940298507462687,0.1746031746031746,0.1525423728813559,0.1293103448275862,0.1282051282051282,0.1265822784810127,0.1229508196721311,0.1224489795918367,0.1180555555555556,0.1159420289855072,0.1142857142857143,0.1132075471698113,0.1125,0.1089108910891089,0.108695652173913,0.108433734939759,0.1063829787234043,0.1052631578947368,0.1046511627906977,0.1037735849056604,0.103448275862069,0.1032608695652174,0.1029411764705882,0.1,0.09848484848484848,0.09677419354838709,0.09278350515463918,0.09032258064516129,0.08888888888888889,0.08783783783783784,0.08737864077669903,0.08620689655172414,0.08256880733944955,0.08196721311475409,0.08163265306122448,0.08139534883720931,0.08045977011494253,0.07971014492753623,0.07894736842105263,0.07865168539325842,0.07526881720430108,0.0752212389380531,0.07518796992481203,0.075,0.07272727272727272,0.07142857142857142,0.0707070707070707,0.0707070707070707,0.06962025316455696,0.06666666666666667,0.06430868167202572,0.06372549019607843,0.0625,0.06040268456375839,0.06040268456375839,0.06030150753768844,0.05797101449275362,0.05626598465473145,0.05531914893617021,0.05405405405405406,0.05035971223021583,0.04582210242587601],[7.734371797499487,7.691082403110499,6.921035080698946,6.046574562028201,5.12568820631701,5.081878905408317,5.0175513243272,4.873605179776829,4.853712913736923,4.679563492063492,4.595786140543174,4.530132052821129,4.487394957983193,4.459348739495798,4.317081287960729,4.308549506759225,4.298167459754986,4.216878240657965,4.172490048651039,4.148231385577487,4.11344537815126,4.100550565053608,4.093122031421264,4.08044982698962,3.963865546218488,3.903806977336389,3.835998915695311,3.677813393398596,3.580265654648956,3.5234360410831,3.48177379059732,3.463571836501591,3.417125470878007,3.272916506051962,3.249070119851219,3.235808609157949,3.22640218878249,3.189317106152806,3.159602971623432,3.129367536488279,3.117647058823529,2.983554712207464,2.981668773704172,2.980350034750742,2.972899159663865,2.882811306340718,2.831332533013205,2.802733214497921,2.802733214497921,2.759653228379959,2.642577030812325,2.549109676024751,2.525992750041193,2.477415966386554,2.394281202413852,2.394281202413852,2.390270681136776,2.297893070271587,2.230307979969481,2.192776685142142,2.142630024982966,1.996191282268303,1.816326530612245],[6.951856059006343,8.84193736478287,7.585581074044794,6.255340809328867,7.192468352394656,7.147084457294909,5.768554469039255,6.927678089233194,4.350850636107423,7.157866673596686,4.822568700077099,4.768954549734371,4.095702626098214,4.99867120036603,5.391630021102571,3.618627900017522,4.855082730674302,3.556592084424917,4.46713892196358,4.718135751986058,5.18577690561036,4.67386579358099,6.816304983511362,4.101147919877164,6.273322295282707,5.404810317140911,3.604123628386663,4.264581431247511,5.210670339775492,3.869555285017607,4.895450079173287,4.044209664500157,4.213866289371566,3.839602145711134,4.022308177350183,3.579160343607528,3.33662506933804,4.689123980794736,4.111301403683857,2.998332683646125,3.229035683114512,3.092451425975735,4.85083547205744,3.700129065162667,3.498978778743373,3.195331510595272,3.686103262075363,2.900720011536271,2.900720011536271,3.588303581524106,3.262253634157252,4.468969988615371,3.544709245010916,3.032097400679705,2.759729188177012,2.759729188177012,3.188756573952487,4.710756053796485,3.99723672283318,2.978767985964253,3.41505030889891,2.712227763549802,2.580648116930799],[6.786398007401921e-06,9.160031792850275e-09,4.049530010518083e-07,1.488962780770686e-05,1.961324284884202e-07,2.199833678339175e-07,2.705313439374984e-05,3.834178594886361e-07,0.00136510561140648,1.149292945434391e-07,0.0003233514861818734,0.0003572612905002869,0.002061114262951927,0.0001734900538373006,4.49591566709028e-05,0.00578179510931449,0.0002303029080336736,0.00633997509462918,0.0006267956444957247,0.0003017748959953849,7.039249693468173e-05,0.0003293284642094463,1.760483224475392e-07,0.00155862657755524,1.258265769693928e-06,2.719191368526488e-05,0.004574137085368276,0.0007378800430036281,3.548787274868528e-05,0.001905560811092427,9.014297164113033e-05,0.001137184145417923,0.000678740469537361,0.001695672608133858,0.001005462094515785,0.003257654755382549,0.005897948104143153,0.0001253693685463776,0.0007182785117374682,0.01216612105441402,0.007098918467757399,0.008971029466276375,5.585841854293925e-05,0.001935067645576821,0.003276258600151151,0.006559230328614051,0.001763016993272879,0.01242524186036942,0.01242524186036942,0.002161139818305123,0.004628494830141512,0.0001132920754586718,0.001959395303189103,0.007239989566081531,0.01306903367583603,0.01306903367583603,0.004524115904905004,3.143065205718895e-05,0.000351145544579536,0.006542709125116076,0.001898779904107869,0.01075524214621994,0.01269562880697354],[0.0001787084808615839,2.170927534905515e-06,1.371055160703979e-05,0.0003528841790426525,1.042721163532769e-05,1.042721163532769e-05,0.0005370402952839813,1.371055160703979e-05,0.009515589114803994,1.042721163532769e-05,0.003122033840705551,0.00313596021661363,0.01163057334094302,0.001957959179020964,0.0007103546754002643,0.02795627401363855,0.002480990418362757,0.02933089788455717,0.005305377419481669,0.003109593493517662,0.0009813542219717394,0.003122033840705551,1.042721163532769e-05,0.01055412853944548,3.727612342718262e-05,0.0005370402952839813,0.02285319322382372,0.005641211941672899,0.0006007589886741722,0.01132626065501994,0.001186882459941549,0.008167049771637808,0.00554694797518464,0.0111631780035479,0.007446703637507535,0.01725496196079606,0.02795627401363855,0.001485627017274574,0.005641211941672899,0.04907970534845922,0.03115636438626859,0.03796667827691966,0.0008274028246672877,0.01132626065501994,0.01725496196079606,0.02933089788455717,0.01129283857853168,0.04907970534845922,0.04907970534845922,0.01191139853344917,0.02285319322382372,0.00141316957282659,0.01132626065501994,0.03119777322111496,0.04916446001862124,0.04916446001862124,0.02285319322382372,0.0005730049644272139,0.00313596021661363,0.02933089788455717,0.01132626065501994,0.04471916471323029,0.04916446001862124],[0.0001206470756871453,1.465605086856044e-06,9.256068595469903e-06,0.0002382340449233097,7.03946777068536e-06,7.03946777068536e-06,0.0003625588491368651,9.256068595469903e-06,0.006424026406618731,7.03946777068536e-06,0.002107702170940457,0.002117103943705404,0.007851863858864484,0.001321828981617529,0.0004795643378229633,0.01887343393325809,0.001674930240244899,0.01980145004864619,0.003581689397118427,0.002099303624315721,0.0006625176182087693,0.002107702170940457,7.03946777068536e-06,0.007125150068823956,2.516531539387856e-05,0.0003625588491368651,0.01542831610047171,0.003808413125180017,0.0004055756885564032,0.007646420695372109,0.0008012708590322698,0.005513620098995991,0.003744775004344061,0.007536322702817148,0.005027310472578927,0.01164891946720409,0.01887343393325809,0.001002954948371021,0.003808413125180017,0.03313397829431847,0.02103383249705896,0.02563151276078965,0.0005585841854293925,0.007646420695372109,0.01164891946720409,0.01980145004864619,0.007623857268207044,0.03313397829431847,0.03313397829431847,0.008041450486716735,0.01542831610047171,0.0009540385301782889,0.007646420695372109,0.02106178782860082,0.03319119663704388,0.03319119663704388,0.01542831610047171,0.0003868387945500179,0.002117103943705404,0.01980145004864619,0.007646420695372109,0.03019015339289809,0.03319119663704388],["2904/57030/773/2903/2891/2902/2562/2561","2904/1387/2033/775/2903/673/2891/815/107/2902/5501/816/3265","55904/55870/4297/79813/51111/64324/7468/58508/9739/23067/29072","5290/1499/673/10297/6655/6934/2932/5728/3265","2904/775/57030/85358/773/2903/2899/9762/1742/2891/2898/107/2902/2770/22941","6597/8289/10847/57459/2186/57492/9031/6601/1107/27443/6605/7528/6595/54891/29994","6812/1213/57030/773/6529/23025/1173/22999/6857/1175","9969/478/23389/1387/25942/7249/2033/5290/1499/481/2475/7068/8648/2932/3265","2904/2903/1742/2891/2902/2770","2904/5290/9698/773/11273/5717/5718/11047/5649/23152/2475/2903/9861/2891/5684/23369/2902","2904/775/2903/2891/815/2902/5501/816","1387/2033/5290/5781/57144/673/6655/3265","478/1213/491/481/1173/1175","5290/2475/673/6655/4763/2932/1977/5728/3265","1387/2033/1499/815/107/6934/2932/816/2770/1857/3265","5717/5718/11047/9861/5684","1387/2033/55777/84678/7528/80816/114785/26053/8535","775/5290/777/773/2475","5290/2475/673/815/6655/816/5728/3265","5290/57144/2475/673/815/6655/2932/816/3265","1387/2033/5290/1499/2475/673/6655/6934/2932/5728/3265","5290/1499/2475/673/10297/6655/6934/2932/3265","5290/5781/64101/57144/23365/6585/9901/815/5361/1808/23654/57689/2932/4756/816/2770/5364/5362/3265","5290/2475/673/6655/6934/862/3265","6597/8289/57492/5290/6601/1499/2475/6605/6595/673/10297/6655/6934/2932/1857/5728/3265","2904/6323/775/3800/773/5528/2903/2891/815/2932/5501/816/2770","1387/23013/7090/28514/2033/1857","2904/775/2903/2891/815/107/2902/816/2770","4297/775/1499/5929/673/10297/815/5087/107/6934/2932/816/2770/1857","79813/7249/5290/7248/2475/107/1977/3265","28514/5290/1499/2475/673/10297/8648/6655/6934/2932/1857/5728/3265","23049/5528/79869/9887/2521/64895/23435/5501/5411","775/5290/773/3785/815/107/3786/816/2770/3265","5290/5781/2475/5792/22877/10724/2932/5501/5728","1387/2033/775/5290/2475/6655/107/2932/2770/3265","478/775/4929/491/481/815/107/816","478/775/27445/481/815/107/816","1387/7090/57680/2033/79718/1499/1454/10297/815/6934/1457/2932/816/1857","7249/5290/7248/2475/5792/673/6655/2932/5501/1977/3265","478/481/815/107/816/2770","775/773/6529/107/2562/2770/2561","1387/2033/1499/1500/5792/6934/1457","2904/478/1387/2033/775/5290/491/481/2903/673/2891/815/107/2902/5501/816/2770","1387/2033/5290/1454/673/6655/116986/2290/5728/3265","5290/5781/673/815/6655/2932/57498/816/3265","1387/2033/5290/7010/2475/815/1977/816","478/775/491/481/5528/815/107/5501/55799/816/2770","28514/5290/2475/673/6655/107/3265","7249/5290/7248/2475/6655/8527/3265","7249/5290/7248/2475/673/6655/2932/1977/1857/5728/3265","5290/1499/2475/673/10297/6655/6934/2932/1857/3265","2904/1387/25942/6874/2033/1213/3800/5717/5718/11047/2475/1173/9861/1742/2891/5684/2902/64837/25981/1175","288/287/5290/1499/5781/23365/2475/673/815/6655/5501/816/3265","9369/5789/57555/64101/5792/9378/9379/57689/4756/1272","7249/5290/7248/5781/2475/6655/107/8527/3265","775/57030/773/2891/107/22999/2562/2770/2561","2904/57030/6529/2903/2899/2891/2898/107/2902/2562/2770/2561","2904/775/3800/1499/1454/11273/5717/5718/11047/2475/2903/673/10297/9861/2521/1742/2891/815/23435/5684/1457/2902/64837/2932/816/1857/25981/3265","2904/775/5290/3800/1499/1454/5717/5718/11047/2475/2903/673/10297/9861/5684/1457/2902/64837/322/2932/1857/3265","6597/51780/8289/7249/57492/6601/7248/2475/6605/6595/6655/107/3265","1387/7249/2033/5290/7248/1499/5528/5649/2475/7337/10297/6655/6934/2932/1857/5728/3691/3265","2904/775/5290/3800/5717/5718/11047/2903/9861/5684/1457/2902/64837/2932","2904/3800/11273/5717/5718/11047/2475/2903/9861/2521/2891/23435/5684/2902/64837/9631/25981"],[8,13,11,9,15,15,10,15,6,17,8,8,6,9,11,5,9,5,8,9,11,9,19,7,17,13,6,9,14,8,13,9,10,9,10,8,7,14,11,6,7,7,17,10,9,8,11,7,7,11,10,20,13,10,9,9,12,28,22,13,18,14,17],["Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>category<\/th>\n      <th>subcategory<\/th>\n      <th>ID<\/th>\n      <th>Description<\/th>\n      <th>GeneRatio<\/th>\n      <th>BgRatio<\/th>\n      <th>RichFactor<\/th>\n      <th>FoldEnrichment<\/th>\n      <th>zScore<\/th>\n      <th>pvalue<\/th>\n      <th>p.adjust<\/th>\n      <th>qvalue<\/th>\n      <th>geneID<\/th>\n      <th>Count<\/th>\n      <th>Source<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[7,8,9,10,11,12,14]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"category","targets":1},{"name":"subcategory","targets":2},{"name":"ID","targets":3},{"name":"Description","targets":4},{"name":"GeneRatio","targets":5},{"name":"BgRatio","targets":6},{"name":"RichFactor","targets":7},{"name":"FoldEnrichment","targets":8},{"name":"zScore","targets":9},{"name":"pvalue","targets":10},{"name":"p.adjust","targets":11},{"name":"qvalue","targets":12},{"name":"geneID","targets":13},{"name":"Count","targets":14},{"name":"Source","targets":15}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-ceb20dc2a931752ae4f3">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59","60","61","62","63"],["Human Diseases","Organismal Systems","Metabolism","Human Diseases","Organismal Systems","Genetic Information Processing","Organismal Systems","Organismal Systems","Human Diseases","Human Diseases","Human Diseases","Human Diseases","Organismal Systems","Human Diseases","Organismal Systems","Genetic Information Processing","Genetic Information Processing","Human Diseases","Human Diseases","Environmental Information Processing","Human Diseases","Human Diseases","Organismal Systems","Human Diseases","Human Diseases","Organismal Systems","Environmental Information Processing","Organismal Systems","Human Diseases","Organismal Systems","Human Diseases","Genetic Information Processing","Organismal Systems","Human Diseases","Organismal Systems","Organismal Systems","Organismal Systems","Environmental Information Processing","Organismal Systems","Organismal Systems","Organismal Systems","Cellular Processes","Environmental Information Processing","Environmental Information Processing","Organismal Systems","Environmental Information Processing","Organismal Systems","Human Diseases","Human Diseases","Environmental Information Processing","Human Diseases","Human Diseases","Human Diseases","Environmental Information Processing","Environmental Information Processing","Organismal Systems",null,"Human Diseases","Human Diseases","Organismal Systems","Human Diseases","Human Diseases","Human Diseases"],["Substance dependence","Nervous system","Amino acid metabolism","Cancer: specific types","Nervous system","Chromosome","Nervous system","Endocrine system","Substance dependence","Neurodegenerative disease","Substance dependence","Cancer: specific types","Excretory system","Drug resistance: antineoplastic","Endocrine system","Folding, sorting and degradation","Chromosome","Endocrine and metabolic disease","Cancer: specific types","Signal transduction","Cancer: specific types","Cancer: specific types","Development and regeneration","Cancer: specific types","Cancer: specific types","Nervous system","Signal transduction","Environmental adaptation","Endocrine and metabolic disease","Aging","Cancer: specific types","Translation","Nervous system","Endocrine and metabolic disease","Endocrine system","Endocrine system","Endocrine system","Signal transduction","Endocrine system","Digestive system","Nervous system","Cellular community - eukaryotes","Signal transduction","Signal transduction","Nervous system","Signal transduction","Circulatory system","Drug resistance: antineoplastic","Cancer: overview","Signal transduction","Cancer: specific types","Neurodegenerative disease","Cancer: overview","Signaling molecules and interaction","Signal transduction","Nervous system",null,"Neurodegenerative disease","Neurodegenerative disease","Environmental adaptation","Infectious disease: viral","Neurodegenerative disease","Neurodegenerative disease"],["hsa05033","hsa04720","hsa00310","hsa05213","hsa04724","hsa03082","hsa04721","hsa04919","hsa05030","hsa05017","hsa05031","hsa05211","hsa04961","hsa01521","hsa04916","hsa03050","hsa03083","hsa04930","hsa05214","hsa04012","hsa05215","hsa05210","hsa04360","hsa05221","hsa05225","hsa04728","hsa04330","hsa04713","hsa04934","hsa04211","hsa05224","hsa03015","hsa04725","hsa04931","hsa04935","hsa04925","hsa04911","hsa04310","hsa04910","hsa04971","hsa04727","hsa04520","hsa04024","hsa04068","hsa04722","hsa04066","hsa04261","hsa01522","hsa05231","hsa04150","hsa05226","hsa05016","hsa05205","hsa04514","hsa04072","hsa04723","hsa04082","hsa05022","hsa05010","hsa04714","hsa05165","hsa05020","hsa05014"],["Nicotine addiction","Long-term potentiation","Lysine degradation","Endometrial cancer","Glutamatergic synapse","ATP-dependent chromatin remodeling","Synaptic vesicle cycle","Thyroid hormone signaling pathway","Cocaine addiction","Spinocerebellar ataxia","Amphetamine addiction","Renal cell carcinoma","Endocrine and other factor-regulated calcium reabsorption","EGFR tyrosine kinase inhibitor resistance","Melanogenesis","Proteasome","Polycomb repressive complex","Type II diabetes mellitus","Glioma","ErbB signaling pathway","Prostate cancer","Colorectal cancer","Axon guidance","Acute myeloid leukemia","Hepatocellular carcinoma","Dopaminergic synapse","Notch signaling pathway","Circadian entrainment","Cushing syndrome","Longevity regulating pathway","Breast cancer","mRNA surveillance pathway","Cholinergic synapse","Insulin resistance","Growth hormone synthesis, secretion and action","Aldosterone synthesis and secretion","Insulin secretion","Wnt signaling pathway","Insulin signaling pathway","Gastric acid secretion","GABAergic synapse","Adherens junction","cAMP signaling pathway","FoxO signaling pathway","Neurotrophin signaling pathway","HIF-1 signaling pathway","Adrenergic signaling in cardiomyocytes","Endocrine resistance","Choline metabolism in cancer","mTOR signaling pathway","Gastric cancer","Huntington disease","Proteoglycans in cancer","Cell adhesion molecules","Phospholipase D signaling pathway","Retrograde endocannabinoid signaling","Neuroactive ligand signaling","Pathways of neurodegeneration - multiple diseases","Alzheimer disease","Thermogenesis","Human papillomavirus infection","Prion disease","Amyotrophic lateral sclerosis"],["8/238","13/238","11/238","9/238","15/238","15/238","10/238","15/238","6/238","17/238","8/238","8/238","6/238","9/238","11/238","5/238","9/238","5/238","8/238","9/238","11/238","9/238","19/238","7/238","17/238","13/238","6/238","9/238","14/238","8/238","13/238","9/238","10/238","9/238","10/238","8/238","7/238","14/238","11/238","6/238","7/238","7/238","17/238","10/238","9/238","8/238","11/238","7/238","7/238","11/238","10/238","20/238","13/238","10/238","9/238","9/238","12/238","28/238","22/238","13/238","18/238","14/238","17/238"],["41/9434","67/9434","63/9434","59/9434","116/9434","117/9434","79/9434","122/9434","49/9434","144/9434","69/9434","70/9434","53/9434","80/9434","101/9434","46/9434","83/9434","47/9434","76/9434","86/9434","106/9434","87/9434","184/9434","68/9434","170/9434","132/9434","62/9434","97/9434","155/9434","90/9434","148/9434","103/9434","116/9434","109/9434","122/9434","98/9434","86/9434","174/9434","138/9434","76/9434","89/9434","93/9434","226/9434","133/9434","120/9434","110/9434","154/9434","99/9434","99/9434","158/9434","150/9434","311/9434","204/9434","160/9434","149/9434","149/9434","199/9434","483/9434","391/9434","235/9434","333/9434","278/9434","371/9434"],[0.1951219512195122,0.1940298507462687,0.1746031746031746,0.1525423728813559,0.1293103448275862,0.1282051282051282,0.1265822784810127,0.1229508196721311,0.1224489795918367,0.1180555555555556,0.1159420289855072,0.1142857142857143,0.1132075471698113,0.1125,0.1089108910891089,0.108695652173913,0.108433734939759,0.1063829787234043,0.1052631578947368,0.1046511627906977,0.1037735849056604,0.103448275862069,0.1032608695652174,0.1029411764705882,0.1,0.09848484848484848,0.09677419354838709,0.09278350515463918,0.09032258064516129,0.08888888888888889,0.08783783783783784,0.08737864077669903,0.08620689655172414,0.08256880733944955,0.08196721311475409,0.08163265306122448,0.08139534883720931,0.08045977011494253,0.07971014492753623,0.07894736842105263,0.07865168539325842,0.07526881720430108,0.0752212389380531,0.07518796992481203,0.075,0.07272727272727272,0.07142857142857142,0.0707070707070707,0.0707070707070707,0.06962025316455696,0.06666666666666667,0.06430868167202572,0.06372549019607843,0.0625,0.06040268456375839,0.06040268456375839,0.06030150753768844,0.05797101449275362,0.05626598465473145,0.05531914893617021,0.05405405405405406,0.05035971223021583,0.04582210242587601],[7.734371797499487,7.691082403110499,6.921035080698946,6.046574562028201,5.12568820631701,5.081878905408317,5.0175513243272,4.873605179776829,4.853712913736923,4.679563492063492,4.595786140543174,4.530132052821129,4.487394957983193,4.459348739495798,4.317081287960729,4.308549506759225,4.298167459754986,4.216878240657965,4.172490048651039,4.148231385577487,4.11344537815126,4.100550565053608,4.093122031421264,4.08044982698962,3.963865546218488,3.903806977336389,3.835998915695311,3.677813393398596,3.580265654648956,3.5234360410831,3.48177379059732,3.463571836501591,3.417125470878007,3.272916506051962,3.249070119851219,3.235808609157949,3.22640218878249,3.189317106152806,3.159602971623432,3.129367536488279,3.117647058823529,2.983554712207464,2.981668773704172,2.980350034750742,2.972899159663865,2.882811306340718,2.831332533013205,2.802733214497921,2.802733214497921,2.759653228379959,2.642577030812325,2.549109676024751,2.525992750041193,2.477415966386554,2.394281202413852,2.394281202413852,2.390270681136776,2.297893070271587,2.230307979969481,2.192776685142142,2.142630024982966,1.996191282268303,1.816326530612245],[6.951856059006343,8.84193736478287,7.585581074044794,6.255340809328867,7.192468352394656,7.147084457294909,5.768554469039255,6.927678089233194,4.350850636107423,7.157866673596686,4.822568700077099,4.768954549734371,4.095702626098214,4.99867120036603,5.391630021102571,3.618627900017522,4.855082730674302,3.556592084424917,4.46713892196358,4.718135751986058,5.18577690561036,4.67386579358099,6.816304983511362,4.101147919877164,6.273322295282707,5.404810317140911,3.604123628386663,4.264581431247511,5.210670339775492,3.869555285017607,4.895450079173287,4.044209664500157,4.213866289371566,3.839602145711134,4.022308177350183,3.579160343607528,3.33662506933804,4.689123980794736,4.111301403683857,2.998332683646125,3.229035683114512,3.092451425975735,4.85083547205744,3.700129065162667,3.498978778743373,3.195331510595272,3.686103262075363,2.900720011536271,2.900720011536271,3.588303581524106,3.262253634157252,4.468969988615371,3.544709245010916,3.032097400679705,2.759729188177012,2.759729188177012,3.188756573952487,4.710756053796485,3.99723672283318,2.978767985964253,3.41505030889891,2.712227763549802,2.580648116930799],[6.786398007401921e-06,9.160031792850275e-09,4.049530010518083e-07,1.488962780770686e-05,1.961324284884202e-07,2.199833678339175e-07,2.705313439374984e-05,3.834178594886361e-07,0.00136510561140648,1.149292945434391e-07,0.0003233514861818734,0.0003572612905002869,0.002061114262951927,0.0001734900538373006,4.49591566709028e-05,0.00578179510931449,0.0002303029080336736,0.00633997509462918,0.0006267956444957247,0.0003017748959953849,7.039249693468173e-05,0.0003293284642094463,1.760483224475392e-07,0.00155862657755524,1.258265769693928e-06,2.719191368526488e-05,0.004574137085368276,0.0007378800430036281,3.548787274868528e-05,0.001905560811092427,9.014297164113033e-05,0.001137184145417923,0.000678740469537361,0.001695672608133858,0.001005462094515785,0.003257654755382549,0.005897948104143153,0.0001253693685463776,0.0007182785117374682,0.01216612105441402,0.007098918467757399,0.008971029466276375,5.585841854293925e-05,0.001935067645576821,0.003276258600151151,0.006559230328614051,0.001763016993272879,0.01242524186036942,0.01242524186036942,0.002161139818305123,0.004628494830141512,0.0001132920754586718,0.001959395303189103,0.007239989566081531,0.01306903367583603,0.01306903367583603,0.004524115904905004,3.143065205718895e-05,0.000351145544579536,0.006542709125116076,0.001898779904107869,0.01075524214621994,0.01269562880697354],[0.0001787084808615839,2.170927534905515e-06,1.371055160703979e-05,0.0003528841790426525,1.042721163532769e-05,1.042721163532769e-05,0.0005370402952839813,1.371055160703979e-05,0.009515589114803994,1.042721163532769e-05,0.003122033840705551,0.00313596021661363,0.01163057334094302,0.001957959179020964,0.0007103546754002643,0.02795627401363855,0.002480990418362757,0.02933089788455717,0.005305377419481669,0.003109593493517662,0.0009813542219717394,0.003122033840705551,1.042721163532769e-05,0.01055412853944548,3.727612342718262e-05,0.0005370402952839813,0.02285319322382372,0.005641211941672899,0.0006007589886741722,0.01132626065501994,0.001186882459941549,0.008167049771637808,0.00554694797518464,0.0111631780035479,0.007446703637507535,0.01725496196079606,0.02795627401363855,0.001485627017274574,0.005641211941672899,0.04907970534845922,0.03115636438626859,0.03796667827691966,0.0008274028246672877,0.01132626065501994,0.01725496196079606,0.02933089788455717,0.01129283857853168,0.04907970534845922,0.04907970534845922,0.01191139853344917,0.02285319322382372,0.00141316957282659,0.01132626065501994,0.03119777322111496,0.04916446001862124,0.04916446001862124,0.02285319322382372,0.0005730049644272139,0.00313596021661363,0.02933089788455717,0.01132626065501994,0.04471916471323029,0.04916446001862124],[0.0001206470756871453,1.465605086856044e-06,9.256068595469903e-06,0.0002382340449233097,7.03946777068536e-06,7.03946777068536e-06,0.0003625588491368651,9.256068595469903e-06,0.006424026406618731,7.03946777068536e-06,0.002107702170940457,0.002117103943705404,0.007851863858864484,0.001321828981617529,0.0004795643378229633,0.01887343393325809,0.001674930240244899,0.01980145004864619,0.003581689397118427,0.002099303624315721,0.0006625176182087693,0.002107702170940457,7.03946777068536e-06,0.007125150068823956,2.516531539387856e-05,0.0003625588491368651,0.01542831610047171,0.003808413125180017,0.0004055756885564032,0.007646420695372109,0.0008012708590322698,0.005513620098995991,0.003744775004344061,0.007536322702817148,0.005027310472578927,0.01164891946720409,0.01887343393325809,0.001002954948371021,0.003808413125180017,0.03313397829431847,0.02103383249705896,0.02563151276078965,0.0005585841854293925,0.007646420695372109,0.01164891946720409,0.01980145004864619,0.007623857268207044,0.03313397829431847,0.03313397829431847,0.008041450486716735,0.01542831610047171,0.0009540385301782889,0.007646420695372109,0.02106178782860082,0.03319119663704388,0.03319119663704388,0.01542831610047171,0.0003868387945500179,0.002117103943705404,0.01980145004864619,0.007646420695372109,0.03019015339289809,0.03319119663704388],["2904/57030/773/2903/2891/2902/2562/2561","2904/1387/2033/775/2903/673/2891/815/107/2902/5501/816/3265","55904/55870/4297/79813/51111/64324/7468/58508/9739/23067/29072","5290/1499/673/10297/6655/6934/2932/5728/3265","2904/775/57030/85358/773/2903/2899/9762/1742/2891/2898/107/2902/2770/22941","6597/8289/10847/57459/2186/57492/9031/6601/1107/27443/6605/7528/6595/54891/29994","6812/1213/57030/773/6529/23025/1173/22999/6857/1175","9969/478/23389/1387/25942/7249/2033/5290/1499/481/2475/7068/8648/2932/3265","2904/2903/1742/2891/2902/2770","2904/5290/9698/773/11273/5717/5718/11047/5649/23152/2475/2903/9861/2891/5684/23369/2902","2904/775/2903/2891/815/2902/5501/816","1387/2033/5290/5781/57144/673/6655/3265","478/1213/491/481/1173/1175","5290/2475/673/6655/4763/2932/1977/5728/3265","1387/2033/1499/815/107/6934/2932/816/2770/1857/3265","5717/5718/11047/9861/5684","1387/2033/55777/84678/7528/80816/114785/26053/8535","775/5290/777/773/2475","5290/2475/673/815/6655/816/5728/3265","5290/57144/2475/673/815/6655/2932/816/3265","1387/2033/5290/1499/2475/673/6655/6934/2932/5728/3265","5290/1499/2475/673/10297/6655/6934/2932/3265","5290/5781/64101/57144/23365/6585/9901/815/5361/1808/23654/57689/2932/4756/816/2770/5364/5362/3265","5290/2475/673/6655/6934/862/3265","6597/8289/57492/5290/6601/1499/2475/6605/6595/673/10297/6655/6934/2932/1857/5728/3265","2904/6323/775/3800/773/5528/2903/2891/815/2932/5501/816/2770","1387/23013/7090/28514/2033/1857","2904/775/2903/2891/815/107/2902/816/2770","4297/775/1499/5929/673/10297/815/5087/107/6934/2932/816/2770/1857","79813/7249/5290/7248/2475/107/1977/3265","28514/5290/1499/2475/673/10297/8648/6655/6934/2932/1857/5728/3265","23049/5528/79869/9887/2521/64895/23435/5501/5411","775/5290/773/3785/815/107/3786/816/2770/3265","5290/5781/2475/5792/22877/10724/2932/5501/5728","1387/2033/775/5290/2475/6655/107/2932/2770/3265","478/775/4929/491/481/815/107/816","478/775/27445/481/815/107/816","1387/7090/57680/2033/79718/1499/1454/10297/815/6934/1457/2932/816/1857","7249/5290/7248/2475/5792/673/6655/2932/5501/1977/3265","478/481/815/107/816/2770","775/773/6529/107/2562/2770/2561","1387/2033/1499/1500/5792/6934/1457","2904/478/1387/2033/775/5290/491/481/2903/673/2891/815/107/2902/5501/816/2770","1387/2033/5290/1454/673/6655/116986/2290/5728/3265","5290/5781/673/815/6655/2932/57498/816/3265","1387/2033/5290/7010/2475/815/1977/816","478/775/491/481/5528/815/107/5501/55799/816/2770","28514/5290/2475/673/6655/107/3265","7249/5290/7248/2475/6655/8527/3265","7249/5290/7248/2475/673/6655/2932/1977/1857/5728/3265","5290/1499/2475/673/10297/6655/6934/2932/1857/3265","2904/1387/25942/6874/2033/1213/3800/5717/5718/11047/2475/1173/9861/1742/2891/5684/2902/64837/25981/1175","288/287/5290/1499/5781/23365/2475/673/815/6655/5501/816/3265","9369/5789/57555/64101/5792/9378/9379/57689/4756/1272","7249/5290/7248/5781/2475/6655/107/8527/3265","775/57030/773/2891/107/22999/2562/2770/2561","2904/57030/6529/2903/2899/2891/2898/107/2902/2562/2770/2561","2904/775/3800/1499/1454/11273/5717/5718/11047/2475/2903/673/10297/9861/2521/1742/2891/815/23435/5684/1457/2902/64837/2932/816/1857/25981/3265","2904/775/5290/3800/1499/1454/5717/5718/11047/2475/2903/673/10297/9861/5684/1457/2902/64837/322/2932/1857/3265","6597/51780/8289/7249/57492/6601/7248/2475/6605/6595/6655/107/3265","1387/7249/2033/5290/7248/1499/5528/5649/2475/7337/10297/6655/6934/2932/1857/5728/3691/3265","2904/775/5290/3800/5717/5718/11047/2903/9861/5684/1457/2902/64837/2932","2904/3800/11273/5717/5718/11047/2475/2903/9861/2521/2891/23435/5684/2902/64837/9631/25981"],[8,13,11,9,15,15,10,15,6,17,8,8,6,9,11,5,9,5,8,9,11,9,19,7,17,13,6,9,14,8,13,9,10,9,10,8,7,14,11,6,7,7,17,10,9,8,11,7,7,11,10,20,13,10,9,9,12,28,22,13,18,14,17],["Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs","Deep-MOTIFs"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>category<\/th>\n      <th>subcategory<\/th>\n      <th>ID<\/th>\n      <th>Description<\/th>\n      <th>GeneRatio<\/th>\n      <th>BgRatio<\/th>\n      <th>RichFactor<\/th>\n      <th>FoldEnrichment<\/th>\n      <th>zScore<\/th>\n      <th>pvalue<\/th>\n      <th>p.adjust<\/th>\n      <th>qvalue<\/th>\n      <th>geneID<\/th>\n      <th>Count<\/th>\n      <th>Source<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[7,8,9,10,11,12,14]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"category","targets":1},{"name":"subcategory","targets":2},{"name":"ID","targets":3},{"name":"Description","targets":4},{"name":"GeneRatio","targets":5},{"name":"BgRatio","targets":6},{"name":"RichFactor","targets":7},{"name":"FoldEnrichment","targets":8},{"name":"zScore","targets":9},{"name":"pvalue","targets":10},{"name":"p.adjust","targets":11},{"name":"qvalue","targets":12},{"name":"geneID","targets":13},{"name":"Count","targets":14},{"name":"Source","targets":15}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <pre class="r"><code>length(unique(combined_df %&gt;% filter(Source==&quot;Deep-MOTIFs&quot;)%&gt;% dplyr::select(Description) %&gt;% pull()))</code></pre>
 <pre><code>[1] 63</code></pre>
 <pre class="r"><code># Convert gene symbols to Entrez IDs
@@ -913,7 +1133,44 @@ ekegg &lt;- enrichKEGG(gene         = entrez_ids,
 
 # Network plot for KEGG pathways
 cnetplot(ekegg, circular = TRUE, colorEdge = TRUE, cex_label_gene=0.5, cex_label_category=5)</code></pre>
-<p><img src="figure/part03_func_enrichment_clusterprofiler.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/part03_func_enrichment_clusterprofiler.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-1">
+Past versions of unnamed-chunk-11-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-11-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/deep_motifs/blob/08915dee6532930c18dcee96e68fa39676f1008a/docs/figure/part03_func_enrichment_clusterprofiler.Rmd/unnamed-chunk-11-1.png" target="_blank">08915de</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-07-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>length(unique(ekegg@gene))</code></pre>
 <pre><code>[1] 446</code></pre>
 <pre class="r"><code># Convert Entrez IDs to Gene Symbols
@@ -928,7 +1185,44 @@ length(unique(ekegg@gene))</code></pre>
 <pre><code>[1] 446</code></pre>
 <pre class="r"><code># Plot the cnetplot with gene symbols
 cnetplot(ekegg, circular = TRUE, colorEdge = TRUE, cex_label_gene=0.4, cex_label_category=1)</code></pre>
-<p><img src="figure/part03_func_enrichment_clusterprofiler.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/part03_func_enrichment_clusterprofiler.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-1">
+Past versions of unnamed-chunk-12-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-12-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/deep_motifs/blob/08915dee6532930c18dcee96e68fa39676f1008a/docs/figure/part03_func_enrichment_clusterprofiler.Rmd/unnamed-chunk-12-1.png" target="_blank">08915de</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-07-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <ul>
 <li><a
 href="https://www.sciencedirect.com/science/article/pii/S2666675821000667">reference-clusterProfiler
@@ -984,8 +1278,48 @@ net_plot=p +
     legend.text = element_text(size = 14)                # Bigger legend labels
     )
 net_plot</code></pre>
-<p><img src="figure/part03_func_enrichment_clusterprofiler.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code># Extract top 5 pathways
+<p><img src="figure/part03_func_enrichment_clusterprofiler.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-1">
+Past versions of unnamed-chunk-13-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-13-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/deep_motifs/blob/08915dee6532930c18dcee96e68fa39676f1008a/docs/figure/part03_func_enrichment_clusterprofiler.Rmd/unnamed-chunk-13-1.png" target="_blank">08915de</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-07-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="top-5-pathways-63-unique-genes" class="section level4">
+<h4>top 5 pathways, 63 unique genes</h4>
+<pre class="r"><code># Extract top 5 pathways by p values 
 ekegg_top5 &lt;- ekegg
 ekegg_top5@result &lt;- ekegg@result[1:5, ]
 
@@ -1026,30 +1360,8 @@ datatable(extensions = &#39;Buttons&#39;,
                                              c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-0d7598595affc4f25ab8" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-0d7598595affc4f25ab8">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59","60","61","62","63","64","65","66","67","68","69","70","71","72","73","74","75","76","77","78","79"],["Long-term potentiation","Long-term potentiation","Long-term potentiation","Long-term potentiation","Long-term potentiation","Long-term potentiation","Long-term potentiation","Long-term potentiation","Long-term potentiation","Long-term potentiation","Long-term potentiation","Long-term potentiation","Long-term potentiation","Spinocerebellar ataxia","Spinocerebellar ataxia","Spinocerebellar ataxia","Spinocerebellar ataxia","Spinocerebellar ataxia","Spinocerebellar ataxia","Spinocerebellar ataxia","Spinocerebellar ataxia","Spinocerebellar ataxia","Spinocerebellar ataxia","Spinocerebellar ataxia","Spinocerebellar ataxia","Spinocerebellar ataxia","Spinocerebellar ataxia","Spinocerebellar ataxia","Spinocerebellar ataxia","Spinocerebellar ataxia","Axon guidance","Axon guidance","Axon guidance","Axon guidance","Axon guidance","Axon guidance","Axon guidance","Axon guidance","Axon guidance","Axon guidance","Axon guidance","Axon guidance","Axon guidance","Axon guidance","Axon guidance","Axon guidance","Axon guidance","Axon guidance","Axon guidance","Glutamatergic synapse","Glutamatergic synapse","Glutamatergic synapse","Glutamatergic synapse","Glutamatergic synapse","Glutamatergic synapse","Glutamatergic synapse","Glutamatergic synapse","Glutamatergic synapse","Glutamatergic synapse","Glutamatergic synapse","Glutamatergic synapse","Glutamatergic synapse","Glutamatergic synapse","Glutamatergic synapse","ATP-dependent\nchromatin remodeling","ATP-dependent\nchromatin remodeling","ATP-dependent\nchromatin remodeling","ATP-dependent\nchromatin remodeling","ATP-dependent\nchromatin remodeling","ATP-dependent\nchromatin remodeling","ATP-dependent\nchromatin remodeling","ATP-dependent\nchromatin remodeling","ATP-dependent\nchromatin remodeling","ATP-dependent\nchromatin remodeling","ATP-dependent\nchromatin remodeling","ATP-dependent\nchromatin remodeling","ATP-dependent\nchromatin remodeling","ATP-dependent\nchromatin remodeling","ATP-dependent\nchromatin remodeling"],["GRIN2B","CREBBP","EP300","CACNA1C","GRIN2A","BRAF","GRIA2","CAMK2A","ADCY1","GRIN1","PPP1CC","CAMK2B","HRAS","GRIN2B","PIK3CA","PUM1","CACNA1A","ATXN2L","PSMD11","PSMD12","ADRM1","RELN","CIC","MTOR","GRIN2A","PSMD6","GRIA2","PSMA3","PUM2","GRIN1","PIK3CA","PTPN11","LRRC4","PAK5","ARHGEF12","SLIT1","SRGAP3","CAMK2A","PLXNA1","DPYSL2","PLXNB2","LRRC4C","GSK3B","NEO1","CAMK2B","GNAI1","PLXNB1","PLXNA2","HRAS","GRIN2B","CACNA1C","SLC17A7","SHANK3","CACNA1A","GRIN2A","GRIK3","LZTS3","DLG4","GRIA2","GRIK2","ADCY1","GRIN1","GNAI1","SHANK2","SMARCA4","ARID1A","SRCAP","GATAD2B","BPTF","ARID1B","BAZ1B","SMARCC2","CHD3","CECR2","SMARCE1","YY1","SMARCA2","INO80D","BAZ2B"],["Yes","Yes","Yes","Yes","Yes","Yes","Yes","NO","NO","Yes","NO","NO","Yes","Yes","NO","NO","Yes","NO","Yes","Yes","NO","Yes","Yes","Yes","Yes","Yes","Yes","NO","NO","Yes","NO","Yes","NO","NO","NO","NO","NO","NO","NO","Yes","NO","Yes","NO","NO","NO","Yes","NO","NO","Yes","Yes","Yes","NO","Yes","Yes","Yes","NO","NO","Yes","Yes","NO","NO","Yes","Yes","Yes","Yes","NO","Yes","NO","NO","Yes","NO","Yes","Yes","NO","NO","Yes","Yes","NO","Yes"],["Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>pathway<\/th>\n      <th>gene<\/th>\n      <th>IS_SFARI_gene<\/th>\n      <th>IS_MOTIFs_gene<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"pathway","targets":1},{"name":"gene","targets":2},{"name":"IS_SFARI_gene","targets":3},{"name":"IS_MOTIFs_gene","targets":4}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
-<pre class="r"><code># Extract node data from the cnetplot object
-node_data &lt;- p$data
-
-# Get number of unique genes (exclude categories)
-num_genes &lt;- length(unique(node_data$name[node_data$node_group %in% c(&quot;new&quot;, &quot;old&quot;)]))
-num_genes</code></pre>
+<pre class="r"><code>length(unique(annotation_df$gene))</code></pre>
 <pre><code>[1] 63</code></pre>
-<pre class="r"><code># Get number of unique pathways (categories)
-num_pathways &lt;- length(unique(node_data$name[node_data$node_group == &quot;category&quot;]))
-num_pathways</code></pre>
-<pre><code>[1] 5</code></pre>
-<pre class="r"><code>Genes_in_pathways=node_data$name[node_data$node_group %in% c(&quot;new&quot;, &quot;old&quot;)]
-
-in_positive &lt;- ifelse(Genes_in_pathways %in% positive_genes, &quot;Yes&quot;, &quot;NO&quot;)
-in_deep_motifs=ifelse(Genes_in_pathways %in% top_genes, &quot;Yes&quot;, &quot;NO&quot;)
-
-data.frame(Genes_in_pathways, IS_SFARI_gene=in_positive, IS_MOTIFs_gene=in_deep_motifs)%&gt;%
-datatable(extensions = &#39;Buttons&#39;,
-            options = list(dom = &#39;Blfrtip&#39;,
-                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
-                           lengthMenu = list(c(10,25,50,-1),
-                                             c(10,25,50,&quot;All&quot;))))</code></pre>
-<div class="datatables html-widget html-fill-item" id="htmlwidget-5bf888dc62471906a988" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-5bf888dc62471906a988">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59","60","61","62","63"],["GRIN2B","CREBBP","EP300","CACNA1C","GRIN2A","BRAF","GRIA2","CAMK2A","ADCY1","GRIN1","PPP1CC","CAMK2B","HRAS","PIK3CA","PUM1","CACNA1A","ATXN2L","PSMD11","PSMD12","ADRM1","RELN","CIC","MTOR","PSMD6","PSMA3","PUM2","PTPN11","LRRC4","PAK5","ARHGEF12","SLIT1","SRGAP3","PLXNA1","DPYSL2","PLXNB2","LRRC4C","GSK3B","NEO1","GNAI1","PLXNB1","PLXNA2","SLC17A7","SHANK3","GRIK3","LZTS3","DLG4","GRIK2","SHANK2","SMARCA4","ARID1A","SRCAP","GATAD2B","BPTF","ARID1B","BAZ1B","SMARCC2","CHD3","CECR2","SMARCE1","YY1","SMARCA2","INO80D","BAZ2B"],["Yes","Yes","Yes","Yes","Yes","Yes","Yes","NO","NO","Yes","NO","NO","Yes","NO","NO","Yes","NO","Yes","Yes","NO","Yes","Yes","Yes","Yes","NO","NO","Yes","NO","NO","NO","NO","NO","NO","Yes","NO","Yes","NO","NO","Yes","NO","NO","NO","Yes","NO","NO","Yes","NO","Yes","Yes","NO","Yes","NO","NO","Yes","NO","Yes","Yes","NO","NO","Yes","Yes","NO","Yes"],["Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Genes_in_pathways<\/th>\n      <th>IS_SFARI_gene<\/th>\n      <th>IS_MOTIFs_gene<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Genes_in_pathways","targets":1},{"name":"IS_SFARI_gene","targets":2},{"name":"IS_MOTIFs_gene","targets":3}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <pre class="r"><code>library(gridExtra)
 all &lt;- grid.arrange(kegg_comparison_plot,  net_plot, nrow=1) 
 ggsave(all,filename = paste0(&quot;C:\\Users\\hans\\OneDrive - Marquette University\\AI_for_Autism\\Fig\\KEGG-pathway-Deep-MOTIFs.pdf&quot;),width = 18,height = 7,dpi = 800)</code></pre>
@@ -1078,6 +1390,9 @@ length(novel_genes)</code></pre>
 <li><p>32 are novel gene by Deep-MOTIFs, 22 of which are not in any
 SFARI categories.</p></li>
 </ul>
+</div>
+<div id="top-20-enriched-terms" class="section level4">
+<h4>top 20 enriched terms</h4>
 <pre class="r"><code>#library(dplyr)
 #ekegg@result %&gt;%
 #  arrange(p.adjust) %&gt;%
@@ -1130,147 +1445,6 @@ hsa05215 9.813542e-04
 hsa05224 1.186882e-03
 hsa05016 1.413170e-03
 hsa04310 1.485627e-03</code></pre>
-<pre class="r"><code>pdf(&quot;cnetplot_all56terms.pdf&quot;, width = 16, height = 12)
-cnetplot(ekegg, showCategory = 56, circular = TRUE, colorEdge = TRUE)
-dev.off()</code></pre>
-</div>
-</div>
-</div>
-<div id="novel-pathways-in-motifs" class="section level2">
-<h2>novel pathways in MOTIFs</h2>
-<pre class="r"><code>pvalue_threshold=0.05
-gostres2_all &lt;- gost(query = list(&quot;Deep-MOTIFs genes&quot;=top_genes, &quot;SFARI genes&quot;=positive_genes), 
-organism = &quot;hsapiens&quot;, significant = F, correction_method = &quot;bonferroni&quot;)</code></pre>
-<pre class="r"><code>highlight_terms_motif_term_id=gostres2_all$result %&gt;% filter(query==&quot;Deep-MOTIFs genes&quot;)%&gt;% filter(p_value&lt;pvalue_threshold)  %&gt;% dplyr::select(term_id)%&gt;% pull()
-highlight_terms_sfari_term_id=gostres2_all$result %&gt;% filter(query==&quot;SFARI genes&quot;)%&gt;% filter(p_value&gt;pvalue_threshold)%&gt;% dplyr::select(term_id)%&gt;% pull()
-common_term_id=intersect(highlight_terms_motif_term_id, highlight_terms_sfari_term_id)
-
-
-highlight_terms=gostres2_all$result %&gt;% filter (term_id %in% common_term_id) %&gt;% dplyr::select(term_id, term_name, query, p_value)</code></pre>
-<pre class="r"><code>highlight_terms_wide=highlight_terms%&gt;%  # convert from long format to wide format 
-  pivot_wider(
-    names_from = query,
-    values_from = p_value,
-    names_prefix = &quot;pvalue_&quot;
-  )
-highlight_terms_wide=highlight_terms_wide %&gt;% drop_na()
-dim(highlight_terms_wide)
-
-highlight_terms_wide%&gt;% 
-datatable(extensions = &#39;Buttons&#39;,
-            options = list(dom = &#39;Blfrtip&#39;,
-                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
-                           lengthMenu = list(c(10,25,50,-1),
-                                             c(10,25,50,&quot;All&quot;))))</code></pre>
-<pre class="r"><code>highlight_terms_wide &lt;- highlight_terms_wide %&gt;%
-  mutate(group = case_when(
-    grepl(&quot;^GO:&quot;, term_id) ~ &quot;GO&quot;,
-    grepl(&quot;^HPA:&quot;, term_id) ~ &quot;HPA&quot;,
-    grepl(&quot;^HP:&quot;, term_id) ~ &quot;HP&quot;,
-    grepl(&quot;^TF:&quot;, term_id) ~ &quot;TF&quot;,
-    TRUE ~ &quot;Others&quot;
-  ))
-
-top10_labels &lt;- highlight_terms_wide %&gt;%
-  mutate(min_p = pmin(`pvalue_Deep-MOTIFs genes`, `pvalue_SFARI genes`)) %&gt;%
-  arrange(min_p) %&gt;%
-  dplyr::slice(1:10)
-
-library(ggrepel)
-
-ggplot(highlight_terms_wide, aes(x = -log10(`pvalue_Deep-MOTIFs genes`), 
-                                 y = -log10(`pvalue_SFARI genes`), 
-                                 color = group)) +
-  geom_point(alpha = 0.6, size = 2) +
-  #geom_abline(slope = 1, intercept = 0, linetype = &quot;solid&quot;, color = &quot;black&quot;, size=1) +
-  scale_color_manual(values = c(
-    &quot;GO&quot; = &quot;goldenrod2&quot;, 
-    &quot;HPA&quot; = &quot;purple4&quot;, 
-    &quot;HP&quot; = &quot;990&quot;, 
-    &quot;TF&quot; = &quot;blue&quot;,
-    &quot;Others&quot; = &quot;grey70&quot;)) +
-  geom_text_repel(
-    data = top10_labels,
-    aes(label = term_name),
-    size = 3,
-    max.overlaps = Inf
-  ) +
-  labs(
-    title = &quot;&quot;,
-    x = &quot;-log10(p value): Deep-MOTIFs&quot;,
-    y = &quot;-log10(p value): SFARI&quot;,
-    color = &quot;Group&quot;
-  ) +
-  theme(legend.title = element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, size = 12))</code></pre>
-</div>
-<div id="missed-pathways-in-motifs" class="section level2">
-<h2>missed pathways in MOTIFs</h2>
-<pre class="r"><code>pvalue_threshold=0.05
-gostres2_all &lt;- gost(query = list(&quot;Deep-MOTIFs genes&quot;=top_genes, &quot;SFARI genes&quot;=positive_genes), 
-organism = &quot;hsapiens&quot;, significant = F, correction_method = &quot;bonferroni&quot;)</code></pre>
-<pre class="r"><code>highlight_terms_motif_term_id=gostres2_all$result %&gt;% filter(query==&quot;Deep-MOTIFs genes&quot;)%&gt;% filter(p_value&gt;pvalue_threshold)  %&gt;% dplyr::select(term_id)%&gt;% pull()
-highlight_terms_sfari_term_id=gostres2_all$result %&gt;% filter(query==&quot;SFARI genes&quot;)%&gt;% filter(p_value&lt;pvalue_threshold)%&gt;% dplyr::select(term_id)%&gt;% pull()
-common_term_id=intersect(highlight_terms_motif_term_id, highlight_terms_sfari_term_id)
-
-
-highlight_terms=gostres2_all$result %&gt;% filter (term_id %in% common_term_id) %&gt;% dplyr::select(term_id, term_name, query, p_value)</code></pre>
-<pre class="r"><code>highlight_terms_wide=highlight_terms%&gt;%  # convert from long format to wide format 
-  pivot_wider(
-    names_from = query,
-    values_from = p_value,
-    names_prefix = &quot;pvalue_&quot;
-  )
-highlight_terms_wide=highlight_terms_wide %&gt;% drop_na()
-dim(highlight_terms_wide)
-
-highlight_terms_wide%&gt;% 
-datatable(extensions = &#39;Buttons&#39;,
-            options = list(dom = &#39;Blfrtip&#39;,
-                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
-                           lengthMenu = list(c(10,25,50,-1),
-                                             c(10,25,50,&quot;All&quot;))))</code></pre>
-<pre class="r"><code>highlight_terms_wide &lt;- highlight_terms_wide %&gt;%
-  mutate(group = case_when(
-    grepl(&quot;^GO:&quot;, term_id) ~ &quot;GO&quot;,
-    grepl(&quot;^HPA:&quot;, term_id) ~ &quot;HPA&quot;,
-    grepl(&quot;^HP:&quot;, term_id) ~ &quot;HP&quot;,
-    grepl(&quot;^TF:&quot;, term_id) ~ &quot;TF&quot;,
-    TRUE ~ &quot;Others&quot;
-  ))
-
-top10_labels &lt;- highlight_terms_wide %&gt;%
-  mutate(min_p = pmin(`pvalue_Deep-MOTIFs genes`, `pvalue_SFARI genes`)) %&gt;%
-  arrange(min_p) %&gt;%
-  dplyr::slice(1:10)
-
-library(ggrepel)
-
-ggplot(highlight_terms_wide, aes(x = -log10(`pvalue_Deep-MOTIFs genes`), 
-                                 y = -log10(`pvalue_SFARI genes`), 
-                                 color = group)) +
-  geom_point(alpha = 0.6, size = 2) +
-  #geom_abline(slope = 1, intercept = 0, linetype = &quot;solid&quot;, color = &quot;black&quot;, size=1) +
-  scale_color_manual(values = c(
-    &quot;GO&quot; = &quot;goldenrod2&quot;, 
-    &quot;HPA&quot; = &quot;purple4&quot;, 
-    &quot;HP&quot; = &quot;990&quot;, 
-    &quot;TF&quot; = &quot;blue&quot;,
-    &quot;Others&quot; = &quot;grey70&quot;)) +
-  geom_text_repel(
-    data = top10_labels,
-    aes(label = term_name),
-    size = 3,
-    max.overlaps = Inf
-  ) +
-  labs(
-    title = &quot;&quot;,
-    x = &quot;-log10(p value): Deep-MOTIFs&quot;,
-    y = &quot;-log10(p value): SFARI&quot;,
-    color = &quot;Group&quot;
-  ) +
-  theme(legend.title = element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, size = 12))</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1319,39 +1493,41 @@ loaded via a namespace (and not attached):
  [13] lambda.r_1.2.4          gridGraphics_0.5-1      sass_0.4.9             
  [16] bslib_0.7.0             htmlwidgets_1.6.4       plyr_1.8.9             
  [19] httr2_1.0.1             futile.options_1.0.1    cachem_1.0.8           
- [22] igraph_2.0.3            lifecycle_1.0.4         pkgconfig_2.0.3        
- [25] gson_0.1.0              Matrix_1.7-0            R6_2.5.1               
- [28] fastmap_1.1.1           GenomeInfoDbData_1.2.12 digest_0.6.35          
- [31] aplot_0.2.5             colorspace_2.1-0        patchwork_1.3.0        
- [34] crosstalk_1.2.1         RSQLite_2.3.6           labeling_0.4.3         
- [37] fansi_1.0.6             timechange_0.3.0        httr_1.4.7             
- [40] polyclip_1.10-7         compiler_4.4.0          bit64_4.0.5            
- [43] withr_3.0.0             BiocParallel_1.38.0     viridis_0.6.5          
- [46] DBI_1.2.3               highr_0.10              ggforce_0.4.2          
- [49] R.utils_2.12.3          MASS_7.3-60.2           rappdirs_0.3.3         
- [52] tools_4.4.0             scatterpie_0.2.4        ape_5.8-1              
- [55] httpuv_1.6.15           R.oo_1.27.0             glue_1.7.0             
- [58] nlme_3.1-164            GOSemSim_2.30.2         promises_1.3.0         
- [61] shadowtext_0.1.4        reshape2_1.4.4          fgsea_1.30.0           
- [64] generics_0.1.3          gtable_0.3.5            tzdb_0.4.0             
- [67] R.methodsS3_1.8.2       data.table_1.15.4       hms_1.1.3              
- [70] tidygraph_1.3.1         utf8_1.2.4              XVector_0.44.0         
- [73] ggrepel_0.9.5           pillar_1.9.0            yulab.utils_0.2.0      
- [76] later_1.3.2             splines_4.4.0           tweenr_2.0.3           
- [79] treeio_1.28.0           lattice_0.22-6          bit_4.0.5              
- [82] tidyselect_1.2.1        GO.db_3.19.1            Biostrings_2.72.0      
- [85] knitr_1.46              git2r_0.33.0            gridExtra_2.3          
- [88] xfun_0.43               graphlayouts_1.2.2      stringi_1.8.4          
- [91] UCSC.utils_1.0.0        lazyeval_0.2.2          ggfun_0.1.8            
- [94] workflowr_1.7.1         yaml_2.3.8              evaluate_0.23          
- [97] codetools_0.2-20        ggraph_2.2.1            qvalue_2.36.0          
-[100] ggplotify_0.1.2         cli_3.6.2               munsell_0.5.1          
-[103] jquerylib_0.1.4         Rcpp_1.0.12             GenomeInfoDb_1.40.0    
-[106] png_0.1-8               parallel_4.4.0          blob_1.2.4             
-[109] DOSE_3.30.5             tidytree_0.4.6          viridisLite_0.4.2      
-[112] scales_1.3.0            crayon_1.5.2            rlang_1.1.3            
-[115] cowplot_1.1.3           fastmatch_1.1-6         KEGGREST_1.44.0        
-[118] formatR_1.14           </code></pre>
+ [22] whisker_0.4.1           igraph_2.0.3            lifecycle_1.0.4        
+ [25] pkgconfig_2.0.3         gson_0.1.0              Matrix_1.7-0           
+ [28] R6_2.5.1                fastmap_1.1.1           GenomeInfoDbData_1.2.12
+ [31] aplot_0.2.5             digest_0.6.35           colorspace_2.1-0       
+ [34] patchwork_1.3.0         crosstalk_1.2.1         RSQLite_2.3.6          
+ [37] labeling_0.4.3          fansi_1.0.6             timechange_0.3.0       
+ [40] httr_1.4.7              polyclip_1.10-7         compiler_4.4.0         
+ [43] bit64_4.0.5             withr_3.0.0             BiocParallel_1.38.0    
+ [46] viridis_0.6.5           DBI_1.2.3               highr_0.10             
+ [49] ggforce_0.4.2           R.utils_2.12.3          MASS_7.3-60.2          
+ [52] rappdirs_0.3.3          tools_4.4.0             scatterpie_0.2.4       
+ [55] ape_5.8-1               httpuv_1.6.15           R.oo_1.27.0            
+ [58] glue_1.7.0              nlme_3.1-164            GOSemSim_2.30.2        
+ [61] promises_1.3.0          shadowtext_0.1.4        reshape2_1.4.4         
+ [64] fgsea_1.30.0            generics_0.1.3          gtable_0.3.5           
+ [67] tzdb_0.4.0              R.methodsS3_1.8.2       data.table_1.15.4      
+ [70] hms_1.1.3               tidygraph_1.3.1         utf8_1.2.4             
+ [73] XVector_0.44.0          ggrepel_0.9.5           pillar_1.9.0           
+ [76] yulab.utils_0.2.0       later_1.3.2             splines_4.4.0          
+ [79] tweenr_2.0.3            treeio_1.28.0           lattice_0.22-6         
+ [82] bit_4.0.5               tidyselect_1.2.1        GO.db_3.19.1           
+ [85] Biostrings_2.72.0       knitr_1.46              git2r_0.33.0           
+ [88] gridExtra_2.3           xfun_0.43               graphlayouts_1.2.2     
+ [91] stringi_1.8.4           UCSC.utils_1.0.0        lazyeval_0.2.2         
+ [94] ggfun_0.1.8             workflowr_1.7.1         yaml_2.3.8             
+ [97] evaluate_0.23           codetools_0.2-20        ggraph_2.2.1           
+[100] qvalue_2.36.0           ggplotify_0.1.2         cli_3.6.2              
+[103] munsell_0.5.1           jquerylib_0.1.4         Rcpp_1.0.12            
+[106] GenomeInfoDb_1.40.0     png_0.1-8               parallel_4.4.0         
+[109] blob_1.2.4              DOSE_3.30.5             tidytree_0.4.6         
+[112] viridisLite_0.4.2       scales_1.3.0            crayon_1.5.2           
+[115] rlang_1.1.3             cowplot_1.1.3           fastmatch_1.1-6        
+[118] KEGGREST_1.44.0         formatR_1.14           </code></pre>
+</div>
+</div>
 </div>
 </div>
 

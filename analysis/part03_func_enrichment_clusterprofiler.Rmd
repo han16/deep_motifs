@@ -92,53 +92,6 @@ dotplot(ego, showCategory=nrow(ego), title="")+
 
 
 
-
-```{r, message=F, warning=F, eval=F}
-gsego <- gseGO(gene          = sort(top_genes, decreasing = T),  
-               OrgDb         = org.Hs.eg.db,
-               keyType       = "SYMBOL", 
-               ont           = "All",        # BP: Biological Process, CC: Cellular Component, MF: Molecular Function
-               pAdjustMethod = "BH", 
-               pvalueCutoff  = 0.05, 
-               qvalueCutoff  = 0.01)
-
-# View the result
-#head(ego)
-
-# Dotplot for GO enrichment
-dotplot(ego, showCategory=nrow(ego), title="")+
-  theme(axis.text.y = element_text(size = 6))  # Adjust the size as needed
-
-# Extract significant terms while preserving the enrichResult object
-#significant_ego <- ego
-#significant_ego@result <- significant_ego@result[significant_ego@result$p.adjust < 0.05, ]
-
-# Create the dot plot with significant terms only
-#dotplot(significant_ego, showCategory = nrow(significant_ego), title = "GO Enrichment - Biological Process")
-```
-
-
-
-
-
-```{r, message=F, warning=F, eval=F}
-
-# Compute pairwise term similarity
-ego_sim <- pairwise_termsim(ego)
-
-# Visualize the results using the enrichment map plot
-emapplot(ego_sim, label="ID")+
- # theme(legend.position = "none")
-  theme(legend.text = element_text(size = 10))
-
-
-emap <- emapplot(ego_sim, showCategory = 30, label =F)  # or any number of categories
-emap + theme(legend.text = element_text(size = 10))
-
-
-```
-
-
 ### Gene-Concept Network
 
 
@@ -162,8 +115,8 @@ ekegg <- enrichKEGG(gene         = entrez_ids,
 #head(ekegg)
 
 # Barplot for KEGG enrichment
-barplot(ekegg, showCategory= nrow(ekegg), title="KEGG Pathway Enrichment")+
-  theme(axis.text.y = element_text(size = 5))
+#barplot(ekegg, showCategory= nrow(ekegg), title="KEGG Pathway Enrichment")+
+#  theme(axis.text.y = element_text(size = 5))
 
 
 #Sort ekegg results by Count in descending order
@@ -189,7 +142,7 @@ df_filtered <- df[df$p.adjust < 0.05, ]
 df_filtered <- df_filtered[order(df_filtered$FoldEnrichment, decreasing = TRUE), ]
 
 # Plot
-kegg_pathway=ggplot(df_filtered, aes(x = reorder(Description, FoldEnrichment), 
+ggplot(df_filtered, aes(x = reorder(Description, FoldEnrichment), 
                         y = FoldEnrichment,
                         fill = p.adjust)) +
   geom_col() +
@@ -207,7 +160,6 @@ kegg_pathway=ggplot(df_filtered, aes(x = reorder(Description, FoldEnrichment),
     legend.text = element_text(size = 12),        # increase legend label text, 
      axis.title.x = element_text(size = 18)       # y-axis title (this line was added)
   )
-kegg_pathway
 ```
 
 #### SFARI genes 
@@ -287,7 +239,7 @@ combined_df$Description <- factor(combined_df$Description, levels = ordered_leve
 combined_df$Count[is.na(combined_df$Count)] <- 0  # replace NA with 0 
 combined_df <- combined_df[!is.na(combined_df$Description), ]  # remove NA Description 
 # Plot
-kegg_comparison_plot <- ggplot(combined_df, aes(x = Description, 
+ ggplot(combined_df, aes(x = Description, 
                                                  y = Count,
                                                  fill = Source)) +
   geom_col(position = position_dodge(width = 0.7)) +
@@ -307,7 +259,6 @@ kegg_comparison_plot <- ggplot(combined_df, aes(x = Description,
  guides(fill = guide_legend(title = NULL))+
   scale_fill_manual(values = c("SFARI" = "steelblue", "Deep-MOTIFs" = "tomato"))
 
-kegg_comparison_plot
 ```
 
 
@@ -320,7 +271,7 @@ kegg_comparison_plot
   coord_flip() +
   labs(title = "(A) KEGG Pathway Comparison",
        x = "",
-       y = "Gene Count") +
+       y = "-log(p value)") +
   theme_minimal() +
   theme(
     plot.title = element_text(hjust = 0.5, size = 25),
@@ -336,14 +287,18 @@ kegg_comparison_plot
 
 
 ```{r, message=F, warning=F}
-kegg_comparison_plot=ggplot(combined_df, aes(x = Description, y = Count, fill = p.adjust)) +
+combined_df <- combined_df %>%
+  group_by(Source) %>%
+  mutate(Description = fct_reorder(Description, FoldEnrichment))
+
+kegg_comparison_plot=ggplot(combined_df, aes(x = Description, y = FoldEnrichment, fill = p.adjust)) +
   geom_col() +
   facet_wrap(~Source) +
   scale_fill_gradient(low = "red", high = "blue", name = "Adj. p-value") +
   coord_flip() +
-  labs(title = "(C) KEGG pathway comparisons",
+  labs(title = "(A) KEGG pathway comparisons",
        x = "",
-       y = "Gene Count") +
+       y = "Fold enrichment") +
   theme_minimal() +
   theme(
     plot.title = element_text(hjust = 0.5, size = 25),
@@ -479,8 +434,10 @@ net_plot
 
 
 
+#### top 5 pathways, 63 unique genes  
+
 ```{r, message=F, warning=F, eval=T}
-# Extract top 5 pathways
+# Extract top 5 pathways by p values 
 ekegg_top5 <- ekegg
 ekegg_top5@result <- ekegg@result[1:5, ]
 
@@ -520,40 +477,13 @@ datatable(extensions = 'Buttons',
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 
-
-
-```
-
-
-
-
-
-```{r, message=F, warning=F}
-
-# Extract node data from the cnetplot object
-node_data <- p$data
-
-# Get number of unique genes (exclude categories)
-num_genes <- length(unique(node_data$name[node_data$node_group %in% c("new", "old")]))
-num_genes
-
-# Get number of unique pathways (categories)
-num_pathways <- length(unique(node_data$name[node_data$node_group == "category"]))
-num_pathways
-
-Genes_in_pathways=node_data$name[node_data$node_group %in% c("new", "old")]
-
-in_positive <- ifelse(Genes_in_pathways %in% positive_genes, "Yes", "NO")
-in_deep_motifs=ifelse(Genes_in_pathways %in% top_genes, "Yes", "NO")
-
-data.frame(Genes_in_pathways, IS_SFARI_gene=in_positive, IS_MOTIFs_gene=in_deep_motifs)%>%
-datatable(extensions = 'Buttons',
-            options = list(dom = 'Blfrtip',
-                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
-                           lengthMenu = list(c(10,25,50,-1),
-                                             c(10,25,50,"All"))))
+length(unique(annotation_df$gene))
 
 ```
+
+
+
+
 
 
 
@@ -609,7 +539,7 @@ setdiff(novel_genes, SFARI_genes$gene.symbol)
 * 32 are novel gene by Deep-MOTIFs, 22 of which are not in any SFARI categories.  
 
 
-
+#### top 20 enriched terms 
 
 
 ```{r, message=F, warning=F}
@@ -628,194 +558,4 @@ head(ekegg_result_sorted[, c("ID", "Description", "p.adjust")], 20)
 
 
 
-```{r, message=F, warning=F, eval=F}
-pdf("cnetplot_all56terms.pdf", width = 16, height = 12)
-cnetplot(ekegg, showCategory = 56, circular = TRUE, colorEdge = TRUE)
-dev.off()
-```
 
-
-
-## novel pathways in MOTIFs
-
-
-```{r, message=F, warning=F, eval=F}
-pvalue_threshold=0.05
-gostres2_all <- gost(query = list("Deep-MOTIFs genes"=top_genes, "SFARI genes"=positive_genes), 
-organism = "hsapiens", significant = F, correction_method = "bonferroni")
-
-```
-
-
-
-```{r, message=F, warning=F, eval=F}
-highlight_terms_motif_term_id=gostres2_all$result %>% filter(query=="Deep-MOTIFs genes")%>% filter(p_value<pvalue_threshold)  %>% dplyr::select(term_id)%>% pull()
-highlight_terms_sfari_term_id=gostres2_all$result %>% filter(query=="SFARI genes")%>% filter(p_value>pvalue_threshold)%>% dplyr::select(term_id)%>% pull()
-common_term_id=intersect(highlight_terms_motif_term_id, highlight_terms_sfari_term_id)
-
-
-highlight_terms=gostres2_all$result %>% filter (term_id %in% common_term_id) %>% dplyr::select(term_id, term_name, query, p_value)
-```
-
-
-
-
-
-```{r, message=F, warning=F, eval=F}
-highlight_terms_wide=highlight_terms%>%  # convert from long format to wide format 
-  pivot_wider(
-    names_from = query,
-    values_from = p_value,
-    names_prefix = "pvalue_"
-  )
-highlight_terms_wide=highlight_terms_wide %>% drop_na()
-dim(highlight_terms_wide)
-
-highlight_terms_wide%>% 
-datatable(extensions = 'Buttons',
-            options = list(dom = 'Blfrtip',
-                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
-                           lengthMenu = list(c(10,25,50,-1),
-                                             c(10,25,50,"All"))))
-
-```
-
-
-
-```{r, message=F, warning=F, eval=F}
-highlight_terms_wide <- highlight_terms_wide %>%
-  mutate(group = case_when(
-    grepl("^GO:", term_id) ~ "GO",
-    grepl("^HPA:", term_id) ~ "HPA",
-    grepl("^HP:", term_id) ~ "HP",
-    grepl("^TF:", term_id) ~ "TF",
-    TRUE ~ "Others"
-  ))
-
-top10_labels <- highlight_terms_wide %>%
-  mutate(min_p = pmin(`pvalue_Deep-MOTIFs genes`, `pvalue_SFARI genes`)) %>%
-  arrange(min_p) %>%
-  dplyr::slice(1:10)
-
-library(ggrepel)
-
-ggplot(highlight_terms_wide, aes(x = -log10(`pvalue_Deep-MOTIFs genes`), 
-                                 y = -log10(`pvalue_SFARI genes`), 
-                                 color = group)) +
-  geom_point(alpha = 0.6, size = 2) +
-  #geom_abline(slope = 1, intercept = 0, linetype = "solid", color = "black", size=1) +
-  scale_color_manual(values = c(
-    "GO" = "goldenrod2", 
-    "HPA" = "purple4", 
-    "HP" = "990", 
-    "TF" = "blue",
-    "Others" = "grey70")) +
-  geom_text_repel(
-    data = top10_labels,
-    aes(label = term_name),
-    size = 3,
-    max.overlaps = Inf
-  ) +
-  labs(
-    title = "",
-    x = "-log10(p value): Deep-MOTIFs",
-    y = "-log10(p value): SFARI",
-    color = "Group"
-  ) +
-  theme(legend.title = element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, size = 12))
-
-```
-
-
-
-## missed pathways in MOTIFs
-
-
-```{r, message=F, warning=F, eval=F}
-pvalue_threshold=0.05
-gostres2_all <- gost(query = list("Deep-MOTIFs genes"=top_genes, "SFARI genes"=positive_genes), 
-organism = "hsapiens", significant = F, correction_method = "bonferroni")
-
-```
-
-
-
-```{r, message=F, warning=F, eval=F}
-highlight_terms_motif_term_id=gostres2_all$result %>% filter(query=="Deep-MOTIFs genes")%>% filter(p_value>pvalue_threshold)  %>% dplyr::select(term_id)%>% pull()
-highlight_terms_sfari_term_id=gostres2_all$result %>% filter(query=="SFARI genes")%>% filter(p_value<pvalue_threshold)%>% dplyr::select(term_id)%>% pull()
-common_term_id=intersect(highlight_terms_motif_term_id, highlight_terms_sfari_term_id)
-
-
-highlight_terms=gostres2_all$result %>% filter (term_id %in% common_term_id) %>% dplyr::select(term_id, term_name, query, p_value)
-```
-
-
-
-
-
-```{r, message=F, warning=F, eval=F}
-highlight_terms_wide=highlight_terms%>%  # convert from long format to wide format 
-  pivot_wider(
-    names_from = query,
-    values_from = p_value,
-    names_prefix = "pvalue_"
-  )
-highlight_terms_wide=highlight_terms_wide %>% drop_na()
-dim(highlight_terms_wide)
-
-highlight_terms_wide%>% 
-datatable(extensions = 'Buttons',
-            options = list(dom = 'Blfrtip',
-                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
-                           lengthMenu = list(c(10,25,50,-1),
-                                             c(10,25,50,"All"))))
-
-```
-
-
-
-```{r, message=F, warning=F, eval=F}
-highlight_terms_wide <- highlight_terms_wide %>%
-  mutate(group = case_when(
-    grepl("^GO:", term_id) ~ "GO",
-    grepl("^HPA:", term_id) ~ "HPA",
-    grepl("^HP:", term_id) ~ "HP",
-    grepl("^TF:", term_id) ~ "TF",
-    TRUE ~ "Others"
-  ))
-
-top10_labels <- highlight_terms_wide %>%
-  mutate(min_p = pmin(`pvalue_Deep-MOTIFs genes`, `pvalue_SFARI genes`)) %>%
-  arrange(min_p) %>%
-  dplyr::slice(1:10)
-
-library(ggrepel)
-
-ggplot(highlight_terms_wide, aes(x = -log10(`pvalue_Deep-MOTIFs genes`), 
-                                 y = -log10(`pvalue_SFARI genes`), 
-                                 color = group)) +
-  geom_point(alpha = 0.6, size = 2) +
-  #geom_abline(slope = 1, intercept = 0, linetype = "solid", color = "black", size=1) +
-  scale_color_manual(values = c(
-    "GO" = "goldenrod2", 
-    "HPA" = "purple4", 
-    "HP" = "990", 
-    "TF" = "blue",
-    "Others" = "grey70")) +
-  geom_text_repel(
-    data = top10_labels,
-    aes(label = term_name),
-    size = 3,
-    max.overlaps = Inf
-  ) +
-  labs(
-    title = "",
-    x = "-log10(p value): Deep-MOTIFs",
-    y = "-log10(p value): SFARI",
-    color = "Group"
-  ) +
-  theme(legend.title = element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, size = 12))
-
-```

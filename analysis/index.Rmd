@@ -205,5 +205,7 @@ bs_genes_info=query_genes_in_batches(bs_genes, batch_size = 1000)
 
 * [functional enrichment analysis](part03_func_enrichment.html)
 
+   + [functional enrichment analysis-clusterprofiler](part03_func_enrichment_clusterprofiler.html)
+
 * [clustering analysis](part04_clustering_analysis.html)
 

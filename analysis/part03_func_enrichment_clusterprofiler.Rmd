@@ -323,9 +323,9 @@ kegg_comparison_plot=ggplot(combined_df, aes(x = Description, y = FoldEnrichment
     plot.title = element_text(hjust = 0.5, size = 50),
     strip.text = element_text(size = 30, face = "bold"),  # facet subtitle size
     axis.text.y = element_text(size = 14), 
-    axis.text.x = element_text(size = 14), 
-    legend.title = element_text(size = 14),      
-    legend.text = element_text(size = 12),        
+    axis.text.x = element_text(size = 35), 
+    legend.title = element_text(size = 24),      
+    legend.text = element_text(size = 22),        
     axis.title.x = element_text(size = 30),
     axis.title.y = element_blank()                # remove y-axis label
   )
@@ -441,7 +441,7 @@ ekegg@result$Description <- gsub(
 p <- cnetplot(ekegg,
               circular = TRUE,
               colorEdge = TRUE,
-              cex_label_gene = 1,
+              cex_label_gene = 1.3,
               cex_label_category = 1)
 
 # Assign 'node_group' based on 'name'
@@ -537,7 +537,7 @@ length(unique(annotation_df$gene))
 ```{r, message=F, warning=F, eval=F}
 library(gridExtra)
 all <- grid.arrange(kegg_comparison_plot,  net_plot, nrow=1) 
-ggsave(all,filename = paste0("C:\\Users\\hans\\OneDrive - Marquette University\\AI_for_Autism\\Fig\\KEGG-pathway-Deep-MOTIFs.pdf"),width = 27,height = 12,dpi = 800)
+ggsave(all,filename = paste0("C:\\Users\\hans\\OneDrive - Marquette University\\AI_for_Autism\\Fig\\KEGG-pathway-Deep-MOTIFs.pdf"),width = 29,height = 12,dpi = 600)
 ```
 
 

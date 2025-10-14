@@ -356,6 +356,21 @@ datatable(extensions = 'Buttons',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
+
+
+#write.csv(wide_df, file="C:\\Users\\hans\\OneDrive - Marquette University\\AI_for_Autism\\supp\\KEGG_pathway.csv")
+
+
+```
+
+
+
+```{r, message=F, warning=F}
+
+wide_df %>% filter(`FoldEnrichment.Deep-MOTIFs`>`FoldEnrichment.SFARI`)
+wide_df %>% filter(`FoldEnrichment.Deep-MOTIFs`<`FoldEnrichment.SFARI`)
+wide_df %>% filter(is.na(`FoldEnrichment.Deep-MOTIFs`)==T & is.na(`FoldEnrichment.SFARI`)==F)
+wide_df %>% filter(is.na(`FoldEnrichment.Deep-MOTIFs`)==F & is.na(`FoldEnrichment.SFARI`)==T)
 ```
 
 

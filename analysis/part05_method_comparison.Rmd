@@ -113,6 +113,52 @@ grid.rect(x = 0.5,
 
 
 
+```{r, message=F, warning=F}
+library(pheatmap)
+library(grid)
+
+
+# Convert to matrix and set row names
+mat <- as.matrix(model_metrics_tbl[,-1])
+rownames(mat) <- model_metrics_tbl$Model
+
+mat=mat[,-3]
+
+# Create the heatmap object (don't draw yet)
+p <- pheatmap(mat,
+              cluster_rows = FALSE,
+              cluster_cols = FALSE,
+              display_numbers = TRUE,
+              fontsize_number = 12,  # << Increase number font size here
+              main = "Model Performance Heatmap",
+              color = colorRampPalette(c("white", "red"))(100),
+              silent = TRUE)  # Do not draw yet
+
+# Draw the plot
+grid.newpage()
+grid.draw(p$gtable)
+
+# Get the index of the row to highlight (e.g., "Deep-MOTIFs")
+highlight_row <- which(rownames(mat) == "Deep-MOTIFs")
+n_rows <- nrow(mat)
+
+# Coordinates for rectangle (in row units)
+y <- (n_rows - highlight_row + 1)  # Because y=1 is bottom row in grid
+x <- 1  # Start of row
+width <- ncol(mat)
+height <- 1
+
+# Draw rectangle
+grid.rect(x = 0.5,
+          y = (y+1) / n_rows,
+          width = 1,
+          height = 0.8 / n_rows,
+          gp = gpar(col = "blue", fill = NA, lwd = 2))
+
+```
+
+
+
 
 ```{r, message=F, warning=F}
 #install.packages("fmsb")

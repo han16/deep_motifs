@@ -162,3 +162,53 @@ ggplot(df_filtered, aes(x = reorder(Description, FoldEnrichment),
 length(unique(df_filtered$Description))
 
 ```
+
+
+
+
+
+
+```{r, message=F, warning=F}
+
+# Convert gene symbols to Entrez IDs
+gene_df <- bitr(top_genes, fromType = "SYMBOL", toType = "ENTREZID", OrgDb = org.Hs.eg.db)
+
+# Extract Entrez IDs
+entrez_ids <- gene_df$ENTREZID
+#print(entrez_ids)
+
+ekegg <- enrichKEGG(gene         = entrez_ids, 
+                   organism     = "hsa",      # Human
+                   pAdjustMethod = "BH", 
+                   pvalueCutoff  = 0.05)
+
+# Network plot for KEGG pathways
+cnetplot(ekegg, circular = TRUE, colorEdge = TRUE, cex_label_gene=0.5, cex_label_category=5)
+length(unique(ekegg@gene))
+```
+
+
+
+
+
+
+```{r, message=F, warning=F}
+
+
+
+# Convert Entrez IDs to Gene Symbols
+gene_symbols <- bitr(entrez_ids, fromType = "ENTREZID", toType = "SYMBOL", OrgDb = org.Hs.eg.db)
+
+# Merge the converted gene symbols back into the enrichment result
+ekegg@result$geneID <- sapply(strsplit(ekegg@result$geneID, "/"), function(ids) {
+  symbols <- gene_symbols$SYMBOL[match(ids, gene_symbols$ENTREZID)]
+  paste(symbols, collapse = "/")
+})
+length(unique(ekegg@gene))
+
+
+# Plot the cnetplot with gene symbols
+cnetplot(ekegg, circular = TRUE, colorEdge = TRUE, cex_label_gene=0.4, cex_label_category=1)
+
+
+```

@@ -1,0 +1,164 @@
+---
+title: "Untitled"
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
+date: "2026-05-06"
+---
+
+```{r, message=F, warning=F}
+rm(list=ls())
+set.seed(123)
+library(tidyverse)
+library(ggplot2)
+library(DT)
+library(VennDiagram)
+library(rprojroot)
+root <- rprojroot::find_rstudio_root_file()
+```
+
+
+
+
+
+
+```{r, message=F, warning=F}
+
+result_round1=as_tibble(read.csv(file.path(root, "../DiWangResults/results_20260330/data/data/cleaned_full_scores_summary.csv")))
+
+
+SFARI_genes=as_tibble(read.csv(file.path(root, "../../../Dataset/SFARI_base/SFARI-Gene_genes_08-19-2024release_09-16-2024export.csv")))
+positive_genes=SFARI_genes %>% filter (gene.score=="1") %>% dplyr::select(gene.symbol) %>% pull()
+positive_genes=intersect(positive_genes, result_round1$gene)
+
+score_cutoff=0.5
+top_genes=result_round1 %>% filter(deepmotifs_score_mean>score_cutoff) %>% dplyr::select(symbol) %>% pull
+
+
+```
+
+
+
+
+
+## clusterprofiler 
+
+
+```{r, message=F, warning=F}
+
+#if (!requireNamespace("BiocManager", quietly = TRUE))
+#  install.packages("BiocManager")
+
+#BiocManager::install(c("clusterProfiler", "org.Hs.eg.db", "enrichplot"))
+
+
+# Load the libraries
+library(clusterProfiler)
+library(org.Hs.eg.db)  # For human gene annotations
+library(enrichplot)    # For visualization
+
+
+
+```
+
+
+
+
+```{r, message=F, warning=F}
+ego <- enrichGO(gene          = top_genes, 
+               OrgDb         = org.Hs.eg.db, 
+               keyType       = "SYMBOL", 
+               ont           = "All",        # BP: Biological Process, CC: Cellular Component, MF: Molecular Function
+               pAdjustMethod = "BH", 
+               pvalueCutoff  = 0.05, 
+               qvalueCutoff  = 0.01)
+
+# View the result
+#head(ego)
+
+# Dotplot for GO enrichment
+dotplot(ego, showCategory=nrow(ego), title="")+
+  theme(axis.text.y = element_text(size = 6))  # Adjust the size as needed
+
+# Extract significant terms while preserving the enrichResult object
+#significant_ego <- ego
+#significant_ego@result <- significant_ego@result[significant_ego@result$p.adjust < 0.05, ]
+
+# Create the dot plot with significant terms only
+#dotplot(significant_ego, showCategory = nrow(significant_ego), title = "GO Enrichment - Biological Process")
+```
+
+
+
+### Gene-Concept Network
+
+
+
+
+```{r, message=F, warning=F}
+
+# Convert gene symbols to Entrez IDs
+gene_df <- bitr(top_genes, fromType = "SYMBOL", toType = "ENTREZID", OrgDb = org.Hs.eg.db)
+
+# Extract Entrez IDs
+entrez_ids <- gene_df$ENTREZID
+#print(entrez_ids)
+
+ekegg <- enrichKEGG(gene         = entrez_ids, 
+                   organism     = "hsa",      # Human
+                   pAdjustMethod = "BH", 
+                   pvalueCutoff  = 0.05)
+
+# View the result
+#head(ekegg)
+
+# Barplot for KEGG enrichment
+#barplot(ekegg, showCategory= nrow(ekegg), title="KEGG Pathway Enrichment")+
+#  theme(axis.text.y = element_text(size = 5))
+
+
+#Sort ekegg results by Count in descending order
+ekegg_sorted <- ekegg
+ekegg_sorted@result <- ekegg@result[order(ekegg@result$Count, decreasing = TRUE), ]
+
+# Plot with sorted categories
+barplot(ekegg_sorted,
+        showCategory = nrow(ekegg_sorted),  # show all
+        title = "KEGG Pathway Enrichment") +
+  theme(axis.text.y = element_text(size = 5), 
+        plot.title = element_text(hjust = 0.5))  # Center title
+
+```
+
+
+```{r, message=F, warning=F}
+# Extract and filter
+df <- as.data.frame(ekegg@result)
+df_filtered <- df[df$p.adjust < 0.05, ]
+
+# Sort by Fold Enrichment
+df_filtered <- df_filtered[order(df_filtered$FoldEnrichment, decreasing = TRUE), ]
+
+# Plot
+ggplot(df_filtered, aes(x = reorder(Description, FoldEnrichment), 
+                        y = FoldEnrichment,
+                        fill = p.adjust)) +
+  geom_col() +
+  coord_flip() +
+  scale_fill_gradient(low = "red", high = "blue", name = "Adj. p-value") +
+  labs(title = "(A) Significant KEGG Pathways",
+       x = "",
+       y = "Fold Enrichment") +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5, size = 25),
+    axis.text.y = element_text(size = 10), 
+    axis.text.x = element_text(size = 14), 
+    legend.title = element_text(size = 14),      # increase legend title
+    legend.text = element_text(size = 12),        # increase legend label text, 
+     axis.title.x = element_text(size = 18)       # y-axis title (this line was added)
+  )
+length(unique(df_filtered$Description))
+
+```

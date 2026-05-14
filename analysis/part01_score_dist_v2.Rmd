@@ -20,40 +20,12 @@ root <- rprojroot::find_rstudio_root_file()
 
 
 
-```{r, message=F, warning=F, eval=F}
-Deep_MOTIFs_result=as_tibble(read.csv(file.path(root, "../DiWangResults/results_20260330/data/data/mean_run/deep_motifs_outputs/full_scores_summary.csv")))
-
-
-library(biomaRt)
-
-# 1. You already did this, but just to be sure:
-mart <- useMart("ensembl", 
-                dataset = "hsapiens_gene_ensembl", 
-                host = "https://useast.ensembl.org")
-
-# 2. THE MISSING STEP: Actually pull the data into the 'mapping' object
-mapping <- getBM(
-  attributes = c("ensembl_peptide_id", "hgnc_symbol"),
-  filters = "ensembl_peptide_id",
-  values = Deep_MOTIFs_result$ensembl_string,
-  mart = mart
-)
-
-# 3. Now the merge will work:
-Deep_MOTIFs_result <- merge(Deep_MOTIFs_result, mapping, 
-                            by.x = "ensembl_string", 
-                            by.y = "ensembl_peptide_id", 
-                            all.x = TRUE)
-
-#saveRDS(Deep_MOTIFs_result, file=file.path(root, "../DiWangResults/results_20260330/data/data/mean_run/deep_motifs_outputs/Deep_MOTIFs_result.RDS"))
+```{r, message=F, warning=F, eval=T}
+Deep_MOTIFs_result=as_tibble(read.csv(file.path(root, "../DiWangResults/results_20260330/data/data/cleaned_full_scores_summary.csv")))
 
 ```
 
 
-
-```{r, message=F, warning=F}
-Deep_MOTIFs_result=readRDS(file.path(root, "../DiWangResults/results_20260330/data/data/mean_run/deep_motifs_outputs/Deep_MOTIFs_result.RDS"))
-```
 
 
 
@@ -63,7 +35,7 @@ Deep_MOTIFs_result=readRDS(file.path(root, "../DiWangResults/results_20260330/da
 
 
 ```{r, message=F, warning=F}
-hist_plot1=ggplot(Deep_MOTIFs_result, aes(x = Deep_MOTIFs_result$forecASD)) +
+hist_plot1=ggplot(Deep_MOTIFs_result, aes(x = Deep_MOTIFs_result$deepmotifs_score_mean)) +
   geom_histogram(binwidth = 0.1, fill = "blue", color = "black", aes(y = ..count..)) +
   stat_bin(binwidth = 0.1, geom = "text", aes(label = ..count..), vjust = -0.5, color = "red") +
   #geom_density(color = "darkorange", size = .2) +
@@ -87,7 +59,7 @@ SFARI_genes=as_tibble(read.csv(file.path(root, "../../../Dataset/SFARI_base/SFAR
 positive_genes=SFARI_genes %>% filter (gene.score=="1") %>% dplyr::select(gene.symbol) %>% pull()
 
 
-motifs_genes=Deep_MOTIFs_result %>% filter(forecASD>score_cutoff) %>% dplyr::select(hgnc_symbol) %>% pull()
+motifs_genes=Deep_MOTIFs_result %>% filter(deepmotifs_score_mean>score_cutoff) %>% dplyr::select(symbol) %>% pull()
 
 
 
@@ -97,7 +69,7 @@ SFARI_score_for_motif_genes <- ifelse(
   NA
 )
 
-Deep_MOTIFs_result %>% filter(forecASD>score_cutoff) %>% dplyr::select(ensembl_string, forecASD, hgnc_symbol)%>% mutate(SFARI_score=SFARI_score_for_motif_genes) %>% arrange(desc(forecASD)) %>% 
+Deep_MOTIFs_result %>% filter(deepmotifs_score_mean>score_cutoff) %>% dplyr::select(ensembl_string, deepmotifs_score_mean, symbol)%>% mutate(SFARI_score=SFARI_score_for_motif_genes) %>% arrange(desc(deepmotifs_score_mean)) %>% 
 datatable(extensions = 'Buttons',
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
@@ -109,4 +81,34 @@ SFARI_table=table(SFARI_score_for_motif_genes, useNA = "ifany")
 
 SFARI_table
 
+```
+
+
+
+
+```{r, message=F, warning=F}
+ 
+ # Create data frame
+df <- data.frame(
+  score = c( "3", "NA"),
+  count = c(45, 896)
+)
+
+# Sort descending by count (important for label matching pie slices)
+df <- df %>%
+  arrange(desc(score)) %>%
+  mutate(
+    ypos = cumsum(count) - count / 2
+  )
+
+# Create pie chart with count labels
+pie_fig1=ggplot(df, aes(x = "", y = count, fill = score)) +
+  geom_col(width = 1) +
+  coord_polar(theta = "y") +
+  geom_text(aes(y = ypos, label = count), color = "black", size = 5) +
+  labs(title = "Deep-MOTIFs Genes (941)", fill = "SFARI score") +
+  theme_void() +
+  theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
+  theme(legend.position = "right")
+ pie_fig1
 ```

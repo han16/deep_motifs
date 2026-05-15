@@ -194,8 +194,6 @@ length(unique(ekegg@gene))
 
 ```{r, message=F, warning=F}
 
-
-
 # Convert Entrez IDs to Gene Symbols
 gene_symbols <- bitr(entrez_ids, fromType = "ENTREZID", toType = "SYMBOL", OrgDb = org.Hs.eg.db)
 
@@ -208,7 +206,95 @@ length(unique(ekegg@gene))
 
 
 # Plot the cnetplot with gene symbols
-cnetplot(ekegg, circular = TRUE, colorEdge = TRUE, cex_label_gene=0.4, cex_label_category=1)
+genes_in_plot <- unique(unlist(strsplit(ekegg@result$geneID[1:2], "/")))
+length(genes_in_plot)
+
+plot_results <- result_round1[result_round1$symbol %in% genes_in_plot, ]
+
+plot_results %>% 
+  datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
 
 
+# 2. Create the named vector specifically for these genes
+gene_scores <- plot_results$deepmotifs_score_mean
+names(gene_scores) <- plot_results$symbol
+
+p1=cnetplot(ekegg, circular = TRUE, colorEdge = TRUE, 
+         showCategory = 2,         # This limits the plot to the top 3 results
+         cex_label_gene=0.4, cex_label_category=1)
+
+p1
+
+
+p=cnetplot(ekegg, circular = TRUE, colorEdge = TRUE, 
+         showCategory = 2,         # This limits the plot to the top 3 results
+         foldChange = gene_scores,   # Scales gene circle size by mean score
+         cex_label_gene=0.4, cex_label_category=1)
+
+
+  # Use this to make the size differences more obvious
+p+ # Change the color gradient to shades of blue and rename the legend
+  scale_color_gradient(low = "#e5f5e0", high = "#006d2c", name = "DeepMOTIFs score") +
+  
+  # Adjust the size range and rename the size legend
+  scale_size_continuous(range = c(1.5, 6), name = "Size") +
+  
+  # Optional: Clean up the theme
+  theme(legend.title = element_text(size = 10), 
+        legend.text = element_text(size = 8))
+
+
+```
+
+
+
+####  pathways 
+
+```{r, message=F, warning=F, eval=T}
+# Extract top 5 pathways by p values 
+ekegg_top5 <- ekegg
+ekegg_top5@result <- ekegg@result[1:5, ]
+
+# Convert to tibble to use dplyr functions safely
+ekegg_df <- as_tibble(ekegg_top5@result)
+
+# Extract gene–pathway relationships
+gene_pathway_df <- ekegg_df %>%
+  dplyr::select(Description, geneID) %>%
+  tidyr::separate_rows(geneID, sep = "/") %>%
+  dplyr::rename(pathway = Description, gene = geneID) %>%
+  dplyr::distinct()
+
+
+
+
+
+gene_pathway_df%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+#### top 20 enriched terms 
+
+
+```{r, message=F, warning=F}
+#library(dplyr)
+#ekegg@result %>%
+#  arrange(p.adjust) %>%
+#  select(ID, Description, p.adjust) %>%
+#  head(10)  # Top 10 enriched terms
+
+
+#list top 10 enriched terms 
+ekegg_result_sorted <- ekegg@result[order(ekegg@result$p.adjust), ]
+head(ekegg_result_sorted[, c("ID", "Description", "p.adjust")], 20)
 ```

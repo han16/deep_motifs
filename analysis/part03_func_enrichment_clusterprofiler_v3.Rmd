@@ -1,0 +1,324 @@
+---
+title: "clusterprofiler"
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
+date: "2026-05-21"
+---
+
+```{r, message=F, warning=F}
+rm(list=ls())
+set.seed(123)
+library(tidyverse)
+library(ggplot2)
+library(DT)
+library(VennDiagram)
+library(rprojroot)
+root <- rprojroot::find_rstudio_root_file()
+```
+
+
+
+
+
+
+```{r, message=F, warning=F}
+
+result_round1=as_tibble(read.csv(file.path(root, "../DiWangResults/results_20260521/final_risk_gene_pred.csv")))
+
+
+SFARI_genes=as_tibble(read.csv(file.path(root, "../../../Dataset/SFARI_base/SFARI-Gene_genes_08-19-2024release_09-16-2024export.csv")))
+positive_genes=SFARI_genes %>% filter (gene.score=="1") %>% dplyr::select(gene.symbol) %>% pull()
+positive_genes=intersect(positive_genes, result_round1$gene)
+
+
+
+```
+
+
+
+
+```{r, message=F, warning=F}
+# 1. Load the local annotation library
+if (!require("org.Hs.eg.db")) install.packages("org.Hs.eg.db")
+library(org.Hs.eg.db)
+
+# 2. Clean up version dots if any exist (e.g., ENSG00000000419.12 -> ENSG00000000419)
+result_round1$ensembl_string <- gsub("\\..*", "", result_round1$ensembl_string)
+
+# 3. Create the new gene symbol column using 'ENSEMBL' as the keytype
+result_round1$gene_symbol <- mapIds(org.Hs.eg.db,
+                                         keys = result_round1$ensembl_string,
+                                         column = "SYMBOL",
+                                         keytype = "ENSEMBL",
+                                         multiVals = "first")
+
+# 4. Optional: Relocate the column next to ensembl_string for easy reading
+if (require("dplyr")) {
+  result_round1 <- result_round1 %>% relocate(gene_symbol, .after = ensembl_string)
+}
+
+score_cutoff=0.8
+top_genes=result_round1 %>% filter(score_mean>score_cutoff) %>% dplyr::select(gene_symbol) %>% pull
+```
+
+
+
+
+## clusterprofiler 
+
+
+```{r, message=F, warning=F}
+
+#if (!requireNamespace("BiocManager", quietly = TRUE))
+#  install.packages("BiocManager")
+
+#BiocManager::install(c("clusterProfiler", "org.Hs.eg.db", "enrichplot"))
+
+
+# Load the libraries
+library(clusterProfiler)
+library(org.Hs.eg.db)  # For human gene annotations
+library(enrichplot)    # For visualization
+
+
+
+```
+
+
+
+
+```{r, message=F, warning=F}
+ego <- enrichGO(gene          = top_genes, 
+               OrgDb         = org.Hs.eg.db, 
+               keyType       = "SYMBOL", 
+               ont           = "All",        # BP: Biological Process, CC: Cellular Component, MF: Molecular Function
+               pAdjustMethod = "BH", 
+               pvalueCutoff  = 0.05, 
+               qvalueCutoff  = 0.01)
+
+# View the result
+#head(ego)
+
+# Dotplot for GO enrichment
+dotplot(ego, showCategory=nrow(ego), title="")+
+  theme(axis.text.y = element_text(size = 6))  # Adjust the size as needed
+
+# Extract significant terms while preserving the enrichResult object
+#significant_ego <- ego
+#significant_ego@result <- significant_ego@result[significant_ego@result$p.adjust < 0.05, ]
+
+# Create the dot plot with significant terms only
+#dotplot(significant_ego, showCategory = nrow(significant_ego), title = "GO Enrichment - Biological Process")
+```
+
+
+
+### Gene-Concept Network
+
+
+
+
+```{r, message=F, warning=F}
+
+# Convert gene symbols to Entrez IDs
+gene_df <- bitr(top_genes, fromType = "SYMBOL", toType = "ENTREZID", OrgDb = org.Hs.eg.db)
+
+# Extract Entrez IDs
+entrez_ids <- gene_df$ENTREZID
+#print(entrez_ids)
+
+ekegg <- enrichKEGG(gene         = entrez_ids, 
+                   organism     = "hsa",      # Human
+                   pAdjustMethod = "BH", 
+                   pvalueCutoff  = 0.05)
+
+# View the result
+#head(ekegg)
+
+# Barplot for KEGG enrichment
+#barplot(ekegg, showCategory= nrow(ekegg), title="KEGG Pathway Enrichment")+
+#  theme(axis.text.y = element_text(size = 5))
+
+
+#Sort ekegg results by Count in descending order
+ekegg_sorted <- ekegg
+ekegg_sorted@result <- ekegg@result[order(ekegg@result$Count, decreasing = TRUE), ]
+
+# Plot with sorted categories
+barplot(ekegg_sorted,
+        showCategory = nrow(ekegg_sorted),  # show all
+        title = "KEGG Pathway Enrichment") +
+  theme(axis.text.y = element_text(size = 5), 
+        plot.title = element_text(hjust = 0.5))  # Center title
+
+```
+
+
+```{r, message=F, warning=F}
+# Extract and filter
+df <- as.data.frame(ekegg@result)
+df_filtered <- df[df$p.adjust < 0.05, ]
+
+# Sort by Fold Enrichment
+df_filtered <- df_filtered[order(df_filtered$FoldEnrichment, decreasing = TRUE), ]
+
+# Plot
+ggplot(df_filtered, aes(x = reorder(Description, FoldEnrichment), 
+                        y = FoldEnrichment,
+                        fill = p.adjust)) +
+  geom_col() +
+  coord_flip() +
+  scale_fill_gradient(low = "red", high = "blue", name = "Adj. p-value") +
+  labs(title = "(A) Significant KEGG Pathways",
+       x = "",
+       y = "Fold Enrichment") +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5, size = 25),
+    axis.text.y = element_text(size = 10), 
+    axis.text.x = element_text(size = 14), 
+    legend.title = element_text(size = 14),      # increase legend title
+    legend.text = element_text(size = 12),        # increase legend label text, 
+     axis.title.x = element_text(size = 18)       # y-axis title (this line was added)
+  )
+length(unique(df_filtered$Description))
+
+```
+
+
+
+
+
+
+```{r, message=F, warning=F}
+
+# Convert gene symbols to Entrez IDs
+gene_df <- bitr(top_genes, fromType = "SYMBOL", toType = "ENTREZID", OrgDb = org.Hs.eg.db)
+
+# Extract Entrez IDs
+entrez_ids <- gene_df$ENTREZID
+#print(entrez_ids)
+
+ekegg <- enrichKEGG(gene         = entrez_ids, 
+                   organism     = "hsa",      # Human
+                   pAdjustMethod = "BH", 
+                   pvalueCutoff  = 0.05)
+
+# Network plot for KEGG pathways
+cnetplot(ekegg, circular = TRUE, colorEdge = TRUE, cex_label_gene=0.5, cex_label_category=5)
+length(unique(ekegg@gene))
+```
+
+
+
+
+
+
+```{r, message=F, warning=F}
+
+# Convert Entrez IDs to Gene Symbols
+gene_symbols <- bitr(entrez_ids, fromType = "ENTREZID", toType = "SYMBOL", OrgDb = org.Hs.eg.db)
+
+# Merge the converted gene symbols back into the enrichment result
+ekegg@result$geneID <- sapply(strsplit(ekegg@result$geneID, "/"), function(ids) {
+  symbols <- gene_symbols$SYMBOL[match(ids, gene_symbols$ENTREZID)]
+  paste(symbols, collapse = "/")
+})
+length(unique(ekegg@gene))
+
+
+# Plot the cnetplot with gene symbols
+genes_in_plot <- unique(unlist(strsplit(ekegg@result$geneID[1:2], "/")))
+length(genes_in_plot)
+
+plot_results <- result_round1[result_round1$gene_symbol %in% genes_in_plot, ]
+
+plot_results %>% 
+  datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+# 2. Create the named vector specifically for these genes
+gene_scores <- plot_results$score_mean
+names(gene_scores) <- plot_results$gene_symbol
+
+p1=cnetplot(ekegg, circular = TRUE, colorEdge = TRUE, 
+         showCategory = 2,         # This limits the plot to the top 3 results
+         cex_label_gene=0.4, cex_label_category=1)
+
+p1
+
+
+p=cnetplot(ekegg, circular = TRUE, colorEdge = TRUE, 
+         showCategory = 2,         # This limits the plot to the top 3 results
+         foldChange = gene_scores,   # Scales gene circle size by mean score
+         cex_label_gene=0.4, cex_label_category=1)
+
+
+  # Use this to make the size differences more obvious
+p+ # Change the color gradient to shades of blue and rename the legend
+  scale_color_gradient(low = "#e5f5e0", high = "#006d2c", name = "DeepMOTIFs score") +
+  
+  # Adjust the size range and rename the size legend
+  scale_size_continuous(range = c(1.5, 6), name = "Size") +
+  
+  # Optional: Clean up the theme
+  theme(legend.title = element_text(size = 10), 
+        legend.text = element_text(size = 8))
+
+
+```
+
+
+
+####  pathways 
+
+```{r, message=F, warning=F, eval=T}
+# Extract top 5 pathways by p values 
+ekegg_top5 <- ekegg
+ekegg_top5@result <- ekegg@result[1:5, ]
+
+# Convert to tibble to use dplyr functions safely
+ekegg_df <- as_tibble(ekegg_top5@result)
+
+# Extract gene–pathway relationships
+gene_pathway_df <- ekegg_df %>%
+  dplyr::select(Description, geneID) %>%
+  tidyr::separate_rows(geneID, sep = "/") %>%
+  dplyr::rename(pathway = Description, gene = geneID) %>%
+  dplyr::distinct()
+
+
+
+
+
+gene_pathway_df%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+#### top 20 enriched terms 
+
+
+```{r, message=F, warning=F}
+#library(dplyr)
+#ekegg@result %>%
+#  arrange(p.adjust) %>%
+#  select(ID, Description, p.adjust) %>%
+#  head(10)  # Top 10 enriched terms
+
+
+#list top 10 enriched terms 
+ekegg_result_sorted <- ekegg@result[order(ekegg@result$p.adjust), ]
+head(ekegg_result_sorted[, c("ID", "Description", "p.adjust")], 20)
+```

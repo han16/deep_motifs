@@ -171,7 +171,7 @@ ggplot(df_filtered, aes(x = reorder(Description, FoldEnrichment),
   geom_col() +
   coord_flip() +
   scale_fill_gradient(low = "red", high = "blue", name = "Adj. p-value") +
-  labs(title = "(A) Significant KEGG Pathways",
+  labs(title = "",
        x = "",
        y = "Fold Enrichment") +
   theme_minimal() +
@@ -248,14 +248,14 @@ gene_scores <- plot_results$score_mean
 names(gene_scores) <- plot_results$gene_symbol
 
 p1=cnetplot(ekegg, circular = TRUE, colorEdge = TRUE, 
-         showCategory = 2,         # This limits the plot to the top 3 results
+         showCategory = 3,         # This limits the plot to the top 3 results
          cex_label_gene=0.4, cex_label_category=1)
 
 p1
 
 
 p=cnetplot(ekegg, circular = TRUE, colorEdge = TRUE, 
-         showCategory = 2,         # This limits the plot to the top 3 results
+         showCategory = 3,         # This limits the plot to the top 3 results
          foldChange = gene_scores,   # Scales gene circle size by mean score
          cex_label_gene=0.4, cex_label_category=1)
 
